@@ -1,0 +1,6 @@
+{
+  "name": "BOBA BLOOM",
+  "description": "Trendy Bubble Tea restaurant in Cotonou, Benin offering fresh, handcrafted, customizable boba drinks.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
