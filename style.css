@@ -52,16 +52,16 @@
   --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
-  /* Spacing Scale */
+  /* Spacing Scale (Enhanced for generous breathing room & airy rhythm) */
   --space-2xs: 0.25rem;  /* 4px */
   --space-xs: 0.5rem;    /* 8px */
   --space-sm: 0.75rem;   /* 12px */
   --space-md: 1rem;      /* 16px */
   --space-lg: 1.5rem;    /* 24px */
-  --space-xl: 2rem;      /* 32px */
-  --space-2xl: 3rem;     /* 48px */
-  --space-3xl: 4.5rem;   /* 72px */
-  --space-4xl: 6rem;     /* 96px */
+  --space-xl: 2.25rem;   /* 36px */
+  --space-2xl: 3.75rem;  /* 60px */
+  --space-3xl: 5.5rem;   /* 88px */
+  --space-4xl: 7.5rem;   /* 120px */
 
   /* Border Radii (Disciplined & Nested) */
   --radius-sm: 8px;
@@ -71,11 +71,11 @@
   --radius-full: 9999px;
 
   /* Shadows */
-  --shadow-sm: 0 2px 6px rgba(35, 21, 17, 0.04);
-  --shadow-md: 0 8px 20px rgba(35, 21, 17, 0.07);
-  --shadow-lg: 0 16px 36px rgba(35, 21, 17, 0.10);
-  --shadow-float: 0 24px 48px -12px rgba(35, 21, 17, 0.14);
-  --shadow-brand: 0 10px 24px rgba(232, 67, 101, 0.28);
+  --shadow-sm: 0 2px 6px rgba(35, 21, 17, 0.03);
+  --shadow-md: 0 6px 18px rgba(35, 21, 17, 0.05);
+  --shadow-lg: 0 14px 32px rgba(35, 21, 17, 0.08);
+  --shadow-float: 0 20px 45px -12px rgba(35, 21, 17, 0.10);
+  --shadow-brand: 0 10px 24px rgba(232, 67, 101, 0.24);
 
   /* Transitions */
   --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
@@ -83,7 +83,7 @@
   --transition-bounce: 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Layout */
-  --container-max: 1240px;
+  --container-max: 1220px;
   --navbar-height: 80px;
   --z-nav: 100;
   --z-drawer: 200;
@@ -188,42 +188,45 @@ img {
 
 /* Section Shell */
 .section {
-  padding-top: var(--space-3xl);
-  padding-bottom: var(--space-3xl);
+  padding-top: clamp(5rem, 8.5vw, 7.5rem);
+  padding-bottom: clamp(5rem, 8.5vw, 7.5rem);
   position: relative;
 }
 
 .section-header {
   text-align: center;
-  max-width: 680px;
-  margin: 0 auto var(--space-2xl);
+  max-width: 620px;
+  margin: 0 auto clamp(2.75rem, 5.5vw, 4.25rem);
 }
 
 .section-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 14px;
+  padding: 5px 14px;
   background-color: var(--color-raspberry-light);
   color: var(--color-raspberry);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   border-radius: var(--radius-full);
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
   white-space: nowrap;
 }
 
 .section-title {
-  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-size: clamp(2rem, 3.4vw, 2.65rem);
   color: var(--color-chocolate);
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
 }
 
 .section-subtitle {
-  font-size: 1.08rem;
+  font-size: 1.05rem;
   color: var(--color-text-muted);
+  line-height: 1.75;
 }
 
 /* --- Buttons & Action Elements --- */
@@ -569,8 +572,8 @@ img {
 /* --- HERO SECTION --- */
 .hero-section {
   position: relative;
-  padding-top: var(--space-2xl);
-  padding-bottom: var(--space-3xl);
+  padding-top: clamp(3rem, 6vw, 5rem);
+  padding-bottom: clamp(4rem, 7.5vw, 6.5rem);
   overflow: hidden;
 }
 
@@ -585,21 +588,21 @@ img {
 .blob {
   position: absolute;
   border-radius: var(--radius-full);
-  filter: blur(70px);
-  opacity: 0.45;
+  filter: blur(95px);
+  opacity: 0.2;
 }
 .blob-1 {
-  width: 420px;
-  height: 420px;
-  top: -60px;
-  right: -50px;
+  width: 480px;
+  height: 480px;
+  top: -80px;
+  right: -60px;
   background: #FFD2DC;
 }
 .blob-2 {
-  width: 380px;
-  height: 380px;
-  bottom: 0;
-  left: -80px;
+  width: 440px;
+  height: 440px;
+  bottom: -40px;
+  left: -90px;
   background: #E8DEFF;
 }
 
@@ -612,8 +615,9 @@ img {
 .hero-bubble {
   position: absolute;
   border-radius: var(--radius-full);
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(232, 67, 101, 0.35) 60%, rgba(140, 78, 43, 0.4) 100%);
-  box-shadow: inset -2px -2px 6px rgba(0,0,0,0.1), 0 4px 12px rgba(232, 67, 101, 0.15);
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(232, 67, 101, 0.25) 60%, rgba(140, 78, 43, 0.25) 100%);
+  box-shadow: inset -1px -1px 4px rgba(0,0,0,0.06), 0 4px 10px rgba(232, 67, 101, 0.08);
+  opacity: 0.4;
   animation: floatUp 8s ease-in-out infinite alternate;
 }
 .bubble-b1 { width: 44px; height: 44px; top: 18%; left: 8%; animation-delay: 0s; }
@@ -631,7 +635,7 @@ img {
 .hero-grid {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
-  gap: var(--space-3xl);
+  gap: clamp(3rem, 6vw, 5.5rem);
   align-items: center;
   position: relative;
   z-index: 2;
@@ -655,7 +659,7 @@ img {
   font-weight: 600;
   color: var(--color-chocolate);
   box-shadow: var(--shadow-sm);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-xl);
 }
 .hero-pill-indicator {
   width: 8px;
@@ -670,11 +674,11 @@ img {
 }
 
 .hero-headline {
-  font-size: clamp(2.4rem, 4.6vw, 3.8rem);
+  font-size: clamp(2.4rem, 4.4vw, 3.75rem);
   font-weight: 800;
   color: var(--color-chocolate-dark);
-  line-height: 1.12;
-  margin-bottom: var(--space-md);
+  line-height: 1.15;
+  margin-bottom: var(--space-lg);
   letter-spacing: -0.025em;
 }
 .hero-headline .highlight {
@@ -696,11 +700,11 @@ img {
 }
 
 .hero-subtext {
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   color: var(--color-text-body);
   max-width: 520px;
-  line-height: 1.7;
-  margin-bottom: var(--space-xl);
+  line-height: 1.8;
+  margin-bottom: var(--space-2xl);
 }
 
 .hero-cta-group {
@@ -714,8 +718,8 @@ img {
 .hero-trust-bar {
   display: flex;
   align-items: center;
-  gap: var(--space-lg);
-  padding-top: var(--space-md);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  padding-top: var(--space-lg);
   border-top: 1px solid var(--color-cream-border);
   width: 100%;
 }
@@ -936,7 +940,7 @@ img {
 }
 
 .product-info {
-  padding: var(--space-md);
+  padding: 22px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -946,14 +950,14 @@ img {
   font-size: 1.18rem;
   font-weight: 700;
   color: var(--color-chocolate);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .product-description {
   font-size: 0.88rem;
   color: var(--color-text-muted);
-  line-height: 1.5;
-  margin-bottom: var(--space-md);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
   flex-grow: 1;
 }
 
@@ -962,7 +966,7 @@ img {
   align-items: center;
   justify-content: space-between;
   margin-top: auto;
-  padding-top: var(--space-sm);
+  padding-top: var(--space-md);
   border-top: 1px solid var(--color-cream-border);
 }
 
@@ -1006,9 +1010,9 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-xs);
+  gap: 12px;
   flex-wrap: wrap;
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-xl);
 }
 
 .category-tab {
@@ -1037,7 +1041,7 @@ img {
 
 .menu-search-bar {
   max-width: 360px;
-  margin: -1rem auto var(--space-xl);
+  margin: 0 auto clamp(2rem, 4vw, 3rem);
   position: relative;
 }
 .menu-search-input {
@@ -1066,7 +1070,7 @@ img {
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-lg);
+  gap: clamp(1.75rem, 3.5vw, 2.75rem);
   transition: opacity var(--transition-fast);
 }
 
@@ -1163,13 +1167,13 @@ img {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: var(--space-md);
-  margin-bottom: var(--space-md);
-  padding: 12px 18px;
+  margin-bottom: var(--space-xl);
+  padding: 14px 22px;
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(16px);
   border: 1px solid var(--color-cream-border);
   border-radius: var(--radius-xl);
-  box-shadow: 0 4px 16px rgba(35, 21, 17, 0.04);
+  box-shadow: 0 4px 16px rgba(35, 21, 17, 0.03);
 }
 
 .builder-stepper-nav {
@@ -1437,8 +1441,8 @@ img {
 
 .builder-layout {
   display: grid;
-  grid-template-columns: 430px 1fr;
-  gap: var(--space-2xl);
+  grid-template-columns: 410px 1fr;
+  gap: clamp(2.75rem, 5vw, 4.25rem);
   align-items: start;
 }
 
@@ -1451,8 +1455,8 @@ img {
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-radius: var(--radius-2xl);
   border: 1px solid rgba(255, 255, 255, 0.95);
-  padding: var(--space-xl);
-  box-shadow: 0 20px 45px -12px rgba(35, 21, 17, 0.1),
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  box-shadow: 0 16px 40px -15px rgba(35, 21, 17, 0.08),
               inset 0 1px 2px #FFFFFF;
   text-align: center;
 }
@@ -1727,7 +1731,7 @@ img {
 .builder-steps {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  gap: var(--space-xl);
 }
 
 .builder-step-card {
@@ -1736,8 +1740,8 @@ img {
   -webkit-backdrop-filter: blur(16px);
   border-radius: var(--radius-xl);
   border: 1px solid rgba(255, 255, 255, 0.95);
-  padding: var(--space-lg);
-  box-shadow: 0 4px 18px rgba(35, 21, 17, 0.04);
+  padding: clamp(1.6rem, 3vw, 2.25rem);
+  box-shadow: 0 4px 16px rgba(35, 21, 17, 0.03);
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 .builder-step-card:hover {
@@ -2251,7 +2255,7 @@ img {
 .story-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-3xl);
+  gap: clamp(3rem, 6vw, 5.5rem);
   align-items: center;
 }
 
@@ -2292,14 +2296,14 @@ img {
   font-size: 1.18rem;
   font-weight: 500;
   color: var(--color-chocolate);
-  margin-bottom: var(--space-md);
-  line-height: 1.65;
+  margin-bottom: var(--space-lg);
+  line-height: 1.75;
 }
 .story-p {
-  font-size: 0.98rem;
+  font-size: 1rem;
   color: var(--color-text-body);
-  margin-bottom: var(--space-xl);
-  line-height: 1.7;
+  margin-bottom: var(--space-2xl);
+  line-height: 1.8;
 }
 
 .values-grid {
@@ -2310,9 +2314,9 @@ img {
 .value-card {
   display: flex;
   gap: var(--space-md);
-  padding: var(--space-md);
+  padding: 18px 20px;
   background: var(--color-cream);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   border: 1px solid var(--color-cream-border);
   transition: transform var(--transition-fast);
 }
@@ -2336,18 +2340,19 @@ img {
   font-size: 1.05rem;
   font-weight: 700;
   color: var(--color-chocolate);
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 .value-desc {
   font-size: 0.88rem;
   color: var(--color-text-muted);
+  line-height: 1.6;
 }
 
 /* --- STATISTICS SECTION --- */
 .stats-section {
   background: var(--color-chocolate);
   color: var(--color-cream);
-  padding: var(--space-2xl) 0;
+  padding: clamp(4.5rem, 7vw, 6.5rem) 0;
   position: relative;
   overflow: hidden;
 }
@@ -2365,7 +2370,7 @@ img {
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-xl);
+  gap: clamp(2rem, 4vw, 4rem);
   text-align: center;
 }
 
@@ -2378,7 +2383,7 @@ img {
   font-weight: 800;
   color: #FFD2DC;
   line-height: 1.1;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
   display: inline-block;
 }
 .stat-label {
@@ -2396,8 +2401,8 @@ img {
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 260px;
-  gap: var(--space-md);
+  grid-auto-rows: 270px;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
 }
 
 .gallery-item {
@@ -2477,7 +2482,7 @@ img {
   background: var(--color-white);
   border-radius: var(--radius-xl);
   border: 1px solid var(--color-cream-border);
-  padding: var(--space-2xl) var(--space-xl);
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(2rem, 4vw, 3.5rem);
   box-shadow: var(--shadow-md);
   text-align: center;
   transition: opacity var(--transition-normal);
@@ -2503,8 +2508,8 @@ img {
   font-size: 1.35rem;
   font-weight: 600;
   color: var(--color-chocolate);
-  line-height: 1.5;
-  margin-bottom: var(--space-xl);
+  line-height: 1.65;
+  margin-bottom: var(--space-2xl);
 }
 
 .testimonial-author {
@@ -2583,14 +2588,14 @@ img {
 .location-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-2xl);
+  gap: clamp(3rem, 6vw, 5.5rem);
   align-items: center;
 }
 
 .location-info-card {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  gap: var(--space-xl);
 }
 
 .info-block {
@@ -2713,7 +2718,7 @@ img {
   text-align: center;
   position: relative;
   overflow: hidden;
-  padding: var(--space-4xl) 0;
+  padding: clamp(5.5rem, 9vw, 8.5rem) 0;
 }
 .final-cta-section::before {
   content: '';
@@ -2732,13 +2737,14 @@ img {
 .final-cta-title {
   font-size: clamp(2.4rem, 4.5vw, 3.6rem);
   color: var(--color-white);
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
   letter-spacing: -0.02em;
 }
 .final-cta-text {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: rgba(255, 255, 255, 0.92);
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-2xl);
+  line-height: 1.7;
 }
 .final-cta-btn {
   background: var(--color-white);
@@ -2758,15 +2764,15 @@ img {
 .footer {
   background-color: var(--color-chocolate-dark);
   color: var(--color-cream);
-  padding-top: var(--space-3xl);
-  padding-bottom: var(--space-xl);
+  padding-top: clamp(4.5rem, 7vw, 6.5rem);
+  padding-bottom: var(--space-2xl);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .footer-grid {
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
-  gap: var(--space-2xl);
+  gap: clamp(2.5rem, 5vw, 4.5rem);
   margin-bottom: var(--space-3xl);
 }
 
@@ -3133,8 +3139,8 @@ img {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: var(--space-xl);
+  gap: 14px;
+  margin-bottom: clamp(2.5rem, 5vw, 3.75rem);
   z-index: 10;
   position: relative;
 }
@@ -3556,4 +3562,261 @@ img {
   .card-drink-badge {
     display: none;
   }
+}
+
+/* ==========================================================================
+   PERK REVEAL CARDS (Adapted from Uiverse.io by eslam-hany)
+   Diagonal corner expansion with dynamic reveal on hover/tap
+   ========================================================================== */
+.perks-section {
+  background: linear-gradient(180deg, #FAF6F0 0%, #FFFDF9 50%, #FAF6F0 100%);
+  position: relative;
+  overflow: hidden;
+  padding: clamp(5.5rem, 8.5vw, 8rem) 0;
+  border-top: 1px solid rgba(232, 67, 101, 0.08);
+  border-bottom: 1px solid rgba(232, 67, 101, 0.08);
+}
+
+.perks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: clamp(2rem, 4vw, 3rem);
+  justify-items: center;
+  align-items: stretch;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* Base Card adapted from Uiverse */
+.perk-reveal-card {
+  position: relative;
+  width: 100%;
+  max-width: 260px;
+  min-height: 330px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-cream-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(35, 21, 17, 0.04);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  user-select: none;
+}
+
+.perk-reveal-card:hover,
+.perk-reveal-card.revealed {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(35, 21, 17, 0.1);
+}
+
+/* Inner content underneath the expanding corners */
+.perk-card-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 34px 22px;
+  height: 100%;
+  width: 100%;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.perk-reveal-card:hover .perk-card-content,
+.perk-reveal-card.revealed .perk-card-content {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.perk-card-emoji {
+  font-size: 2.8rem;
+  margin-bottom: var(--space-sm);
+  display: block;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.06));
+}
+
+.perk-card-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.perk-card-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-chocolate);
+  margin-bottom: 6px;
+}
+
+.perk-card-desc {
+  font-size: 0.86rem;
+  color: var(--color-text-muted);
+  line-height: 1.45;
+  margin-bottom: var(--space-md);
+  max-width: 200px;
+}
+
+.perk-card-hint {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-raspberry);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* THE CORNERS (Adapted from Uiverse.io by eslam-hany) */
+.perk-reveal-card::before,
+.perk-reveal-card::after {
+  position: absolute;
+  content: "";
+  width: 24%;
+  height: 24%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-align: center;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Top-Right Corner: starts as curved accent */
+.perk-reveal-card::before {
+  top: 0;
+  right: 0;
+  border-radius: 0 16px 0 100%;
+}
+
+/* Bottom-Left Corner: starts as curved accent */
+.perk-reveal-card::after {
+  bottom: 0;
+  left: 0;
+  border-radius: 0 100% 0 16px;
+}
+
+/* Hover / Tap Expansion: morphs to 100% filling entire card */
+.perk-reveal-card:hover::before,
+.perk-reveal-card:hover::after,
+.perk-reveal-card.revealed::before,
+.perk-reveal-card.revealed::after {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* CARD THEMES & CONTENT REVEAL */
+
+/* 1. Carte Club Fidélité */
+.perk-fidelite {
+  border-color: rgba(232, 67, 101, 0.2);
+}
+.perk-fidelite .perk-card-tag {
+  background: var(--color-raspberry-light);
+  color: var(--color-raspberry);
+}
+.perk-fidelite::before {
+  background: linear-gradient(135deg, #FFD2DC 0%, #FFA8BA 100%);
+}
+.perk-fidelite::after {
+  background: linear-gradient(145deg, #FF4B72 0%, #E84365 55%, #C22047 100%);
+  color: #FFFFFF;
+}
+.perk-fidelite:hover::after,
+.perk-fidelite.revealed::after {
+  content: "🎁 10ÈME BOISSON OFFERTE !\A\A Code: BLOOMPASS";
+  white-space: pre-line;
+  padding: 24px;
+  line-height: 1.4;
+  font-size: 1.12rem;
+  letter-spacing: 0.02em;
+}
+
+/* 2. Menu Secret */
+.perk-secret {
+  border-color: rgba(176, 104, 52, 0.2);
+}
+.perk-secret .perk-card-tag {
+  background: #F8EDE3;
+  color: #8C4E2B;
+}
+.perk-secret::before {
+  background: linear-gradient(135deg, #EAD8C7 0%, #C9A98A 100%);
+}
+.perk-secret::after {
+  background: linear-gradient(145deg, #7A421C 0%, #4D260D 70%, #301706 100%);
+  color: #FFE6D0;
+}
+.perk-secret:hover::after,
+.perk-secret.revealed::after {
+  content: "🤫 RECETTE SECRÈTE !\A\A « Bissap Cloud »\A Demandez au comptoir";
+  white-space: pre-line;
+  padding: 24px;
+  line-height: 1.35;
+  font-size: 1.08rem;
+}
+
+/* 3. Happy Hour */
+.perk-happy {
+  border-color: rgba(234, 160, 35, 0.25);
+}
+.perk-happy .perk-card-tag {
+  background: #FFF4DB;
+  color: #B26A00;
+}
+.perk-happy::before {
+  background: linear-gradient(135deg, #FFE8AB 0%, #FFD166 100%);
+}
+.perk-happy::after {
+  background: linear-gradient(145deg, #FF9E00 0%, #E67E00 65%, #BF6600 100%);
+  color: #FFFFFF;
+}
+.perk-happy:hover::after,
+.perk-happy.revealed::after {
+  content: "⚡ -20% SUR TOUT !\A\A Tous les jeudis\A De 16h00 à 18h00";
+  white-space: pre-line;
+  padding: 24px;
+  line-height: 1.4;
+  font-size: 1.1rem;
+}
+
+/* 4. Extra Topping */
+.perk-topping {
+  border-color: rgba(88, 129, 87, 0.25);
+}
+.perk-topping .perk-card-tag {
+  background: #EAF2E8;
+  color: #385E37;
+}
+.perk-topping::before {
+  background: linear-gradient(135deg, #D0E5CF 0%, #A2CEA0 100%);
+}
+.perk-topping::after {
+  background: linear-gradient(145deg, #446E43 0%, #2F522E 65%, #1B351A 100%);
+  color: #FFFFFF;
+}
+.perk-topping:hover::after,
+.perk-topping.revealed::after {
+  content: "✨ TOPPING OFFERT !\A\A Perles ou Popping\A Code: TOPPINGFREE";
+  white-space: pre-line;
+  padding: 24px;
+  line-height: 1.4;
+  font-size: 1.1rem;
 }

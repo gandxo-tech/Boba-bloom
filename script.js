@@ -1806,6 +1806,34 @@ function initBobaBloom() {
     });
   }
 
+  /* ==========================================================================
+     SECRET PERKS & PRIVILEGE CARDS (Adapted from Uiverse)
+     ========================================================================== */
+  function initPerkRevealCards() {
+    const perkCards = document.querySelectorAll('.perk-reveal-card');
+    perkCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const code = card.getAttribute('data-code');
+        const title = card.querySelector('.perk-card-title')?.textContent || 'Privilège';
+        
+        // Toggle revealed class for touch/mobile devices
+        card.classList.toggle('revealed');
+
+        if (code && navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(code).then(() => {
+            showToast(`✨ Code "${code}" (${title}) copié dans le presse-papier !`);
+          }).catch(() => {
+            showToast(`✨ Privilège "${title}" débloqué ! Code: ${code}`);
+          });
+        } else if (code) {
+          showToast(`✨ Privilège "${title}" débloqué ! Code: ${code}`);
+        }
+      });
+    });
+  }
+
+  initPerkRevealCards();
+
   // Initialize 3D Orbit Carousel
   init3DOrbitCarousel();
 }
