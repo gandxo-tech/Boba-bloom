@@ -309,32 +309,46 @@ img {
   opacity: 0.4;
 }
 
-/* --- Header & Navbar --- */
+/* --- Liquid Glass Header & Navbar --- */
 .header {
   position: sticky;
   top: 0;
   left: 0;
   width: 100%;
-  height: var(--navbar-height);
-  background-color: rgba(250, 246, 240, 0.94);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   z-index: var(--z-nav);
-  border-bottom: 1px solid transparent;
-  transition: all var(--transition-normal);
+  padding: 14px 0;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  background: transparent;
 }
 
 .header.scrolled {
-  background-color: rgba(255, 253, 249, 0.98);
-  border-bottom-color: var(--color-cream-border);
-  box-shadow: var(--shadow-sm);
+  padding: 8px 0;
 }
 
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 100%;
+  height: 66px;
+  background: rgba(255, 253, 249, 0.68);
+  backdrop-filter: blur(24px) saturate(190%) contrast(102%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%) contrast(102%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: var(--radius-full);
+  padding: 0 16px 0 22px;
+  box-shadow: 0 12px 34px -10px rgba(35, 21, 17, 0.08),
+              0 2px 6px rgba(0, 0, 0, 0.02),
+              inset 0 1px 2px rgba(255, 255, 255, 0.95),
+              inset 0 -1px 2px rgba(232, 67, 101, 0.04);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header.scrolled .navbar {
+  background: rgba(255, 253, 249, 0.88);
+  border-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 16px 40px -10px rgba(35, 21, 17, 0.14),
+              0 2px 8px rgba(0, 0, 0, 0.04),
+              inset 0 1px 2px #FFFFFF;
 }
 
 .brand-logo {
@@ -343,24 +357,27 @@ img {
   gap: 10px;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.45rem;
+  font-size: 1.35rem;
   letter-spacing: -0.01em;
   color: var(--color-chocolate);
 }
 .brand-logo-icon {
-  width: 36px;
-  height: 36px;
-  background: var(--color-raspberry-light);
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, rgba(232, 67, 101, 0.15) 0%, rgba(255, 255, 255, 0.8) 100%);
+  border: 1.5px solid rgba(232, 67, 101, 0.3);
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-raspberry);
   flex-shrink: 0;
-  transition: transform var(--transition-bounce);
+  box-shadow: 0 4px 12px rgba(232, 67, 101, 0.12), inset 0 1px 1px #FFFFFF;
+  transition: transform var(--transition-bounce), box-shadow 0.3s ease;
 }
 .brand-logo:hover .brand-logo-icon {
-  transform: rotate(15deg) scale(1.08);
+  transform: rotate(15deg) scale(1.1);
+  box-shadow: 0 6px 16px rgba(232, 67, 101, 0.25);
 }
 .brand-logo-text span {
   color: var(--color-raspberry);
@@ -369,64 +386,65 @@ img {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: var(--space-xl);
+  gap: 4px;
   list-style: none;
+  background: rgba(243, 236, 226, 0.45);
+  padding: 4px 6px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.55);
 }
 
 .nav-link {
   font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--color-chocolate-soft);
+  font-size: 0.88rem;
+  color: var(--color-chocolate);
   position: relative;
-  padding: 6px 0;
+  padding: 7px 14px;
+  border-radius: var(--radius-full);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
 }
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--color-raspberry);
-  border-radius: 2px;
-  transition: width var(--transition-fast);
-}
+
 .nav-link:hover {
   color: var(--color-raspberry);
+  background: rgba(255, 255, 255, 0.7);
 }
-.nav-link:hover::after,
-.nav-link.active::after {
-  width: 100%;
-}
+
 .nav-link.active {
   color: var(--color-raspberry);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 10px rgba(35, 21, 17, 0.06), inset 0 1px 1px #FFFFFF;
 }
 
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: 10px;
 }
 
-/* Cart Button */
+/* Liquid Glass Cart Button */
 .cart-toggle-btn {
   position: relative;
   width: 44px;
   height: 44px;
   border-radius: var(--radius-full);
-  background-color: var(--color-cream-light);
-  border: 1.5px solid var(--color-cream-border);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
   color: var(--color-chocolate);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--transition-fast);
+  box-shadow: 0 4px 14px rgba(35, 21, 17, 0.05), inset 0 1px 1px #FFFFFF;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .cart-toggle-btn:hover {
-  background-color: var(--color-white);
-  border-color: var(--color-raspberry);
+  background: #FFFFFF;
+  border-color: var(--color-raspberry-light);
   color: var(--color-raspberry);
-  transform: scale(1.05);
+  transform: translateY(-1px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(232, 67, 101, 0.18), inset 0 1px 1px #FFFFFF;
 }
 .cart-badge {
   position: absolute;
@@ -435,7 +453,7 @@ img {
   min-width: 20px;
   height: 20px;
   padding: 0 5px;
-  background-color: var(--color-raspberry);
+  background: linear-gradient(135deg, #FF6B8B 0%, var(--color-raspberry) 100%);
   color: var(--color-white);
   font-size: 0.72rem;
   font-weight: 700;
@@ -443,7 +461,8 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 6px rgba(232, 67, 101, 0.4);
+  box-shadow: 0 2px 8px rgba(232, 67, 101, 0.5);
+  border: 2px solid #FFFFFF;
   transition: transform var(--transition-bounce);
 }
 .cart-badge.bump {
@@ -456,22 +475,25 @@ img {
   100% { transform: scale(1); }
 }
 
-/* Mobile Hamburger */
+/* Mobile Hamburger with liquid frosted style */
 .mobile-nav-toggle {
   display: none;
-  width: 44px;
-  height: 44px;
-  background-color: var(--color-cream-light);
-  border: 1.5px solid var(--color-cream-border);
-  border-radius: var(--radius-md);
+  width: 42px;
+  height: 42px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: var(--radius-full);
   color: var(--color-chocolate);
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 5px;
+  box-shadow: 0 4px 12px rgba(35, 21, 17, 0.05);
 }
 .hamburger-line {
-  width: 20px;
+  width: 18px;
   height: 2px;
   background-color: currentColor;
   border-radius: 2px;
@@ -488,26 +510,35 @@ img {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* Mobile Drawer */
+/* Mobile Drawer - Liquid Glass Style */
 .mobile-drawer {
   position: fixed;
-  top: var(--navbar-height);
-  left: 0;
-  width: 100%;
-  height: calc(100vh - var(--navbar-height));
-  background-color: var(--color-cream-light);
+  top: 76px;
+  left: 14px;
+  right: 14px;
+  width: auto;
+  max-height: calc(100vh - 96px);
+  background: rgba(255, 253, 249, 0.88);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 24px 50px rgba(35, 21, 17, 0.16), inset 0 1px 2px rgba(255, 255, 255, 0.9);
   padding: var(--space-xl) var(--space-lg);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transform: translateX(-100%);
-  transition: transform var(--transition-normal);
-  z-index: var(--z-nav);
+  transform: translateY(-20px) scale(0.96);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: var(--z-drawer);
   overflow-y: auto;
-  border-top: 1px solid var(--color-cream-border);
 }
 .mobile-drawer.open {
-  transform: translateX(0);
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  pointer-events: auto;
 }
 .mobile-drawer-links {
   list-style: none;
@@ -517,7 +548,7 @@ img {
 }
 .mobile-drawer-link {
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--color-chocolate);
   display: block;
@@ -1067,100 +1098,186 @@ img {
 
 /* --- BUILD YOUR BOBA (INTERACTIVE BUILDER) --- */
 .builder-section {
-  background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-cream-subtle) 100%);
+  background: linear-gradient(180deg, var(--color-cream) 0%, #F5ECE0 50%, var(--color-cream) 100%);
   position: relative;
   overflow: hidden;
 }
 
+/* Chef's Presets / Quick Recipes Bar */
+.builder-presets-bar {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-xl);
+  padding: 16px 20px;
+  margin-bottom: var(--space-xl);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 20px rgba(35, 21, 17, 0.04);
+}
+.presets-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--color-chocolate);
+  white-space: nowrap;
+}
+.presets-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.preset-chip-btn {
+  background: #FFFFFF;
+  border: 1px solid var(--color-cream-border);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-chocolate);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+  transition: all 0.22s ease;
+}
+.preset-chip-btn:hover {
+  border-color: var(--color-raspberry);
+  color: var(--color-raspberry);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(232, 67, 101, 0.15);
+}
+
 .builder-layout {
   display: grid;
-  grid-template-columns: 420px 1fr;
+  grid-template-columns: 430px 1fr;
   gap: var(--space-2xl);
   align-items: start;
 }
 
-/* Left: Live Cup Visualizer */
+/* Left: Live Realistic Cup Visualizer */
 .builder-visual-sticky {
   position: sticky;
   top: calc(var(--navbar-height) + 20px);
-  background: var(--color-white);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--color-cream-border);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: var(--radius-2xl);
+  border: 1px solid rgba(255, 255, 255, 0.95);
   padding: var(--space-xl);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 20px 45px -12px rgba(35, 21, 17, 0.1),
+              inset 0 1px 2px #FFFFFF;
   text-align: center;
 }
 
 .cup-stage {
   position: relative;
-  width: 220px;
-  height: 330px;
-  margin: 0 auto var(--space-lg);
+  width: 240px;
+  height: 355px;
+  margin: 0 auto var(--space-md);
+  filter: drop-shadow(0 16px 24px rgba(35, 21, 17, 0.12));
 }
 
-/* Dynamic Boba Cup Frame & Liquids */
+/* Realistic Boba Glass Cup Frame */
 .cup-graphic {
   position: relative;
   width: 100%;
   height: 100%;
 }
+
 .cup-lid {
   position: absolute;
-  top: 25px;
+  top: 24px;
   left: 50%;
   transform: translateX(-50%);
-  width: 170px;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 3px solid var(--color-chocolate);
-  border-radius: 12px 12px 6px 6px;
-  z-index: 5;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  width: 178px;
+  height: 28px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.5) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  border-radius: 14px 14px 6px 6px;
+  z-index: 6;
+  box-shadow: 0 4px 12px rgba(35, 21, 17, 0.08), inset 0 1px 2px #FFFFFF;
+  backdrop-filter: blur(8px);
 }
+
 .cup-straw {
   position: absolute;
-  top: -15px;
-  left: 55%;
-  width: 18px;
-  height: 160px;
-  background: repeating-linear-gradient(
-    45deg,
-    var(--color-raspberry),
-    var(--color-raspberry) 10px,
-    var(--color-white) 10px,
-    var(--color-white) 20px
-  );
-  border: 2px solid var(--color-chocolate);
-  border-radius: 8px;
-  transform: rotate(10deg);
-  z-index: 4;
+  top: -18px;
+  left: 54%;
+  width: 19px;
+  height: 180px;
+  background: linear-gradient(135deg, var(--color-raspberry) 0%, #FF8FA3 50%, var(--color-raspberry) 100%);
+  border-radius: 10px;
+  transform: rotate(11deg);
+  z-index: 5;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15), inset -2px 0 4px rgba(0, 0, 0, 0.2);
 }
 
 .cup-body {
   position: absolute;
-  top: 40px;
+  top: 44px;
   left: 50%;
   transform: translateX(-50%);
-  width: 154px;
-  height: 275px;
-  background: rgba(255, 255, 255, 0.4);
-  border: 4px solid var(--color-chocolate);
+  width: 162px;
+  height: 285px;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.45) 0%, 
+    rgba(255, 255, 255, 0.1) 18%, 
+    rgba(255, 255, 255, 0.05) 75%, 
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  border: 2px solid rgba(255, 255, 255, 0.85);
   border-top: none;
-  border-radius: 0 0 38px 38px;
+  border-radius: 0 0 44px 44px;
   overflow: hidden;
-  box-shadow: inset -6px 0 14px rgba(255, 255, 255, 0.6), inset 6px 0 14px rgba(0, 0, 0, 0.05);
+  box-shadow: inset -8px 0 16px rgba(255, 255, 255, 0.6), 
+              inset 8px 0 16px rgba(35, 21, 17, 0.06),
+              0 10px 28px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(3px);
+  transition: width 0.3s ease, height 0.3s ease;
 }
 
+.cup-body.size-large {
+  width: 172px;
+  height: 295px;
+  border-radius: 0 0 48px 48px;
+}
+
+/* Glass Specular Reflection on front */
+.cup-body::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 14px;
+  width: 16px;
+  height: 75%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0) 100%);
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Liquid Layer with Real-Time Gradient */
 .cup-liquid {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 85%;
-  background: #C49A70; /* Default milk tea */
-  transition: background 0.5s ease, height 0.4s ease;
-  border-radius: 0 0 34px 34px;
+  background: #C49A70;
+  transition: background 0.45s ease, height 0.4s ease;
+  border-radius: 0 0 42px 42px;
+  box-shadow: inset 0 -14px 20px rgba(0,0,0,0.18);
 }
+
 .liquid-wave {
   position: absolute;
   top: -12px;
@@ -1170,89 +1287,125 @@ img {
   background-color: inherit;
   border-radius: 40%;
   animation: waveMotion 4s linear infinite;
-  opacity: 0.85;
+  opacity: 0.88;
 }
+
 @keyframes waveMotion {
   0% { transform: translateX(0) rotate(0deg); }
   50% { transform: translateX(-25%) rotate(180deg); }
   100% { transform: translateX(-50%) rotate(360deg); }
 }
 
-/* Cream / Foam Top Layer */
+/* Cream Cloud / Foam Top Layer */
 .cup-foam {
   position: absolute;
   top: 15%;
   left: 0;
   width: 100%;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.88);
-  border-bottom: 2px dashed rgba(35, 21, 17, 0.15);
-  z-index: 2;
-}
-
-/* Toppings Layer inside Cup */
-.cup-toppings {
-  position: absolute;
-  bottom: 8px;
-  left: 0;
-  width: 100%;
-  height: 65px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: flex-end;
-  gap: 5px;
-  padding: 0 10px;
-  z-index: 3;
-  pointer-events: none;
-}
-.boba-pearl {
-  width: 15px;
-  height: 15px;
-  border-radius: var(--radius-full);
-  background: #1F1411;
-  box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.35);
-  animation: gentleSettle 0.4s ease-out;
-}
-.boba-pearl.popping {
-  background: #FF6B8B;
-  box-shadow: inset -2px -2px 4px rgba(255, 255, 255, 0.6);
-}
-.boba-pearl.jelly {
-  border-radius: 3px;
-  background: #E8AA42;
-}
-.boba-pearl.aloe {
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid #C4D7B2;
-}
-@keyframes gentleSettle {
-  0% { transform: translateY(-30px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
+  height: 32px;
+  background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 253, 245, 0.95) 100%);
+  border-bottom: 2px dashed rgba(232, 67, 101, 0.2);
+  z-index: 4;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
 }
 
 /* Floating Ice Cubes */
 .cup-ice-layer {
   position: absolute;
-  top: 35%;
+  top: 30%;
   left: 0;
   width: 100%;
-  height: 70px;
+  height: 75px;
   display: flex;
   justify-content: space-around;
   padding: 0 15px;
-  z-index: 2;
+  z-index: 3;
   pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 .ice-cube {
-  width: 22px;
-  height: 22px;
-  background: rgba(255, 255, 255, 0.65);
-  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  width: 24px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.68);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  border-radius: 5px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.06), inset 0 1px 2px #FFFFFF;
+  animation: iceFloat 3s ease-in-out infinite alternate;
+}
+.ice-cube:nth-child(2) {
+  transform: rotate(-18deg);
+  animation-delay: 1.2s;
+}
+.ice-cube:nth-child(3) {
+  transform: rotate(24deg);
+  animation-delay: 0.6s;
+}
+@keyframes iceFloat {
+  0% { transform: translateY(0) rotate(15deg); }
+  100% { transform: translateY(-6px) rotate(8deg); }
+}
+
+/* Dynamic Toppings Layer */
+.cup-toppings {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  width: 100%;
+  min-height: 65px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-end;
+  gap: 5px;
+  padding: 0 12px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.boba-pearl {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle at 35% 35%, #422924 0%, #150A08 100%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 1px 1px 2px rgba(255, 255, 255, 0.45);
+  animation: gentleSettle 0.4s ease-out;
+}
+.boba-pearl.popping {
+  background: radial-gradient(circle at 35% 35%, #FF85A2 0%, #D81E5B 100%);
+  box-shadow: 0 2px 6px rgba(216, 30, 91, 0.4), inset 1px 1px 2px rgba(255, 255, 255, 0.7);
+}
+.boba-pearl.jelly {
   border-radius: 4px;
-  transform: rotate(18deg);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  background: radial-gradient(circle at 35% 35%, #F4B860 0%, #B87333 100%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+.boba-pearl.aloe {
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1.5px solid #D6E5C9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+@keyframes gentleSettle {
+  0% { transform: translateY(-25px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Cup Size Badge Tag */
+.cup-size-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-chocolate);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
 .builder-live-info {
@@ -1261,15 +1414,16 @@ img {
   text-align: left;
 }
 .live-drink-name {
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-size: 1.25rem;
+  font-weight: 800;
+  font-family: var(--font-display);
   color: var(--color-chocolate);
   margin-bottom: 4px;
 }
 .live-drink-summary {
   font-size: 0.84rem;
   color: var(--color-text-muted);
-  line-height: 1.4;
+  line-height: 1.45;
   margin-bottom: var(--space-md);
 }
 .live-drink-price-row {
@@ -1285,7 +1439,7 @@ img {
 }
 .live-price-val {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 1.55rem;
   font-weight: 800;
   color: var(--color-raspberry);
 }
@@ -1294,15 +1448,21 @@ img {
 .builder-steps {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
+  gap: var(--space-lg);
 }
 
 .builder-step-card {
-  background: var(--color-white);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-cream-border);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.95);
   padding: var(--space-lg);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 18px rgba(35, 21, 17, 0.04);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.builder-step-card:hover {
+  box-shadow: 0 8px 24px rgba(35, 21, 17, 0.06);
 }
 
 .step-header {
@@ -1315,7 +1475,7 @@ img {
   width: 32px;
   height: 32px;
   border-radius: var(--radius-full);
-  background: var(--color-raspberry);
+  background: linear-gradient(135deg, #FF6B8B 0%, var(--color-raspberry) 100%);
   color: var(--color-white);
   font-weight: 800;
   font-size: 0.88rem;
@@ -1323,9 +1483,10 @@ img {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(232, 67, 101, 0.35);
 }
 .step-title {
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   font-weight: 700;
   color: var(--color-chocolate);
 }
@@ -1337,35 +1498,37 @@ img {
 
 .option-chips-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
   gap: var(--space-sm);
 }
 
 .option-chip {
-  padding: 12px;
+  padding: 12px 10px;
   background-color: var(--color-cream-light);
   border: 1.5px solid var(--color-cream-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   text-align: center;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
 }
 .option-chip:hover {
-  background-color: var(--color-white);
+  background-color: #FFFFFF;
   border-color: var(--color-chocolate);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(35, 21, 17, 0.06);
 }
 .option-chip.selected {
-  background-color: var(--color-cream);
+  background: linear-gradient(145deg, #FFFFFF 0%, #FFF5F7 100%);
   border-color: var(--color-raspberry);
-  box-shadow: 0 0 0 2px var(--color-raspberry-glow);
+  box-shadow: 0 0 0 2px rgba(232, 67, 101, 0.25), 0 4px 12px rgba(232, 67, 101, 0.12);
+  transform: translateY(-1px);
 }
 .option-chip-icon {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   line-height: 1;
   margin-bottom: 2px;
 }
@@ -1381,30 +1544,44 @@ img {
 .option-chip.selected .option-chip-name {
   color: var(--color-raspberry);
 }
+.option-chip.selected .option-chip-extra {
+  color: var(--color-raspberry);
+  font-weight: 600;
+}
 
-/* Sweetness & Ice Range Selectors */
+/* Sweetness & Ice Selectors */
 .slider-container {
-  padding: 10px 0;
+  padding: 6px 0;
 }
 .slider-labels {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 .slider-label-btn {
+  flex: 1;
+  min-width: 70px;
   font-size: 0.82rem;
   font-weight: 600;
-  padding: 6px 10px;
+  padding: 8px 10px;
   border-radius: var(--radius-full);
   background: var(--color-cream-light);
   border: 1px solid var(--color-cream-border);
   color: var(--color-text-body);
-  transition: all var(--transition-fast);
+  text-align: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.slider-label-btn:hover {
+  background: #FFFFFF;
+  border-color: var(--color-chocolate);
 }
 .slider-label-btn.active {
-  background: var(--color-chocolate);
-  color: var(--color-white);
+  background: linear-gradient(135deg, var(--color-chocolate) 0%, #3D231C 100%);
+  color: #FFFFFF;
   border-color: var(--color-chocolate);
+  box-shadow: 0 3px 10px rgba(35, 21, 17, 0.2);
 }
 
 /* --- CART DRAWER & ORDER SYSTEM --- */
@@ -2631,7 +2808,7 @@ img {
    3D FLAVOR CAROUSEL — Adapted from Uiverse.io by ilkhoeri for Boba Bloom
    ========================================================================== */
 .carousel-3d-section {
-  background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-cream-subtle) 100%);
+  background: linear-gradient(180deg, var(--color-cream) 0%, #F5EDE2 50%, var(--color-cream) 100%);
   border-top: 1px solid var(--color-cream-border);
   border-bottom: 1px solid var(--color-cream-border);
   position: relative;
@@ -2644,7 +2821,7 @@ img {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: var(--space-sm);
+  gap: 10px;
   margin-bottom: var(--space-xl);
   z-index: 10;
   position: relative;
@@ -2654,41 +2831,46 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background-color: var(--color-white);
-  border: 1.5px solid var(--color-cream-border);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
   color: var(--color-chocolate);
   font-family: var(--font-body);
   font-size: 0.85rem;
-  font-weight: 600;
-  padding: 8px 16px;
+  font-weight: 700;
+  padding: 8px 18px;
   border-radius: var(--radius-full);
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 14px rgba(35, 21, 17, 0.05), inset 0 1px 1px #FFFFFF;
   transition: all var(--transition-fast);
 }
 
 .orbit-ctrl-btn:hover {
-  background-color: var(--color-cream-light);
-  border-color: var(--color-raspberry);
+  background-color: #FFFFFF;
+  border-color: var(--color-raspberry-light);
   color: var(--color-raspberry);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 8px 20px rgba(232, 67, 101, 0.15);
 }
 
 .orbit-ctrl-btn.active {
-  background-color: var(--color-chocolate);
+  background: linear-gradient(135deg, var(--color-chocolate) 0%, #3D231C 100%);
   color: var(--color-white);
   border-color: var(--color-chocolate);
+  box-shadow: 0 4px 14px rgba(35, 21, 17, 0.2);
 }
 
 .orbit-speed-group {
   display: inline-flex;
-  background-color: var(--color-white);
-  border: 1.5px solid var(--color-cream-border);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
   border-radius: var(--radius-full);
   padding: 3px;
-  gap: 2px;
-  box-shadow: var(--shadow-sm);
+  gap: 3px;
+  box-shadow: 0 4px 14px rgba(35, 21, 17, 0.05);
 }
 
 .orbit-speed-btn {
@@ -2698,7 +2880,7 @@ img {
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--color-text-muted);
-  padding: 5px 12px;
+  padding: 6px 14px;
   border-radius: var(--radius-full);
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -2709,26 +2891,28 @@ img {
 }
 
 .orbit-speed-btn.active {
-  background-color: var(--color-raspberry);
+  background: linear-gradient(135deg, #FF6B8B 0%, var(--color-raspberry) 100%);
   color: var(--color-white);
-  box-shadow: 0 2px 6px rgba(232, 67, 101, 0.35);
+  box-shadow: 0 2px 8px rgba(232, 67, 101, 0.4);
 }
 
 .orbit-hint-pill {
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-  font-weight: 500;
-  background-color: rgba(255, 255, 255, 0.75);
-  padding: 8px 14px;
+  font-size: 0.82rem;
+  color: var(--color-chocolate);
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  padding: 8px 16px;
   border-radius: var(--radius-full);
-  border: 1px dashed var(--color-cream-border);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
 }
 
 /* 3D Stage & Uiverse Carousel */
 .boba-3d-stage {
   position: relative;
   width: 100%;
-  height: 480px;
+  height: 490px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2737,7 +2921,7 @@ img {
   touch-action: pan-y;
 }
 
-/* From Uiverse.io by ilkhoeri */
+/* From Uiverse.io by ilkhoeri - Enhanced for Boba Bloom */
 .wrapper {
   width: 100%;
   height: 100%;
@@ -2750,9 +2934,9 @@ img {
 }
 
 .inner {
-  --w: 130px;
-  --h: 190px;
-  --translateZ: calc((var(--w) + var(--h)) + 25px);
+  --w: 135px;
+  --h: 200px;
+  --translateZ: calc((var(--w) + var(--h)) + 28px);
   --rotateX: -14deg;
   --perspective: 1000px;
   position: absolute;
@@ -2763,78 +2947,48 @@ img {
   z-index: 2;
   transform-style: preserve-3d;
   transform: perspective(var(--perspective)) rotateX(var(--rotateX));
-  animation: rotating 22s linear infinite;
   cursor: grab;
+  will-change: transform;
 }
 
 .inner:active {
   cursor: grabbing;
 }
 
-.inner:hover {
-  animation-play-state: paused;
-}
-
-.inner.paused {
-  animation-play-state: paused;
-}
-
-.inner.reverse {
-  animation-direction: reverse;
-}
-
-.inner.speed-slow {
-  animation-duration: 36s;
-}
-
-.inner.speed-normal {
-  animation-duration: 22s;
-}
-
-.inner.speed-fast {
-  animation-duration: 12s;
-}
-
-@keyframes rotating {
-  from {
-    transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(0);
-  }
-  to {
-    transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(1turn);
-  }
-}
-
 .card {
   position: absolute;
-  border: 2px solid rgb(var(--color-card));
-  border-radius: 14px;
+  border: 1.5px solid rgba(var(--color-card), 0.55);
+  border-radius: 18px;
   overflow: hidden;
   inset: 0;
   transform: rotateY(calc((360deg / var(--quantity)) * var(--index)))
     translateZ(var(--translateZ));
-  box-shadow: 0 10px 28px rgba(var(--color-card), 0.35);
-  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
-  background-color: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 14px 34px -6px rgba(var(--color-card), 0.28), 
+              0 2px 8px rgba(0, 0, 0, 0.04),
+              inset 0 1px 1px rgba(255, 255, 255, 0.95);
+  transition: box-shadow 0.35s ease, border-color 0.35s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.72) 65%, rgba(var(--color-card), 0.16) 100%);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
 }
 
 .card:hover {
-  border-color: #FFFFFF;
-  box-shadow: 0 16px 36px rgba(var(--color-card), 0.6), 0 0 20px rgba(var(--color-card), 0.45);
+  border-color: rgb(var(--color-card));
+  box-shadow: 0 20px 42px -4px rgba(var(--color-card), 0.45), 
+              0 0 24px rgba(var(--color-card), 0.25),
+              inset 0 1px 2px #FFFFFF;
 }
 
 .img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  background: #0000
-    radial-gradient(
-      circle,
-      rgba(var(--color-card), 0.22) 0%,
-      rgba(var(--color-card), 0.68) 80%,
-      rgba(var(--color-card), 0.94) 100%
-    );
+  background: radial-gradient(
+    circle at 50% 25%,
+    rgba(255, 255, 255, 0.75) 0%,
+    rgba(var(--color-card), 0.08) 55%,
+    rgba(var(--color-card), 0.22) 100%
+  );
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2845,27 +2999,28 @@ img {
 
 /* Card details adapted for Boba Bloom */
 .card-drink-badge {
-  font-size: 0.64rem;
+  font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: #FFFFFF;
-  background-color: rgba(23, 12, 10, 0.45);
+  color: rgb(var(--color-card));
+  background-color: rgba(255, 255, 255, 0.92);
   padding: 2px 8px;
   border-radius: var(--radius-full);
-  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   white-space: nowrap;
+  border: 1px solid rgba(var(--color-card), 0.2);
 }
 
 .card-drink-avatar {
-  width: 58px;
-  height: 58px;
+  width: 62px;
+  height: 62px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 2.5px solid #FFFFFF;
+  box-shadow: 0 6px 14px rgba(var(--color-card), 0.35);
   margin: 2px 0;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: #FFFFFF;
   flex-shrink: 0;
 }
 
@@ -2886,10 +3041,9 @@ img {
 
 .card-drink-name {
   font-family: var(--font-display);
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #FFFFFF;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--color-chocolate);
   line-height: 1.15;
   white-space: nowrap;
   overflow: hidden;
@@ -2898,36 +3052,39 @@ img {
 }
 
 .card-drink-price {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 800;
-  color: #FFFFFF;
-  background-color: rgba(0, 0, 0, 0.35);
-  padding: 1px 6px;
-  border-radius: 4px;
+  color: rgb(var(--color-card));
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(var(--color-card), 0.25);
 }
 
 .card-drink-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 4px;
   background-color: #FFFFFF;
   color: var(--color-chocolate);
   font-family: var(--font-body);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: var(--radius-full);
-  border: none;
+  border: 1px solid rgba(var(--color-card), 0.35);
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: all var(--transition-fast);
 }
 
 .card-drink-btn:hover {
   background-color: var(--color-chocolate);
   color: #FFFFFF;
+  border-color: var(--color-chocolate);
   transform: scale(1.06);
+  box-shadow: 0 4px 12px rgba(35, 21, 17, 0.2);
 }
 
 /* Responsive tweaks for the 3D carousel */
@@ -2936,44 +3093,44 @@ img {
     height: 420px;
   }
   .inner {
-    --w: 105px;
-    --h: 155px;
-    --translateZ: calc((var(--w) + var(--h)) + 15px);
+    --w: 110px;
+    --h: 165px;
+    --translateZ: calc((var(--w) + var(--h)) + 18px);
     --perspective: 850px;
   }
   .card-drink-avatar {
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
   }
   .card-drink-name {
-    font-size: 0.72rem;
+    font-size: 0.74rem;
   }
   .card-drink-badge {
     font-size: 0.58rem;
     padding: 1px 6px;
   }
   .card-drink-btn {
-    font-size: 0.62rem;
+    font-size: 0.64rem;
     padding: 3px 8px;
   }
 }
 
 @media (max-width: 480px) {
   .boba-3d-stage {
-    height: 370px;
+    height: 380px;
   }
   .inner {
-    --w: 90px;
-    --h: 135px;
-    --translateZ: calc((var(--w) + var(--h)) + 5px);
+    --w: 95px;
+    --h: 145px;
+    --translateZ: calc((var(--w) + var(--h)) + 8px);
     --perspective: 750px;
   }
   .card-drink-avatar {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
   }
   .card-drink-name {
-    font-size: 0.66rem;
+    font-size: 0.68rem;
   }
   .card-drink-badge {
     display: none;
