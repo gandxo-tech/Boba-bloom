@@ -1198,7 +1198,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     3D FLAVOR CAROUSEL (UIVERSE ADAPTATION) CONTROLS & INTERACTIONS
+     3D FLAVOR CAROUSEL — LIQUID GLASS ORBITAL ROTATION ENGINE
      ========================================================================== */
   function init3DOrbitCarousel() {
     const carouselInner = document.getElementById('carousel-3d-inner');
@@ -1212,14 +1212,66 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!carouselInner) return;
 
+    // Rotation State Variables
+    let rotationAngle = 0;
+    const baseSpeed = 0.28; // degrees per frame (~17 deg/sec)
+    let speedMultiplier = 1;
+    let direction = 1; // 1 for clockwise, -1 for counter-clockwise
     let isPaused = false;
-    let isReversed = false;
+    let isHovered = false;
+    let hoverDamping = 1; // 1 = full speed, eases to 0 on hover
+    let isDragging = false;
+    let dragVelocity = 0;
+    let lastDragX = 0;
+    let lastDragTime = 0;
+    let totalDragMovement = 0;
+
+    function getPerspectiveConfig() {
+      const w = window.innerWidth;
+      if (w <= 480) return { perspective: 800, rotateX: -10 };
+      if (w <= 768) return { perspective: 900, rotateX: -10 };
+      return { perspective: 1100, rotateX: -10 };
+    }
+
+    function renderTransform() {
+      const config = getPerspectiveConfig();
+      const normalized = ((rotationAngle % 360) + 360) % 360;
+      carouselInner.style.transform = `perspective(${config.perspective}px) rotateX(${config.rotateX}deg) rotateY(${normalized}deg)`;
+    }
+
+    // High-performance 60fps animation loop
+    function tick() {
+      if (!isDragging) {
+        // Smooth hover deceleration & acceleration
+        if (isHovered && !isPaused) {
+          hoverDamping += (0 - hoverDamping) * 0.12;
+        } else if (!isHovered && !isPaused) {
+          hoverDamping += (1 - hoverDamping) * 0.08;
+        }
+
+        // Apply drag throw inertia
+        if (Math.abs(dragVelocity) > 0.02) {
+          rotationAngle += dragVelocity;
+          dragVelocity *= 0.93; // smooth friction
+        } else {
+          dragVelocity = 0;
+          if (!isPaused) {
+            rotationAngle += direction * baseSpeed * speedMultiplier * hoverDamping;
+          }
+        }
+      }
+
+      renderTransform();
+      requestAnimationFrame(tick);
+    }
+
+    // Launch RAF loop
+    requestAnimationFrame(tick);
 
     // Play / Pause toggle
     if (btnToggle) {
       btnToggle.addEventListener('click', () => {
         isPaused = !isPaused;
-        carouselInner.classList.toggle('paused', isPaused);
         if (toggleText) toggleText.textContent = isPaused ? 'Reprendre' : 'Pause';
         if (iconPause) iconPause.style.display = isPaused ? 'none' : 'block';
         if (iconPlay) iconPlay.style.display = isPaused ? 'block' : 'none';
@@ -1230,9 +1282,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Reverse Direction toggle
     if (btnReverse) {
       btnReverse.addEventListener('click', () => {
-        isReversed = !isReversed;
-        carouselInner.classList.toggle('reverse', isReversed);
-        btnReverse.classList.toggle('active', isReversed);
+        direction = -direction;
+        btnReverse.classList.toggle('active', direction === -1);
       });
     }
 
@@ -1242,69 +1293,55 @@ document.addEventListener('DOMContentLoaded', () => {
         speedBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const speed = btn.getAttribute('data-speed');
-        carouselInner.classList.remove('speed-slow', 'speed-normal', 'speed-fast');
-        carouselInner.classList.add(`speed-${speed}`);
+        if (speed === 'slow') speedMultiplier = 0.5;
+        else if (speed === 'fast') speedMultiplier = 2.0;
+        else speedMultiplier = 1.0;
       });
     });
 
-    // Add to Cart from 3D Card (click on button or card)
-    const cards = carouselInner.querySelectorAll('.card');
-    cards.forEach(card => {
-      const name = card.getAttribute('data-name');
-      const price = parseInt(card.getAttribute('data-price'), 10);
-      const img = card.getAttribute('data-img');
-      const btn = card.querySelector('.card-drink-btn');
-
-      function handleAddDrink(e) {
-        e.stopPropagation();
-        addToCart({
-          id: 'orbit-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
-          name: name,
-          price: price,
-          image: img,
-          specs: '3D Orbit Special • Fresh Artisanal Pearls',
-          quantity: 1
-        });
-        showToast(`Ajouté au panier: ${name} (${price.toLocaleString()} FCFA)`);
-      }
-
-      if (btn) {
-        btn.addEventListener('click', handleAddDrink);
-      }
-
-      card.addEventListener('click', (e) => {
-        if (!e.target.closest('.card-drink-btn')) {
-          handleAddDrink(e);
-        }
+    // Smooth hover detection for desktop
+    if (bobaStage) {
+      bobaStage.addEventListener('mouseenter', () => {
+        isHovered = true;
       });
-    });
+      bobaStage.addEventListener('mouseleave', () => {
+        isHovered = false;
+        if (isDragging) onPointerUp();
+      });
+    }
 
-    // Interactive Drag / Swipe rotation support
-    let isDragging = false;
-    let startX = 0;
-    let currentRotation = 0;
-
+    // Pointer down for swipe/drag
     function onPointerDown(e) {
-      if (e.target.closest('button')) return;
+      if (e.target.closest('button.card-drink-btn')) return;
       isDragging = true;
-      startX = e.pageX || (e.touches && e.touches[0].pageX);
-      carouselInner.style.animationPlayState = 'paused';
+      totalDragMovement = 0;
+      const clientX = e.pageX !== undefined ? e.pageX : (e.touches && e.touches[0].pageX);
+      lastDragX = clientX;
+      lastDragTime = performance.now();
+      dragVelocity = 0;
     }
 
     function onPointerMove(e) {
       if (!isDragging) return;
-      const x = e.pageX || (e.touches && e.touches[0].pageX);
-      const diffX = x - startX;
-      startX = x;
-      currentRotation += diffX * 0.4;
-      carouselInner.style.transform = `perspective(1000px) rotateX(-14deg) rotateY(${currentRotation}deg)`;
+      const clientX = e.pageX !== undefined ? e.pageX : (e.touches && e.touches[0].pageX);
+      const diffX = clientX - lastDragX;
+      totalDragMovement += Math.abs(diffX);
+
+      const now = performance.now();
+      const dt = now - lastDragTime || 16;
+      dragVelocity = (diffX / dt) * 16 * 0.35; // velocity in deg/frame
+
+      rotationAngle += diffX * 0.35;
+      lastDragX = clientX;
+      lastDragTime = now;
     }
 
     function onPointerUp() {
       if (!isDragging) return;
       isDragging = false;
-      if (!isPaused) {
-        carouselInner.style.animationPlayState = 'running';
+      // Cap throw velocity for gentle organic glide
+      if (Math.abs(dragVelocity) > 6) {
+        dragVelocity = Math.sign(dragVelocity) * 6;
       }
     }
 
@@ -1317,6 +1354,42 @@ document.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('touchmove', onPointerMove, { passive: true });
       window.addEventListener('touchend', onPointerUp);
     }
+
+    // Card interactions & Add to Cart
+    const cards = carouselInner.querySelectorAll('.card');
+    cards.forEach(card => {
+      const name = card.getAttribute('data-name');
+      const price = parseInt(card.getAttribute('data-price'), 10);
+      const img = card.getAttribute('data-img');
+      const btn = card.querySelector('.card-drink-btn');
+
+      function handleAddDrink(e) {
+        if (e) e.stopPropagation();
+        addToCart({
+          id: 'orbit-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+          name: name,
+          price: price,
+          image: img,
+          specs: 'Signature Orbit Liquid Glass • Perles Fraîches',
+          quantity: 1
+        });
+        showToast(`Ajouté au panier: ${name} (${price.toLocaleString()} FCFA)`);
+      }
+
+      if (btn) {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          handleAddDrink(e);
+        });
+      }
+
+      card.addEventListener('click', (e) => {
+        // Only trigger order when user tapped/clicked without a drag gesture
+        if (totalDragMovement < 8 && !e.target.closest('.card-drink-btn')) {
+          handleAddDrink(e);
+        }
+      });
+    });
   }
 
   // Initialize 3D Orbit Carousel

@@ -2805,23 +2805,37 @@ img {
 }
 
 /* ==========================================================================
-   3D FLAVOR CAROUSEL — Adapted from Uiverse.io by ilkhoeri for Boba Bloom
+   3D FLAVOR CAROUSEL — Liquid Glass Orbital Carousel for Boba Bloom
    ========================================================================== */
 .carousel-3d-section {
-  background: linear-gradient(180deg, var(--color-cream) 0%, #F5EDE2 50%, var(--color-cream) 100%);
-  border-top: 1px solid var(--color-cream-border);
-  border-bottom: 1px solid var(--color-cream-border);
+  background: radial-gradient(circle at 50% 45%, #FFFDF9 0%, #F8EFE4 55%, #F0E3D3 100%);
+  border-top: 1px solid rgba(232, 67, 101, 0.1);
+  border-bottom: 1px solid rgba(232, 67, 101, 0.1);
   position: relative;
   overflow: hidden;
 }
 
-/* Orbit Toolbar Controls */
+/* Atmospheric subtle bokeh / ambient glows */
+.carousel-3d-section::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 350px;
+  background: radial-gradient(ellipse at center, rgba(232, 67, 101, 0.08) 0%, rgba(196, 132, 70, 0.05) 45%, transparent 70%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+/* Orbit Toolbar Controls — Liquid Glass Toolbar */
 .orbit-controls-bar {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
   margin-bottom: var(--space-xl);
   z-index: 10;
   position: relative;
@@ -2830,11 +2844,11 @@ img {
 .orbit-ctrl-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1.5px solid rgba(255, 255, 255, 0.92);
   color: var(--color-chocolate);
   font-family: var(--font-body);
   font-size: 0.85rem;
@@ -2842,7 +2856,7 @@ img {
   padding: 8px 18px;
   border-radius: var(--radius-full);
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(35, 21, 17, 0.05), inset 0 1px 1px #FFFFFF;
+  box-shadow: 0 4px 16px rgba(35, 21, 17, 0.06), inset 0 1px 1px #FFFFFF;
   transition: all var(--transition-fast);
 }
 
@@ -2851,26 +2865,26 @@ img {
   border-color: var(--color-raspberry-light);
   color: var(--color-raspberry);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(232, 67, 101, 0.15);
+  box-shadow: 0 8px 22px rgba(232, 67, 101, 0.18);
 }
 
 .orbit-ctrl-btn.active {
   background: linear-gradient(135deg, var(--color-chocolate) 0%, #3D231C 100%);
   color: var(--color-white);
   border-color: var(--color-chocolate);
-  box-shadow: 0 4px 14px rgba(35, 21, 17, 0.2);
+  box-shadow: 0 6px 18px rgba(35, 21, 17, 0.25);
 }
 
 .orbit-speed-group {
   display: inline-flex;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1.5px solid rgba(255, 255, 255, 0.92);
   border-radius: var(--radius-full);
   padding: 3px;
   gap: 3px;
-  box-shadow: 0 4px 14px rgba(35, 21, 17, 0.05);
+  box-shadow: 0 4px 16px rgba(35, 21, 17, 0.06);
 }
 
 .orbit-speed-btn {
@@ -2893,35 +2907,51 @@ img {
 .orbit-speed-btn.active {
   background: linear-gradient(135deg, #FF6B8B 0%, var(--color-raspberry) 100%);
   color: var(--color-white);
-  box-shadow: 0 2px 8px rgba(232, 67, 101, 0.4);
+  box-shadow: 0 2px 10px rgba(232, 67, 101, 0.4);
 }
 
 .orbit-hint-pill {
   font-size: 0.82rem;
   color: var(--color-chocolate);
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(8px);
-  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  padding: 8px 18px;
   border-radius: var(--radius-full);
   border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  box-shadow: 0 4px 14px rgba(35, 21, 17, 0.04);
 }
 
-/* 3D Stage & Uiverse Carousel */
+/* 3D Stage & Pedestal */
 .boba-3d-stage {
   position: relative;
   width: 100%;
-  height: 490px;
+  height: 520px;
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 1100px;
+  perspective: 1200px;
   user-select: none;
   touch-action: pan-y;
+  overflow: visible;
 }
 
-/* From Uiverse.io by ilkhoeri - Enhanced for Boba Bloom */
+/* Floating ambient reflection aura below the 3D orbit cylinder */
+.boba-3d-stage::before {
+  content: '';
+  position: absolute;
+  bottom: 28px;
+  width: min(560px, 88vw);
+  height: 85px;
+  background: radial-gradient(ellipse at center, rgba(232, 67, 101, 0.14) 0%, rgba(196, 132, 70, 0.1) 40%, rgba(0, 0, 0, 0) 72%);
+  border-radius: 50%;
+  filter: blur(16px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 3D Cylinder Orbit Inner Container */
 .wrapper {
   width: 100%;
   height: 100%;
@@ -2930,15 +2960,15 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .inner {
-  --w: 135px;
-  --h: 200px;
-  --translateZ: calc((var(--w) + var(--h)) + 28px);
-  --rotateX: -14deg;
-  --perspective: 1000px;
+  --w: 140px;
+  --h: 215px;
+  --translateZ: calc((var(--w) + var(--h)) + 36px);
+  --rotateX: -10deg;
+  --perspective: 1100px;
   position: absolute;
   width: var(--w);
   height: var(--h);
@@ -2946,7 +2976,7 @@ img {
   left: calc(50% - (var(--w) / 2));
   z-index: 2;
   transform-style: preserve-3d;
-  transform: perspective(var(--perspective)) rotateX(var(--rotateX));
+  transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(0deg);
   cursor: grab;
   will-change: transform;
 }
@@ -2955,73 +2985,109 @@ img {
   cursor: grabbing;
 }
 
+/* Liquid Glass Cards */
 .card {
   position: absolute;
-  border: 1.5px solid rgba(var(--color-card), 0.55);
-  border-radius: 18px;
+  border-radius: 20px;
   overflow: hidden;
   inset: 0;
   transform: rotateY(calc((360deg / var(--quantity)) * var(--index)))
     translateZ(var(--translateZ));
-  box-shadow: 0 14px 34px -6px rgba(var(--color-card), 0.28), 
-              0 2px 8px rgba(0, 0, 0, 0.04),
-              inset 0 1px 1px rgba(255, 255, 255, 0.95);
-  transition: box-shadow 0.35s ease, border-color 0.35s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.72) 65%, rgba(var(--color-card), 0.16) 100%);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  /* Liquid Glass Multi-layer Material */
+  background: linear-gradient(145deg, 
+    rgba(255, 255, 255, 0.9) 0%, 
+    rgba(255, 255, 255, 0.52) 48%, 
+    rgba(var(--color-card), 0.16) 100%
+  );
+  backdrop-filter: blur(22px) saturate(200%);
+  -webkit-backdrop-filter: blur(22px) saturate(200%);
+  border: 1.5px solid rgba(255, 255, 255, 0.88);
+  outline: 1px solid rgba(var(--color-card), 0.28);
+  outline-offset: -1px;
+  box-shadow: 
+    0 18px 38px -8px rgba(var(--color-card), 0.32),
+    0 4px 14px rgba(35, 21, 17, 0.05),
+    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1.5px 2px rgba(var(--color-card), 0.22);
+  transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2), 
+              box-shadow 0.35s ease, 
+              border-color 0.35s ease;
+}
+
+/* Specular diagonal glare beam on top half of glass card */
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 52%;
+  background: linear-gradient(180deg, 
+    rgba(255, 255, 255, 0.6) 0%, 
+    rgba(255, 255, 255, 0.1) 60%, 
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-radius: 19px 19px 0 0;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .card:hover {
-  border-color: rgb(var(--color-card));
-  box-shadow: 0 20px 42px -4px rgba(var(--color-card), 0.45), 
-              0 0 24px rgba(var(--color-card), 0.25),
-              inset 0 1px 2px #FFFFFF;
+  border-color: rgba(255, 255, 255, 1);
+  outline-color: rgb(var(--color-card));
+  box-shadow: 
+    0 24px 48px -6px rgba(var(--color-card), 0.5),
+    0 0 28px rgba(var(--color-card), 0.3),
+    inset 0 1.5px 2px #FFFFFF,
+    inset 0 -1.5px 2px rgba(var(--color-card), 0.35);
 }
 
 .img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
   background: radial-gradient(
-    circle at 50% 25%,
-    rgba(255, 255, 255, 0.75) 0%,
-    rgba(var(--color-card), 0.08) 55%,
-    rgba(var(--color-card), 0.22) 100%
+    circle at 50% 20%,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(var(--color-card), 0.06) 50%,
+    rgba(var(--color-card), 0.2) 100%
   );
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 8px;
+  padding: 12px 10px 10px;
   box-sizing: border-box;
+  position: relative;
+  z-index: 2;
 }
 
 /* Card details adapted for Boba Bloom */
 .card-drink-badge {
-  font-size: 0.65rem;
-  font-weight: 700;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
   color: rgb(var(--color-card));
-  background-color: rgba(255, 255, 255, 0.92);
-  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  padding: 2.5px 9px;
   border-radius: var(--radius-full);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(var(--color-card), 0.25);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
   white-space: nowrap;
-  border: 1px solid rgba(var(--color-card), 0.2);
 }
 
 .card-drink-avatar {
-  width: 62px;
-  height: 62px;
+  width: 66px;
+  height: 66px;
   border-radius: 50%;
   overflow: hidden;
   border: 2.5px solid #FFFFFF;
-  box-shadow: 0 6px 14px rgba(var(--color-card), 0.35);
+  box-shadow: 0 8px 18px rgba(var(--color-card), 0.38);
   margin: 2px 0;
   background-color: #FFFFFF;
   flex-shrink: 0;
+  position: relative;
 }
 
 .card-drink-avatar img {
@@ -3035,13 +3101,13 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 3px;
   width: 100%;
 }
 
 .card-drink-name {
   font-family: var(--font-display);
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   font-weight: 800;
   color: var(--color-chocolate);
   line-height: 1.15;
@@ -3049,16 +3115,18 @@ img {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
 }
 
 .card-drink-price {
   font-size: 0.72rem;
   font-weight: 800;
   color: rgb(var(--color-card));
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 2px 9px;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(var(--color-card), 0.25);
+  border: 1px solid rgba(var(--color-card), 0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
 .card-drink-btn {
@@ -3066,71 +3134,72 @@ img {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  background-color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
   color: var(--color-chocolate);
   font-family: var(--font-body);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  padding: 5px 12px;
+  padding: 5px 14px;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(var(--color-card), 0.35);
+  border: 1.2px solid rgba(var(--color-card), 0.4);
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all var(--transition-fast);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07), inset 0 1px 1px #FFFFFF;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-drink-btn:hover {
-  background-color: var(--color-chocolate);
+  background: linear-gradient(135deg, var(--color-chocolate) 0%, #3D231C 100%);
   color: #FFFFFF;
   border-color: var(--color-chocolate);
-  transform: scale(1.06);
-  box-shadow: 0 4px 12px rgba(35, 21, 17, 0.2);
+  transform: translateY(-1px) scale(1.04);
+  box-shadow: 0 6px 16px rgba(35, 21, 17, 0.22);
 }
 
 /* Responsive tweaks for the 3D carousel */
 @media (max-width: 768px) {
   .boba-3d-stage {
-    height: 420px;
+    height: 440px;
   }
   .inner {
-    --w: 110px;
-    --h: 165px;
-    --translateZ: calc((var(--w) + var(--h)) + 18px);
-    --perspective: 850px;
+    --w: 115px;
+    --h: 175px;
+    --translateZ: calc((var(--w) + var(--h)) + 24px);
+    --perspective: 900px;
   }
   .card-drink-avatar {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
   }
   .card-drink-name {
-    font-size: 0.74rem;
+    font-size: 0.76rem;
   }
   .card-drink-badge {
     font-size: 0.58rem;
-    padding: 1px 6px;
+    padding: 1.5px 7px;
   }
   .card-drink-btn {
-    font-size: 0.64rem;
-    padding: 3px 8px;
+    font-size: 0.66rem;
+    padding: 4px 10px;
   }
 }
 
 @media (max-width: 480px) {
   .boba-3d-stage {
-    height: 380px;
+    height: 390px;
   }
   .inner {
-    --w: 95px;
-    --h: 145px;
-    --translateZ: calc((var(--w) + var(--h)) + 8px);
-    --perspective: 750px;
+    --w: 98px;
+    --h: 152px;
+    --translateZ: calc((var(--w) + var(--h)) + 12px);
+    --perspective: 800px;
   }
   .card-drink-avatar {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
   }
   .card-drink-name {
-    font-size: 0.68rem;
+    font-size: 0.7rem;
   }
   .card-drink-badge {
     display: none;
