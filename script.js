@@ -4,7 +4,7 @@
  * Fully responsive, accessible, and conversion-focused
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+function initBobaBloom() {
   'use strict';
 
   /* ==========================================================================
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderMenu();
 
   /* ==========================================================================
-     2. INTERACTIVE BUBBLE TEA BUILDER
+     2. INTERACTIVE BUBBLE TEA BUILDER & PROGRESSIVE GENERATOR
      ========================================================================== */
   const builderState = {
     base: {
@@ -268,7 +268,10 @@ document.addEventListener('DOMContentLoaded', () => {
       class: 'tapioca'
     },
     sweetness: '50%',
-    ice: 'Regular Ice'
+    ice: 'Regular Ice',
+    size: 'regular',
+    sizeExtra: 0,
+    currentStep: 1
   };
 
   // Elements in builder
@@ -281,17 +284,67 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnAddCustomBoba = document.getElementById('btn-add-custom-boba');
   const currentSweetnessText = document.getElementById('current-sweetness-text');
   const currentIceText = document.getElementById('current-ice-text');
+  const builderStatusText = document.getElementById('builder-status-text');
+  const btnAutoGenerate = document.getElementById('btn-auto-generate');
+  const btnBuilderReset = document.getElementById('btn-builder-reset');
 
-  function updateBuilderVisual() {
-    // 1. Calculate price
-    const totalPrice = builderState.base.price + builderState.topping.price;
+  const stepInstructions = {
+    1: 'Étape 1 sur 5 : Choisissez votre base de thé fraîchement infusée.',
+    2: 'Étape 2 sur 5 : Ajoutez votre arôme de fruits ou infusion gourmande.',
+    3: 'Étape 3 sur 5 : Sélectionnez vos perles de tapioca ou toppings frais.',
+    4: 'Étape 4 sur 5 : Personnalisez votre niveau de douceur.',
+    5: 'Étape 5 sur 5 : Ajustez la quantité de glaçons rafraîchissants.',
+    complete: '🎉 Recette complète et équilibrée ! Prête à être savourée.'
+  };
+
+  function setActiveStep(stepNum, scrollIntoView = false) {
+    builderState.currentStep = stepNum;
+
+    // Update stepper tabs
+    document.querySelectorAll('.stepper-step').forEach(stepBtn => {
+      const s = parseInt(stepBtn.getAttribute('data-step'), 10);
+      stepBtn.classList.remove('active', 'completed');
+      if (s === stepNum) {
+        stepBtn.classList.add('active');
+      } else if (s < stepNum) {
+        stepBtn.classList.add('completed');
+      }
+    });
+
+    // Update step cards highlighting
+    document.querySelectorAll('.builder-step-card').forEach(card => {
+      const s = parseInt(card.getAttribute('data-step-index'), 10);
+      if (s === stepNum) {
+        card.classList.add('active-step');
+        if (scrollIntoView) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      } else {
+        card.classList.remove('active-step');
+      }
+    });
+
+    // Update status text
+    if (builderStatusText) {
+      builderStatusText.textContent = stepInstructions[stepNum] || stepInstructions[1];
+    }
+  }
+
+  function updateBuilderVisual(triggerAnimation = false) {
+    // 1. Calculate price with size extra
+    const totalPrice = builderState.base.price + builderState.topping.price + builderState.sizeExtra;
 
     // 2. Liquid color blending
     if (builderLiquid) {
-      // Create rich fluid gradient matching the base & flavor
       const baseCol = builderState.base.color;
       const flavorCol = builderState.flavor.color;
       builderLiquid.style.background = `linear-gradient(180deg, ${flavorCol} 0%, ${baseCol} 100%)`;
+
+      if (triggerAnimation) {
+        builderLiquid.classList.remove('is-pouring');
+        void builderLiquid.offsetWidth; // Trigger reflow
+        builderLiquid.classList.add('is-pouring');
+      }
     }
 
     // 3. Toppings visualization
@@ -303,6 +356,12 @@ document.addEventListener('DOMContentLoaded', () => {
         toppingHTML += `<div class="boba-pearl ${topClass}"></div>`;
       }
       builderToppingsLayer.innerHTML = toppingHTML;
+
+      if (triggerAnimation) {
+        builderToppingsLayer.classList.remove('is-dropping');
+        void builderToppingsLayer.offsetWidth;
+        builderToppingsLayer.classList.add('is-dropping');
+      }
     }
 
     // 4. Ice cubes visualization
@@ -321,10 +380,17 @@ document.addEventListener('DOMContentLoaded', () => {
           iceHTML += `<div class="ice-cube" style="transform: rotate(${rot}deg);"></div>`;
         }
         builderIceLayer.innerHTML = iceHTML;
+
+        if (triggerAnimation) {
+          builderIceLayer.classList.remove('is-clinking');
+          void builderIceLayer.offsetWidth;
+          builderIceLayer.classList.add('is-clinking');
+        }
       }
     }
 
     // 5. Texts & Price update
+    const sizeLabel = builderState.size === 'large' ? 'Grand (700ml)' : 'Standard (500ml)';
     const drinkTitle = `${builderState.flavor.name} ${builderState.base.name}`;
     if (builderDrinkName) {
       builderDrinkName.textContent = drinkTitle;
@@ -332,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (builderDrinkSummary) {
       builderDrinkSummary.innerHTML = `
-        ${builderState.base.name} Base &bull; ${builderState.flavor.name} &bull; ${builderState.topping.name} &bull; ${builderState.sweetness} Sugar &bull; ${builderState.ice}
+        ${builderState.base.name} &bull; ${builderState.flavor.name} &bull; ${builderState.topping.name} &bull; ${builderState.sweetness} &bull; ${builderState.ice} &bull; <span style="font-weight:700;">${sizeLabel}</span>
       `;
     }
 
@@ -359,7 +425,8 @@ document.addEventListener('DOMContentLoaded', () => {
         price: parseInt(chip.getAttribute('data-price'), 10),
         color: chip.getAttribute('data-color')
       };
-      updateBuilderVisual();
+      updateBuilderVisual(true);
+      setActiveStep(2, false);
     });
   });
 
@@ -372,7 +439,8 @@ document.addEventListener('DOMContentLoaded', () => {
         name: chip.getAttribute('data-value'),
         color: chip.getAttribute('data-color')
       };
-      updateBuilderVisual();
+      updateBuilderVisual(true);
+      setActiveStep(3, false);
     });
   });
 
@@ -386,7 +454,8 @@ document.addEventListener('DOMContentLoaded', () => {
         price: parseInt(chip.getAttribute('data-price'), 10),
         class: chip.getAttribute('data-topping-class')
       };
-      updateBuilderVisual();
+      updateBuilderVisual(true);
+      setActiveStep(4, false);
     });
   });
 
@@ -396,7 +465,8 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('#step-sweetness .slider-label-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       builderState.sweetness = btn.getAttribute('data-value');
-      updateBuilderVisual();
+      updateBuilderVisual(false);
+      setActiveStep(5, false);
     });
   });
 
@@ -406,15 +476,210 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('#step-ice .slider-label-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       builderState.ice = btn.getAttribute('data-value');
-      updateBuilderVisual();
+      updateBuilderVisual(true);
+      if (builderStatusText) {
+        builderStatusText.textContent = stepInstructions.complete;
+      }
     });
   });
+
+  // Next step buttons on each step card
+  document.querySelectorAll('.btn-next-step').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const nextStep = parseInt(btn.getAttribute('data-next'), 10);
+      setActiveStep(nextStep, true);
+    });
+  });
+
+  // Finish button on step 5
+  const btnFinishBuilder = document.getElementById('btn-finish-builder');
+  if (btnFinishBuilder && btnAddCustomBoba) {
+    btnFinishBuilder.addEventListener('click', () => {
+      btnAddCustomBoba.click();
+    });
+  }
+
+  // Stepper tabs navigation
+  document.querySelectorAll('.stepper-step').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const stepTarget = parseInt(tab.getAttribute('data-step'), 10);
+      setActiveStep(stepTarget, true);
+    });
+  });
+
+  // Size toggle (Standard 500ml vs Grand 700ml)
+  document.querySelectorAll('.size-opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.size-opt-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      builderState.size = btn.getAttribute('data-size');
+      builderState.sizeExtra = parseInt(btn.getAttribute('data-extra'), 10) || 0;
+      updateBuilderVisual(false);
+    });
+  });
+
+  // PROGRESSIVE GENERATOR: "Générer au fur et à mesure"
+  let isGenerating = false;
+  if (btnAutoGenerate) {
+    btnAutoGenerate.addEventListener('click', () => {
+      if (isGenerating) return;
+      isGenerating = true;
+      btnAutoGenerate.disabled = true;
+      const originalText = btnAutoGenerate.innerHTML;
+      btnAutoGenerate.innerHTML = `<span>⏳ Création en direct...</span>`;
+
+      // Available options from DOM chips
+      const baseChips = Array.from(document.querySelectorAll('#step-base .option-chip'));
+      const flavorChips = Array.from(document.querySelectorAll('#step-flavor .option-chip'));
+      const toppingChips = Array.from(document.querySelectorAll('#step-topping .option-chip'));
+      const sweetnessBtns = Array.from(document.querySelectorAll('#step-sweetness .slider-label-btn'));
+      const iceBtns = Array.from(document.querySelectorAll('#step-ice .slider-label-btn'));
+
+      // Helper for random pick
+      const pickRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+      const chosenBase = pickRandom(baseChips);
+      const chosenFlavor = pickRandom(flavorChips);
+      const chosenTopping = pickRandom(toppingChips);
+      const chosenSweetness = pickRandom(sweetnessBtns.slice(1, 4)); // 30%, 50%, or 70%
+      const chosenIce = pickRandom(iceBtns.slice(1, 3)); // Less Ice or Regular Ice
+
+      // Step 1: Base (0ms)
+      setActiveStep(1, true);
+      if (chosenBase) {
+        baseChips.forEach(c => c.classList.remove('selected'));
+        chosenBase.classList.add('selected');
+        builderState.base = {
+          name: chosenBase.getAttribute('data-value'),
+          price: parseInt(chosenBase.getAttribute('data-price'), 10),
+          color: chosenBase.getAttribute('data-color')
+        };
+        if (builderStatusText) {
+          builderStatusText.textContent = `Étape 1/5 : Versement de la base fraîche (${builderState.base.name})...`;
+        }
+        updateBuilderVisual(true);
+      }
+
+      // Step 2: Flavor (550ms)
+      setTimeout(() => {
+        setActiveStep(2, true);
+        if (chosenFlavor) {
+          flavorChips.forEach(c => c.classList.remove('selected'));
+          chosenFlavor.classList.add('selected');
+          builderState.flavor = {
+            name: chosenFlavor.getAttribute('data-value'),
+            color: chosenFlavor.getAttribute('data-color')
+          };
+          if (builderStatusText) {
+            builderStatusText.textContent = `Étape 2/5 : Infusion des arômes (${builderState.flavor.name})...`;
+          }
+          updateBuilderVisual(true);
+        }
+      }, 550);
+
+      // Step 3: Toppings (1150ms)
+      setTimeout(() => {
+        setActiveStep(3, true);
+        if (chosenTopping) {
+          toppingChips.forEach(c => c.classList.remove('selected'));
+          chosenTopping.classList.add('selected');
+          builderState.topping = {
+            name: chosenTopping.getAttribute('data-value'),
+            price: parseInt(chosenTopping.getAttribute('data-price'), 10),
+            class: chosenTopping.getAttribute('data-topping-class')
+          };
+          if (builderStatusText) {
+            builderStatusText.textContent = `Étape 3/5 : Ajout des perles fraîches (${builderState.topping.name})...`;
+          }
+          updateBuilderVisual(true);
+        }
+      }, 1150);
+
+      // Step 4: Sweetness (1700ms)
+      setTimeout(() => {
+        setActiveStep(4, true);
+        if (chosenSweetness) {
+          sweetnessBtns.forEach(b => b.classList.remove('active'));
+          chosenSweetness.classList.add('active');
+          builderState.sweetness = chosenSweetness.getAttribute('data-value');
+          if (builderStatusText) {
+            builderStatusText.textContent = `Étape 4/5 : Dosage de la douceur (${builderState.sweetness})...`;
+          }
+          updateBuilderVisual(false);
+        }
+      }, 1700);
+
+      // Step 5: Ice (2200ms)
+      setTimeout(() => {
+        setActiveStep(5, true);
+        if (chosenIce) {
+          iceBtns.forEach(b => b.classList.remove('active'));
+          chosenIce.classList.add('active');
+          builderState.ice = chosenIce.getAttribute('data-value');
+          if (builderStatusText) {
+            builderStatusText.textContent = `Étape 5/5 : Fraîcheur des glaçons (${builderState.ice})...`;
+          }
+          updateBuilderVisual(true);
+        }
+      }, 2200);
+
+      // Completion (2650ms)
+      setTimeout(() => {
+        if (builderStatusText) {
+          builderStatusText.textContent = `🎉 Votre Boba unique "${builderState.flavor.name} ${builderState.base.name}" est prêt !`;
+        }
+        btnAutoGenerate.disabled = false;
+        btnAutoGenerate.innerHTML = originalText;
+        isGenerating = false;
+        showToast(`✨ Recette générée au fur et à mesure : ${builderState.flavor.name} ${builderState.base.name} !`);
+      }, 2650);
+    });
+  }
+
+  // Reset Builder button: "Recommencer"
+  if (btnBuilderReset) {
+    btnBuilderReset.addEventListener('click', () => {
+      // Reset state to initial Classic Milk Tea
+      builderState.base = { name: 'Milk Tea', price: 2200, color: '#D2AC84' };
+      builderState.flavor = { name: 'Strawberry', color: '#F28299' };
+      builderState.topping = { name: 'Tapioca', price: 500, class: 'tapioca' };
+      builderState.sweetness = '50%';
+      builderState.ice = 'Regular Ice';
+      builderState.size = 'regular';
+      builderState.sizeExtra = 0;
+
+      // Reset DOM chips
+      document.querySelectorAll('#step-base .option-chip').forEach(c => {
+        c.classList.toggle('selected', c.getAttribute('data-value') === 'Milk Tea');
+      });
+      document.querySelectorAll('#step-flavor .option-chip').forEach(c => {
+        c.classList.toggle('selected', c.getAttribute('data-value') === 'Strawberry');
+      });
+      document.querySelectorAll('#step-topping .option-chip').forEach(c => {
+        c.classList.toggle('selected', c.getAttribute('data-value') === 'Tapioca');
+      });
+      document.querySelectorAll('#step-sweetness .slider-label-btn').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-value') === '50%');
+      });
+      document.querySelectorAll('#step-ice .slider-label-btn').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-value') === 'Regular Ice');
+      });
+      document.querySelectorAll('.size-opt-btn').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-size') === 'regular');
+      });
+
+      setActiveStep(1, true);
+      updateBuilderVisual(true);
+      showToast('Recette réinitialisée 🔄');
+    });
+  }
 
   // "Add to Order" custom drink button
   if (btnAddCustomBoba) {
     btnAddCustomBoba.addEventListener('click', () => {
-      const customDrinkTotal = builderState.base.price + builderState.topping.price;
-      const customName = `Custom ${builderState.flavor.name} ${builderState.base.name}`;
+      const customDrinkTotal = builderState.base.price + builderState.topping.price + builderState.sizeExtra;
+      const sizeLabel = builderState.size === 'large' ? ' (Grand 700ml)' : ' (Standard 500ml)';
+      const customName = `Custom ${builderState.flavor.name} ${builderState.base.name}${sizeLabel}`;
       const customSpecs = `${builderState.topping.name} &bull; ${builderState.sweetness} Sugar &bull; ${builderState.ice}`;
       
       addToCart({
@@ -426,13 +691,14 @@ document.addEventListener('DOMContentLoaded', () => {
         quantity: 1
       });
 
-      showToast(`Custom boba "${customName}" added to order! 🎨`);
+      showToast(`Boba sur-mesure "${customName}" ajouté au panier ! 🎨`);
       openCartDrawer();
     });
   }
 
-  // Initialize visual builder once
-  updateBuilderVisual();
+  // Initialize visual builder and step once
+  setActiveStep(1, false);
+  updateBuilderVisual(false);
 
   /* ==========================================================================
      3. CART & ORDER SYSTEM (PERSISTENT IN LOCALSTORAGE)
@@ -1542,4 +1808,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize 3D Orbit Carousel
   init3DOrbitCarousel();
-});
+}
+
+// Ensure execution whether loaded as deferred, module, or async
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initBobaBloom);
+} else {
+  initBobaBloom();
+}

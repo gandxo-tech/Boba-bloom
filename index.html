@@ -760,8 +760,60 @@
           <span class="section-badge">Customizer Lab</span>
           <h2 class="section-title">Build Your Boba.</h2>
           <p class="section-subtitle">
-            Craft your signature recipe step by step. Watch your cup transform in real time with your choices!
+            Composez votre recette personnalisée pas à pas. Regardez votre verre se remplir et évoluer en direct à chaque choix !
           </p>
+        </div>
+
+        <!-- Progressive Stepper & Action Controls -->
+        <div class="builder-controls-bar" id="builder-controls-bar">
+          <div class="builder-stepper-nav" role="tablist" aria-label="Étapes de composition du Boba">
+            <button type="button" class="stepper-step active" data-step="1" id="step-tab-1">
+              <span class="stepper-num">1</span>
+              <span class="stepper-label">Base</span>
+            </button>
+            <span class="stepper-arrow" aria-hidden="true">➔</span>
+            <button type="button" class="stepper-step" data-step="2" id="step-tab-2">
+              <span class="stepper-num">2</span>
+              <span class="stepper-label">Saveur</span>
+            </button>
+            <span class="stepper-arrow" aria-hidden="true">➔</span>
+            <button type="button" class="stepper-step" data-step="3" id="step-tab-3">
+              <span class="stepper-num">3</span>
+              <span class="stepper-label">Topping</span>
+            </button>
+            <span class="stepper-arrow" aria-hidden="true">➔</span>
+            <button type="button" class="stepper-step" data-step="4" id="step-tab-4">
+              <span class="stepper-num">4</span>
+              <span class="stepper-label">Sucre</span>
+            </button>
+            <span class="stepper-arrow" aria-hidden="true">➔</span>
+            <button type="button" class="stepper-step" data-step="5" id="step-tab-5">
+              <span class="stepper-num">5</span>
+              <span class="stepper-label">Glaçons</span>
+            </button>
+          </div>
+
+          <div class="builder-actions-group">
+            <button type="button" class="btn btn-secondary btn-generate-live" id="btn-auto-generate">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="sparkle-anim" aria-hidden="true">
+                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
+              </svg>
+              <span>Générer au fur et à mesure</span>
+            </button>
+            <button type="button" class="btn-builder-reset" id="btn-builder-reset" title="Réinitialiser la recette">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                <path d="M3 3v5h5"></path>
+              </svg>
+              <span>Recommencer</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Step Status & Brewing Message -->
+        <div class="builder-status-banner" id="builder-status-banner" aria-live="polite">
+          <span class="status-indicator-dot"></span>
+          <span id="builder-status-text">Étape 1 sur 5 : Choisissez votre base de thé fraîchement infusée.</span>
         </div>
 
         <div class="builder-layout">
@@ -803,6 +855,13 @@
               </div>
             </div>
 
+            <!-- Cup Size Switch -->
+            <div class="builder-size-toggle" id="builder-size-toggle">
+              <span class="size-toggle-label">Format :</span>
+              <button type="button" class="size-opt-btn active" data-size="regular" data-extra="0">Standard 500ml</button>
+              <button type="button" class="size-opt-btn" data-size="large" data-extra="400">Grand 700ml <small>(+400 F)</small></button>
+            </div>
+
             <!-- Dynamic Drink Details & Price Ticker -->
             <div class="builder-live-info">
               <div class="live-drink-name" id="builder-drink-name">Custom Milk Tea</div>
@@ -826,7 +885,7 @@
           <!-- Right: 5-Step Customizer Options -->
           <div class="builder-steps">
             <!-- STEP 1: BASE -->
-            <div class="builder-step-card" id="step-base">
+            <div class="builder-step-card active-step" id="step-base" data-step-index="1">
               <div class="step-header">
                 <span class="step-number">1</span>
                 <h3 class="step-title">Choose Your Tea Base</h3>
@@ -854,10 +913,13 @@
                   <span class="option-chip-extra">+300 FCFA</span>
                 </button>
               </div>
+              <div class="step-footer-action">
+                <button type="button" class="btn-next-step" data-next="2">Étape suivante : Saveur d'infusion ➔</button>
+              </div>
             </div>
 
             <!-- STEP 2: FLAVOR -->
-            <div class="builder-step-card" id="step-flavor">
+            <div class="builder-step-card" id="step-flavor" data-step-index="2">
               <div class="step-header">
                 <span class="step-number">2</span>
                 <h3 class="step-title">Choose Your Flavor Infusion</h3>
@@ -890,10 +952,13 @@
                   <span class="option-chip-extra">Caramel swirl</span>
                 </button>
               </div>
+              <div class="step-footer-action">
+                <button type="button" class="btn-next-step" data-next="3">Étape suivante : Toppings & perles ➔</button>
+              </div>
             </div>
 
             <!-- STEP 3: TOPPING -->
-            <div class="builder-step-card" id="step-topping">
+            <div class="builder-step-card" id="step-topping" data-step-index="3">
               <div class="step-header">
                 <span class="step-number">3</span>
                 <h3 class="step-title">Choose Your Primary Topping</h3>
@@ -921,10 +986,13 @@
                   <span class="option-chip-extra">Crisp & refreshing</span>
                 </button>
               </div>
+              <div class="step-footer-action">
+                <button type="button" class="btn-next-step" data-next="4">Étape suivante : Niveau de douceur ➔</button>
+              </div>
             </div>
 
             <!-- STEP 4: SWEETNESS -->
-            <div class="builder-step-card" id="step-sweetness">
+            <div class="builder-step-card" id="step-sweetness" data-step-index="4">
               <div class="step-header">
                 <span class="step-number">4</span>
                 <h3 class="step-title">Select Sweetness Level</h3>
@@ -937,10 +1005,13 @@
                 <button type="button" class="slider-label-btn" data-value="70%">70% (Sweet)</button>
                 <button type="button" class="slider-label-btn" data-value="100%">100% (Full)</button>
               </div>
+              <div class="step-footer-action">
+                <button type="button" class="btn-next-step" data-next="5">Étape suivante : Quantité de glaçons ➔</button>
+              </div>
             </div>
 
             <!-- STEP 5: ICE LEVEL -->
-            <div class="builder-step-card" id="step-ice">
+            <div class="builder-step-card" id="step-ice" data-step-index="5">
               <div class="step-header">
                 <span class="step-number">5</span>
                 <h3 class="step-title">Select Ice Level</h3>
@@ -951,6 +1022,9 @@
                 <button type="button" class="slider-label-btn" data-value="Less Ice">Less Ice</button>
                 <button type="button" class="slider-label-btn active" data-value="Regular Ice">Regular Ice</button>
                 <button type="button" class="slider-label-btn" data-value="Extra Ice">Extra Ice</button>
+              </div>
+              <div class="step-footer-action">
+                <button type="button" class="btn-finish-step" id="btn-finish-builder">🎉 Recette prête ! Ajouter à ma commande</button>
               </div>
             </div>
           </div>
@@ -1611,6 +1685,6 @@
   </button>
 
   <!-- Vanilla JavaScript Logic -->
-  <script src="./script.js" defer></script>
+  <script type="module" src="./script.js"></script>
 </body>
 </html>
