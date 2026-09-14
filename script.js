@@ -885,11 +885,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
   startSlideTimer();
 
-  // Pause on hover
+  // Pause on hover & touch swipe gestures for mobile
   const testimonialContainer = document.querySelector('.testimonials-slider-container');
   if (testimonialContainer) {
     testimonialContainer.addEventListener('mouseenter', () => clearInterval(autoSlideTimer));
     testimonialContainer.addEventListener('mouseleave', startSlideTimer);
+
+    // Touch swipe support for testimonials
+    let tStartX = 0;
+    let tStartY = 0;
+    testimonialContainer.addEventListener('touchstart', (e) => {
+      if (!e.touches || e.touches.length === 0) return;
+      tStartX = e.touches[0].clientX;
+      tStartY = e.touches[0].clientY;
+      clearInterval(autoSlideTimer);
+    }, { passive: true });
+
+    testimonialContainer.addEventListener('touchend', (e) => {
+      if (!e.changedTouches || e.changedTouches.length === 0) return;
+      const tEndX = e.changedTouches[0].clientX;
+      const tEndY = e.changedTouches[0].clientY;
+      const diffX = tEndX - tStartX;
+      const diffY = tEndY - tStartY;
+
+      // Check if horizontal swipe
+      if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX < 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+      resetSlideTimer();
+    }, { passive: true });
   }
 
   /* ==========================================================================
@@ -1205,6 +1233,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const bobaStage = document.getElementById('boba-3d-stage');
     const btnToggle = document.getElementById('btn-orbit-toggle');
     const btnReverse = document.getElementById('btn-orbit-reverse');
+    const btnPrev = document.getElementById('btn-orbit-prev');
+    const btnNext = document.getElementById('btn-orbit-next');
+    const stagePrev = document.getElementById('stage-orbit-prev');
+    const stageNext = document.getElementById('stage-orbit-next');
     const speedBtns = document.querySelectorAll('.orbit-speed-btn');
     const toggleText = document.getElementById('orbit-toggle-text');
     const iconPause = document.querySelector('.ctrl-icon-pause');
@@ -1214,6 +1246,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Rotation State Variables
     let rotationAngle = 0;
+    let targetAngle = null;
     const baseSpeed = 0.28; // degrees per frame (~17 deg/sec)
     let speedMultiplier = 1;
     let direction = 1; // 1 for clockwise, -1 for counter-clockwise
@@ -1225,6 +1258,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastDragX = 0;
     let lastDragTime = 0;
     let totalDragMovement = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchAxisDetermined = false;
+    let isHorizontalGesture = false;
 
     function getPerspectiveConfig() {
       const w = window.innerWidth;
@@ -1239,24 +1276,41 @@ document.addEventListener('DOMContentLoaded', () => {
       carouselInner.style.transform = `perspective(${config.perspective}px) rotateX(${config.rotateX}deg) rotateY(${normalized}deg)`;
     }
 
+    // Step navigation by 1 card (36 degrees)
+    function stepOrbit(directionStep) {
+      targetAngle = (targetAngle !== null ? targetAngle : rotationAngle) + (directionStep * 36);
+      dragVelocity = 0;
+    }
+
     // High-performance 60fps animation loop
     function tick() {
       if (!isDragging) {
-        // Smooth hover deceleration & acceleration
-        if (isHovered && !isPaused) {
-          hoverDamping += (0 - hoverDamping) * 0.12;
-        } else if (!isHovered && !isPaused) {
-          hoverDamping += (1 - hoverDamping) * 0.08;
-        }
-
-        // Apply drag throw inertia
-        if (Math.abs(dragVelocity) > 0.02) {
-          rotationAngle += dragVelocity;
-          dragVelocity *= 0.93; // smooth friction
+        // Smooth interpolation towards targetAngle if stepping or centering a card
+        if (targetAngle !== null) {
+          const diff = targetAngle - rotationAngle;
+          if (Math.abs(diff) > 0.05) {
+            rotationAngle += diff * 0.14;
+          } else {
+            rotationAngle = targetAngle;
+            targetAngle = null;
+          }
         } else {
-          dragVelocity = 0;
-          if (!isPaused) {
-            rotationAngle += direction * baseSpeed * speedMultiplier * hoverDamping;
+          // Smooth hover deceleration & acceleration
+          if (isHovered && !isPaused) {
+            hoverDamping += (0 - hoverDamping) * 0.12;
+          } else if (!isHovered && !isPaused) {
+            hoverDamping += (1 - hoverDamping) * 0.08;
+          }
+
+          // Apply drag throw inertia
+          if (Math.abs(dragVelocity) > 0.02) {
+            rotationAngle += dragVelocity;
+            dragVelocity *= 0.93; // smooth friction
+          } else {
+            dragVelocity = 0;
+            if (!isPaused) {
+              rotationAngle += direction * baseSpeed * speedMultiplier * hoverDamping;
+            }
           }
         }
       }
@@ -1268,10 +1322,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Launch RAF loop
     requestAnimationFrame(tick);
 
+    // Step navigation buttons
+    if (btnPrev) btnPrev.addEventListener('click', () => stepOrbit(1));
+    if (btnNext) btnNext.addEventListener('click', () => stepOrbit(-1));
+    if (stagePrev) stagePrev.addEventListener('click', () => stepOrbit(1));
+    if (stageNext) stageNext.addEventListener('click', () => stepOrbit(-1));
+
     // Play / Pause toggle
     if (btnToggle) {
       btnToggle.addEventListener('click', () => {
         isPaused = !isPaused;
+        targetAngle = null;
         if (toggleText) toggleText.textContent = isPaused ? 'Reprendre' : 'Pause';
         if (iconPause) iconPause.style.display = isPaused ? 'none' : 'block';
         if (iconPlay) iconPlay.style.display = isPaused ? 'block' : 'none';
@@ -1283,6 +1344,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnReverse) {
       btnReverse.addEventListener('click', () => {
         direction = -direction;
+        targetAngle = null;
         btnReverse.classList.toggle('active', direction === -1);
       });
     }
@@ -1308,28 +1370,56 @@ document.addEventListener('DOMContentLoaded', () => {
         isHovered = false;
         if (isDragging) onPointerUp();
       });
+
+      // Mouse Wheel / Trackpad 2-finger scrolling
+      bobaStage.addEventListener('wheel', (e) => {
+        const isHoriz = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+        if (isHoriz || e.shiftKey) {
+          // Horizontal trackpad swipe or shift+wheel: direct scroll control
+          e.preventDefault();
+          targetAngle = null;
+          const scrollDelta = isHoriz ? e.deltaX : e.deltaY;
+          rotationAngle -= scrollDelta * 0.45;
+        } else if (Math.abs(e.deltaY) > 0) {
+          // Vertical wheel on stage: subtle rotational glide without trapping vertical page scroll
+          targetAngle = null;
+          dragVelocity -= Math.sign(e.deltaY) * Math.min(Math.abs(e.deltaY) * 0.035, 2.5);
+        }
+      }, { passive: false });
+
+      // Keyboard arrow navigation when hovering over the carousel
+      window.addEventListener('keydown', (e) => {
+        if (!isHovered) return;
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          stepOrbit(1);
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          stepOrbit(-1);
+        }
+      });
     }
 
-    // Pointer down for swipe/drag
-    function onPointerDown(e) {
-      if (e.target.closest('button.card-drink-btn')) return;
+    // Mouse Pointer down for dragging
+    function onMouseDown(e) {
+      if (e.target.closest('button')) return;
       isDragging = true;
+      targetAngle = null;
       totalDragMovement = 0;
-      const clientX = e.pageX !== undefined ? e.pageX : (e.touches && e.touches[0].pageX);
-      lastDragX = clientX;
+      lastDragX = e.pageX;
       lastDragTime = performance.now();
       dragVelocity = 0;
     }
 
-    function onPointerMove(e) {
+    function onMouseMove(e) {
       if (!isDragging) return;
-      const clientX = e.pageX !== undefined ? e.pageX : (e.touches && e.touches[0].pageX);
+      const clientX = e.pageX;
       const diffX = clientX - lastDragX;
       totalDragMovement += Math.abs(diffX);
 
       const now = performance.now();
       const dt = now - lastDragTime || 16;
-      dragVelocity = (diffX / dt) * 16 * 0.35; // velocity in deg/frame
+      dragVelocity = (diffX / dt) * 16 * 0.35;
 
       rotationAngle += diffX * 0.35;
       lastDragX = clientX;
@@ -1339,29 +1429,81 @@ document.addEventListener('DOMContentLoaded', () => {
     function onPointerUp() {
       if (!isDragging) return;
       isDragging = false;
-      // Cap throw velocity for gentle organic glide
+      touchAxisDetermined = false;
       if (Math.abs(dragVelocity) > 6) {
         dragVelocity = Math.sign(dragVelocity) * 6;
       }
     }
 
+    // Touch events with intelligent Axis Locking (never blocks vertical page scrolling)
+    function onTouchStart(e) {
+      if (e.target.closest('button')) return;
+      if (!e.touches || e.touches.length === 0) return;
+
+      isDragging = true;
+      targetAngle = null;
+      totalDragMovement = 0;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      lastDragX = touchStartX;
+      lastDragTime = performance.now();
+      dragVelocity = 0;
+      touchAxisDetermined = false;
+      isHorizontalGesture = false;
+    }
+
+    function onTouchMove(e) {
+      if (!isDragging || !e.touches || e.touches.length === 0) return;
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      const diffX = currentX - lastDragX;
+      const totalDiffX = currentX - touchStartX;
+      const totalDiffY = currentY - touchStartY;
+
+      // Determine if user wants to scroll page (vertical) or spin carousel (horizontal)
+      if (!touchAxisDetermined) {
+        if (Math.abs(totalDiffY) > 8 && Math.abs(totalDiffY) > Math.abs(totalDiffX)) {
+          // Vertical swipe: release drag so browser scrolls the page smoothly!
+          isDragging = false;
+          touchAxisDetermined = true;
+          isHorizontalGesture = false;
+          return;
+        } else if (Math.abs(totalDiffX) > 8) {
+          touchAxisDetermined = true;
+          isHorizontalGesture = true;
+        }
+      }
+
+      if (isHorizontalGesture) {
+        totalDragMovement += Math.abs(diffX);
+        const now = performance.now();
+        const dt = now - lastDragTime || 16;
+        dragVelocity = (diffX / dt) * 16 * 0.35;
+
+        rotationAngle += diffX * 0.35;
+        lastDragX = currentX;
+        lastDragTime = now;
+      }
+    }
+
     if (bobaStage) {
-      bobaStage.addEventListener('mousedown', onPointerDown);
-      window.addEventListener('mousemove', onPointerMove);
+      bobaStage.addEventListener('mousedown', onMouseDown);
+      window.addEventListener('mousemove', onMouseMove);
       window.addEventListener('mouseup', onPointerUp);
 
-      bobaStage.addEventListener('touchstart', onPointerDown, { passive: true });
-      window.addEventListener('touchmove', onPointerMove, { passive: true });
+      bobaStage.addEventListener('touchstart', onTouchStart, { passive: true });
+      window.addEventListener('touchmove', onTouchMove, { passive: true });
       window.addEventListener('touchend', onPointerUp);
     }
 
-    // Card interactions & Add to Cart
+    // Card interactions: Click card to bring to front and center, or click "Ajouter" to order
     const cards = carouselInner.querySelectorAll('.card');
     cards.forEach(card => {
       const name = card.getAttribute('data-name');
       const price = parseInt(card.getAttribute('data-price'), 10);
       const img = card.getAttribute('data-img');
       const btn = card.querySelector('.card-drink-btn');
+      const cardIndex = parseInt(card.style.getPropertyValue('--index'), 10) || 0;
 
       function handleAddDrink(e) {
         if (e) e.stopPropagation();
@@ -1384,9 +1526,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       card.addEventListener('click', (e) => {
-        // Only trigger order when user tapped/clicked without a drag gesture
+        // Only trigger if user tapped/clicked without a swipe gesture
         if (totalDragMovement < 8 && !e.target.closest('.card-drink-btn')) {
-          handleAddDrink(e);
+          // Bring this card smoothly to front facing the user!
+          const cardAngle = cardIndex * 36;
+          // Target angle brings the card to 0deg facing front
+          const nearestBase = Math.round((rotationAngle + cardAngle) / 360) * 360;
+          targetAngle = nearestBase - cardAngle;
+          dragVelocity = 0;
+          showToast(`Défilé vers: ${name}`);
         }
       });
     });

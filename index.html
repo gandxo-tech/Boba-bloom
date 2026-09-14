@@ -338,6 +338,13 @@
 
         <!-- Orbit Toolbar Controls -->
         <div class="orbit-controls-bar">
+          <button type="button" class="orbit-ctrl-btn" id="btn-orbit-prev" aria-label="Boisson précédente dans le carrousel">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            <span>Précédent</span>
+          </button>
+
           <button type="button" class="orbit-ctrl-btn" id="btn-orbit-toggle" aria-label="Pause or play rotation">
             <svg class="ctrl-icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
               <rect x="6" y="4" width="4" height="16" rx="1"></rect>
@@ -347,6 +354,13 @@
               <polygon points="5 3 19 12 5 21 5 3"></polygon>
             </svg>
             <span id="orbit-toggle-text">Pause</span>
+          </button>
+
+          <button type="button" class="orbit-ctrl-btn" id="btn-orbit-next" aria-label="Boisson suivante dans le carrousel">
+            <span>Suivant</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
           </button>
 
           <button type="button" class="orbit-ctrl-btn" id="btn-orbit-reverse" aria-label="Reverse rotation direction">
@@ -364,12 +378,23 @@
           </div>
           
           <div class="orbit-hint-pill">
-            <span>👆 Glissez ou survolez une carte</span>
+            <span>👆 Défilez avec la molette, flèches ou glissez</span>
           </div>
         </div>
 
         <!-- Uiverse 3D Cylinder Container -->
         <div class="boba-3d-stage" id="boba-3d-stage">
+          <!-- Floating Step Navigation Arrows -->
+          <button type="button" class="orbit-stage-arrow orbit-stage-prev" id="stage-orbit-prev" aria-label="Défiler à gauche">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button type="button" class="orbit-stage-arrow orbit-stage-next" id="stage-orbit-next" aria-label="Défiler à droite">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
           <!-- From Uiverse.io by ilkhoeri - Adapted for Boba Bloom -->
           <div class="wrapper">
             <div class="inner" id="carousel-3d-inner" style="--quantity: 10;">

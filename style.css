@@ -2774,6 +2774,25 @@ img {
   .products-grid, .menu-grid {
     grid-template-columns: 1fr;
   }
+  .menu-controls {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 6px 12px 14px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 8px;
+    margin-left: -12px;
+    margin-right: -12px;
+  }
+  .menu-controls::-webkit-scrollbar {
+    display: none;
+  }
+  .category-tab {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
   .hero-cup-card {
     padding: var(--space-md);
   }
@@ -2935,6 +2954,60 @@ img {
   user-select: none;
   touch-action: pan-y;
   overflow: visible;
+}
+
+/* Floating Navigation Arrows on 3D Stage */
+.orbit-stage-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  color: var(--color-chocolate);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 25;
+  box-shadow: 0 8px 24px rgba(35, 21, 17, 0.12), inset 0 1px 2px #FFFFFF;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.orbit-stage-arrow:hover {
+  background: #FFFFFF;
+  color: var(--color-raspberry);
+  transform: translateY(-50%) scale(1.12);
+  box-shadow: 0 12px 28px rgba(232, 67, 101, 0.25);
+}
+
+.orbit-stage-arrow:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.orbit-stage-prev {
+  left: 20px;
+}
+
+.orbit-stage-next {
+  right: 20px;
+}
+
+@media (max-width: 768px) {
+  .orbit-stage-arrow {
+    width: 42px;
+    height: 42px;
+  }
+  .orbit-stage-prev {
+    left: 8px;
+  }
+  .orbit-stage-next {
+    right: 8px;
+  }
 }
 
 /* Floating ambient reflection aura below the 3D orbit cylinder */
