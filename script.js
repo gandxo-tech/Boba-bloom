@@ -144,10 +144,15 @@ function initBobaBloom() {
     if (filtered.length === 0) {
       menuGrid.innerHTML = `
         <div class="menu-empty-state">
-          <div style="font-size: 2.5rem; margin-bottom: 8px;">🔍</div>
-          <h3 style="font-size: 1.25rem; margin-bottom: 6px;">No drinks found</h3>
+          <div style="margin-bottom: 8px; color: var(--color-gold);">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+          <h3 style="font-size: 1.25rem; margin-bottom: 6px;">Aucune boisson trouvée</h3>
           <p style="color: var(--color-text-muted); font-size: 0.9rem;">
-            Try checking for different keywords like "taro", "matcha", or "pearls".
+            Essayez des mots-clés comme « taro », « matcha » ou « jasmin ».
           </p>
         </div>
       `;
@@ -180,7 +185,7 @@ function initBobaBloom() {
                 <line x1="12" y1="5" x2="12" y2="19"></line>
                 <line x1="5" y1="12" x2="19" y2="12"></line>
               </svg>
-              <span>Add</span>
+              <span>Ajouter</span>
             </button>
           </div>
         </div>
@@ -198,10 +203,10 @@ function initBobaBloom() {
           name: name,
           price: price,
           image: img,
-          specs: 'Signature Recipe &bull; Regular Ice',
+          specs: 'Recette Signature &bull; Glaçons modérés',
           quantity: 1
         });
-        showToast(`Added ${name} to your order! 🧋`);
+        showToast(`${name} ajouté à votre commande`);
       });
     });
   }
@@ -239,10 +244,10 @@ function initBobaBloom() {
         name: name,
         price: price,
         image: img,
-        specs: 'Best Seller &bull; Fresh Pearls',
+        specs: 'Sélection Exclusive &bull; Perles Fraîches',
         quantity: 1
       });
-      showToast(`Added ${name} to your order! 🌸`);
+      showToast(`${name} ajouté à votre commande`);
     });
   });
 
@@ -294,7 +299,7 @@ function initBobaBloom() {
     3: 'Étape 3 sur 5 : Sélectionnez vos perles de tapioca ou toppings frais.',
     4: 'Étape 4 sur 5 : Personnalisez votre niveau de douceur.',
     5: 'Étape 5 sur 5 : Ajustez la quantité de glaçons rafraîchissants.',
-    complete: '🎉 Recette complète et équilibrée ! Prête à être savourée.'
+    complete: 'Recette harmonieuse et équilibrée. Prête à être dégustée.'
   };
 
   function setActiveStep(stepNum, scrollIntoView = false) {
@@ -626,12 +631,12 @@ function initBobaBloom() {
       // Completion (2650ms)
       setTimeout(() => {
         if (builderStatusText) {
-          builderStatusText.textContent = `🎉 Votre Boba unique "${builderState.flavor.name} ${builderState.base.name}" est prêt !`;
+          builderStatusText.textContent = `Votre création sur-mesure "${builderState.flavor.name} ${builderState.base.name}" est prête.`;
         }
         btnAutoGenerate.disabled = false;
         btnAutoGenerate.innerHTML = originalText;
         isGenerating = false;
-        showToast(`✨ Recette générée au fur et à mesure : ${builderState.flavor.name} ${builderState.base.name} !`);
+        showToast(`Recette harmonisée : ${builderState.flavor.name} ${builderState.base.name}`);
       }, 2650);
     });
   }
@@ -670,7 +675,7 @@ function initBobaBloom() {
 
       setActiveStep(1, true);
       updateBuilderVisual(true);
-      showToast('Recette réinitialisée 🔄');
+      showToast('Composition réinitialisée');
     });
   }
 
@@ -691,7 +696,7 @@ function initBobaBloom() {
         quantity: 1
       });
 
-      showToast(`Boba sur-mesure "${customName}" ajouté au panier ! 🎨`);
+      showToast(`Création "${customName}" ajoutée au panier`);
       openCartDrawer();
     });
   }
@@ -773,7 +778,7 @@ function initBobaBloom() {
       if (subtotal >= FREE_DELIVERY_THRESHOLD) {
         meterFill.style.width = '100%';
         meterPct.textContent = '100%';
-        meterLabel.textContent = '✨ Livraison offerte débloquée à Cotonou !';
+        meterLabel.textContent = 'Livraison offerte débloquée à Cotonou !';
       } else {
         const remaining = FREE_DELIVERY_THRESHOLD - subtotal;
         const pct = Math.min(100, Math.round((subtotal / FREE_DELIVERY_THRESHOLD) * 100));
@@ -945,11 +950,11 @@ function initBobaBloom() {
       if (code === 'BLOOM10') {
         appliedPromo = { code: 'BLOOM10', rate: 0.10 };
         renderCart();
-        showToast('Code privilège BLOOM10 appliqué (-10%) ! ✨');
+        showToast('Code privilège BLOOM10 appliqué (-10%)');
       } else if (code === 'COTONOU') {
         appliedPromo = { code: 'COTONOU', rate: 0.15 };
         renderCart();
-        showToast('Privilège Cotonou : -15% sur votre commande ! 🌸');
+        showToast('Privilège Cotonou : -15% sur votre commande');
       } else if (code === '') {
         showToast('Veuillez saisir un code privilège.');
       } else {
@@ -1047,7 +1052,7 @@ function initBobaBloom() {
         receiptDetails.innerHTML = `
           <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid rgba(0,0,0,0.08); padding-bottom:8px;">
             <span><strong>N° Commande :</strong> ${orderNum}</span>
-            <span><strong>Statut :</strong> Préparation en cours 🧋</span>
+            <span><strong>Statut :</strong> Préparation artisanale</span>
           </div>
           <div style="margin-bottom:8px;">
             <div><strong>Client :</strong> ${custName} (${custPhone})</div>
@@ -1068,7 +1073,7 @@ function initBobaBloom() {
             <strong style="color:var(--color-gold); font-size:1.15rem; font-family:var(--font-serif);">${grandTotal.toLocaleString()} FCFA</strong>
           </div>
           <div style="margin-top:10px; font-size:0.82rem; color:var(--color-text-muted); text-align:center;">
-            ⏱ Prêt au salon dans : <strong>15 à 20 minutes</strong>
+            Prêt au salon dans : <strong>15 à 20 minutes</strong>
           </div>
         `;
       }
@@ -1089,7 +1094,7 @@ function initBobaBloom() {
       cart = [];
       appliedPromo = null;
       renderCart();
-      showToast(`Commande ${orderNum} validée ! À très bientôt au Salon 🌸`);
+      showToast(`Commande ${orderNum} validée. À très bientôt au Salon.`);
     });
   }
 
@@ -1381,7 +1386,9 @@ function initBobaBloom() {
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.innerHTML = `
-      <span>🧋</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--color-gold); flex-shrink:0;">
+        <path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+      </svg>
       <span>${message}</span>
     `;
     toastContainer.appendChild(toast);
