@@ -1050,27 +1050,27 @@ function initBobaBloom() {
       // Render Receipt View
       if (receiptDetails) {
         receiptDetails.innerHTML = `
-          <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid rgba(0,0,0,0.08); padding-bottom:8px;">
+          <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px; margin-bottom:8px; border-bottom:1px solid rgba(0,0,0,0.08); padding-bottom:8px;">
             <span><strong>N° Commande :</strong> ${orderNum}</span>
             <span><strong>Statut :</strong> Préparation artisanale</span>
           </div>
-          <div style="margin-bottom:8px;">
+          <div style="margin-bottom:8px; line-height:1.5;">
             <div><strong>Client :</strong> ${custName} (${custPhone})</div>
             <div><strong>Mode :</strong> ${orderType === 'delivery' ? `Livraison à ${address}` : 'Retrait au Salon Haie Vive'}</div>
             ${notes ? `<div><strong>Précisions :</strong> <em>${notes}</em></div>` : ''}
           </div>
           <div style="border-top:1px dashed rgba(0,0,0,0.15); padding-top:8px; margin-top:8px;">
-            <div style="font-weight:700; margin-bottom:4px;">Créations commandées :</div>
+            <div style="font-weight:700; margin-bottom:6px;">Créations commandées :</div>
             ${cart.map(i => `
-              <div style="display:flex; justify-content:space-between; font-size:0.84rem; margin-bottom:2px;">
-                <span>${i.quantity}x ${i.name}</span>
-                <span>${(i.price * i.quantity).toLocaleString()} FCFA</span>
+              <div style="display:flex; justify-content:space-between; gap:10px; font-size:0.85rem; margin-bottom:4px; align-items:baseline;">
+                <span style="flex:1; min-width:0; word-break:break-word;">${i.quantity}x ${i.name}</span>
+                <span style="white-space:nowrap; font-weight:600; text-align:right;">${(i.price * i.quantity).toLocaleString()} FCFA</span>
               </div>
             `).join('')}
           </div>
-          <div style="border-top:1px solid rgba(0,0,0,0.1); padding-top:8px; margin-top:8px; display:flex; justify-content:space-between;">
-            <strong>Total Réglé :</strong>
-            <strong style="color:var(--color-gold); font-size:1.15rem; font-family:var(--font-serif);">${grandTotal.toLocaleString()} FCFA</strong>
+          <div style="border-top:1px solid rgba(0,0,0,0.1); padding-top:8px; margin-top:8px; display:flex; justify-content:space-between; gap:10px; align-items:baseline;">
+            <span><strong>Total Réglé :</strong></span>
+            <strong style="color:var(--color-gold); font-size:1.15rem; font-family:var(--font-serif); white-space:nowrap;">${grandTotal.toLocaleString()} FCFA</strong>
           </div>
           <div style="margin-top:10px; font-size:0.82rem; color:var(--color-text-muted); text-align:center;">
             Prêt au salon dans : <strong>15 à 20 minutes</strong>
@@ -1329,6 +1329,11 @@ function initBobaBloom() {
 
   if (mobileNavToggle) {
     mobileNavToggle.addEventListener('click', toggleMobileDrawer);
+  }
+
+  const mobileDrawerClose = document.getElementById('mobile-drawer-close');
+  if (mobileDrawerClose) {
+    mobileDrawerClose.addEventListener('click', toggleMobileDrawer);
   }
 
   // Close mobile drawer on link click

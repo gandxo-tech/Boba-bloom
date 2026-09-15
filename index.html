@@ -78,7 +78,7 @@
     <div class="top-bar-content">
       <div class="top-bar-left">
         <span class="top-live-dot" aria-hidden="true"></span>
-        <span><strong>Salon Ouvert</strong> &bull; Service continu 10h00 – 21h00 &bull; Haie Vive, Cotonou</span>
+        <span><strong>Salon de Thé de Prestige</strong> &bull; Quartier Haie Vive, Cotonou</span>
         <span class="top-bar-divider">|</span>
         <span>Livraison Privilège Cotonou (Offerte dès 6 000 FCFA &bull; Code <strong>BLOOM10</strong>)</span>
       </div>
@@ -161,6 +161,20 @@
 
   <!-- Mobile Navigation Drawer -->
   <div class="mobile-drawer" id="mobile-drawer" aria-label="Navigation Mobile" role="dialog" aria-modal="true" hidden>
+    <div class="mobile-drawer-top">
+      <div class="brand-logo">
+        <div class="brand-logo-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="brand-logo-text">BOBA <span>BLOOM</span></div>
+      </div>
+      <button class="modal-close-btn" id="mobile-drawer-close" aria-label="Fermer le menu de navigation" style="position:static;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
     <ul class="mobile-drawer-links">
       <li><a href="#hero" class="mobile-drawer-link" id="mobile-link-home">Accueil</a></li>
       <li><a href="#sommelier" class="mobile-drawer-link" id="mobile-link-sommelier">Sommelier & Accords</a></li>
@@ -171,10 +185,10 @@
       <li><a href="#location" class="mobile-drawer-link" id="mobile-link-contact">Accès & Horaires</a></li>
     </ul>
     <div class="mobile-drawer-footer">
-      <p style="font-size:0.88rem; color:var(--color-text-muted); margin-bottom:14px; line-height:1.5;">Haie Vive, Cotonou &bull; Ouvert du Lundi au Dimanche</p>
+      <p style="font-size:0.88rem; color:var(--color-text-muted); margin-bottom:14px; line-height:1.5;">Haie Vive, Cotonou &bull; Maison de thé d'exception</p>
       <div style="display:flex; gap:10px;">
-        <button type="button" class="btn btn-secondary" id="mobile-drawer-reserve" style="flex:1;">Réserver Table</button>
-        <a href="#menu" class="btn btn-primary" id="mobile-drawer-cta" style="flex:1;">Commander</a>
+        <button type="button" class="btn btn-secondary" id="mobile-drawer-reserve" style="flex:1; padding:12px 14px;">Réserver Table</button>
+        <a href="#menu" class="btn btn-primary" id="mobile-drawer-cta" style="flex:1; padding:12px 14px;">Commander</a>
       </div>
     </div>
   </div>
@@ -1126,7 +1140,7 @@
               </span>
               <span class="vip-meta-item">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Service continu de 10h00 à 21h00
+                Dégustation sur place & À emporter
               </span>
               <span class="vip-meta-item">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -1148,27 +1162,6 @@
           <div class="vip-booking-visual">
             <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80" alt="Salon privé feutré Boba Bloom Haie Vive Cotonou" loading="lazy" />
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== FINAL CTA SECTION ==================== -->
-    <section class="section final-cta-section" id="final-cta">
-      <div class="container final-cta-content">
-        <h2 class="final-cta-title">Quelle sera votre prochaine création ?</h2>
-        <p class="final-cta-text">Infusion noble, perles tièdes d'Okinawa ou accord sommelier : vivez l'expérience Boba Bloom.</p>
-        <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-top:24px;">
-          <a href="#builder" class="btn final-cta-btn" id="final-cta-build-btn">
-            <span>Créer mon Boba sur-mesure</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M12 2v20"></path>
-              <path d="m17 5-5-3-5 3"></path>
-              <path d="m17 19-5 3-5-3"></path>
-            </svg>
-          </a>
-          <button type="button" class="btn btn-secondary" id="final-cta-reserve-btn" style="background:#FFFFFF; color:var(--color-espresso); border-color:#FFFFFF;">
-            <span>Réserver au Salon</span>
-          </button>
         </div>
       </div>
     </section>
@@ -1228,9 +1221,8 @@
         <div>
           <h4 class="footer-title">Salon Haie Vive</h4>
           <ul class="footer-links">
-            <li>Quartier Haie Vive, Cotonou</li>
-            <li>Lundi – Samedi : 10h00 – 21h30</li>
-            <li>Dimanche : 13h00 – 20h30</li>
+            <li>Quartier Haie Vive, Cotonou, Bénin</li>
+            <li>Espace dégustation & Salon climatisé</li>
             <li>concierge@bobabloom.bj</li>
             <li>+229 97 00 00 00</li>
           </ul>
@@ -1412,11 +1404,11 @@
             <!-- Populated via script.js -->
           </div>
 
-          <div style="display: flex; gap: 10px; margin-top: var(--space-md);">
-            <a id="btn-whatsapp-track" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-dark" style="flex:1;">
+          <div class="receipt-actions-group">
+            <a id="btn-whatsapp-track" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-dark">
               <span>Suivre sur WhatsApp</span>
             </a>
-            <button type="button" class="btn btn-secondary" id="btn-receipt-done" style="flex:1;">
+            <button type="button" class="btn btn-secondary" id="btn-receipt-done">
               Terminer
             </button>
           </div>
@@ -1483,7 +1475,7 @@
           <input type="text" id="vip-name" class="form-input" placeholder="ex. Sèna Lawson" required />
         </div>
 
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+        <div class="form-row-2col">
           <div class="form-group">
             <label for="vip-phone" class="form-label">Numéro WhatsApp (+229) *</label>
             <input type="tel" id="vip-phone" class="form-input" placeholder="+229 97 00 00 00" required />
@@ -1500,7 +1492,7 @@
           </div>
         </div>
 
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+        <div class="form-row-2col">
           <div class="form-group">
             <label for="vip-date" class="form-label">Date souhaitée *</label>
             <input type="date" id="vip-date" class="form-input" required />
