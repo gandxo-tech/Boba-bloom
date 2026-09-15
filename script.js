@@ -764,7 +764,7 @@ function initBobaBloom() {
       setTimeout(() => cartCounter.classList.remove('bump'), 350);
     }
     if (cartDrawerCount) {
-      cartDrawerCount.textContent = `${count} item${count === 1 ? '' : 's'}`;
+      cartDrawerCount.textContent = `${count} article${count > 1 ? 's' : ''}`;
     }
 
     // 2. Free Delivery Threshold (6,000 FCFA)
@@ -773,13 +773,13 @@ function initBobaBloom() {
       if (subtotal >= FREE_DELIVERY_THRESHOLD) {
         meterFill.style.width = '100%';
         meterPct.textContent = '100%';
-        meterLabel.textContent = '🎉 You unlocked Free Cotonou Delivery!';
+        meterLabel.textContent = '✨ Livraison offerte débloquée à Cotonou !';
       } else {
         const remaining = FREE_DELIVERY_THRESHOLD - subtotal;
         const pct = Math.min(100, Math.round((subtotal / FREE_DELIVERY_THRESHOLD) * 100));
         meterFill.style.width = `${pct}%`;
         meterPct.textContent = `${pct}%`;
-        meterLabel.textContent = `Add ${remaining.toLocaleString()} FCFA more for Free Cotonou Delivery`;
+        meterLabel.textContent = `Plus que ${remaining.toLocaleString()} FCFA pour la livraison offerte`;
       }
     }
 
@@ -794,11 +794,11 @@ function initBobaBloom() {
             <circle cx="20" cy="21" r="1"></circle>
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
           </svg>
-          <h4 style="font-size: 1.15rem; margin-bottom: 6px;">Your cart is empty</h4>
+          <h4 style="font-size: 1.15rem; margin-bottom: 6px; font-family:var(--font-serif);">Votre sélection est vide</h4>
           <p style="font-size: 0.88rem; color: var(--color-text-muted); margin-bottom: 16px;">
-            Looks like you haven't picked your boba yet. Explore our favorites or build your own!
+            Vous n'avez pas encore sélectionné de thé. Découvrez notre carte de saison ou composez votre création personnalisée !
           </p>
-          <button class="btn btn-secondary btn-sm" id="btn-empty-explore">Explore Menu</button>
+          <button class="btn btn-secondary btn-sm" id="btn-empty-explore">Découvrir la Carte</button>
         </div>
       `;
 
@@ -900,7 +900,7 @@ function initBobaBloom() {
   function removeItem(id) {
     cart = cart.filter(item => item.id !== id);
     renderCart();
-    showToast('Item removed from order');
+    showToast('Création retirée du panier');
   }
 
   function clearCart() {
@@ -909,7 +909,7 @@ function initBobaBloom() {
     appliedPromo = null;
     if (promoInput) promoInput.value = '';
     renderCart();
-    showToast('Cart cleared');
+    showToast('Votre sélection a été vidée');
   }
 
   function openCartDrawer() {
@@ -945,15 +945,15 @@ function initBobaBloom() {
       if (code === 'BLOOM10') {
         appliedPromo = { code: 'BLOOM10', rate: 0.10 };
         renderCart();
-        showToast('Promo code BLOOM10 applied (10% OFF)! 🎉');
+        showToast('Code privilège BLOOM10 appliqué (-10%) ! ✨');
       } else if (code === 'COTONOU') {
         appliedPromo = { code: 'COTONOU', rate: 0.15 };
         renderCart();
-        showToast('Local love: 15% OFF your order! 🌸');
+        showToast('Privilège Cotonou : -15% sur votre commande ! 🌸');
       } else if (code === '') {
-        showToast('Please enter a promo code first.');
+        showToast('Veuillez saisir un code privilège.');
       } else {
-        showToast('Invalid promo code. Try "BLOOM10"');
+        showToast('Code non reconnu. Essayez "BLOOM10"');
       }
     });
   }
@@ -977,7 +977,7 @@ function initBobaBloom() {
 
   function openCheckoutModal() {
     if (cart.length === 0) {
-      showToast('Your cart is empty! Add a boba drink first.');
+      showToast('Votre panier est vide ! Choisissez une boisson.');
       return;
     }
     closeCartDrawer();
@@ -1046,16 +1046,16 @@ function initBobaBloom() {
       if (receiptDetails) {
         receiptDetails.innerHTML = `
           <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid rgba(0,0,0,0.08); padding-bottom:8px;">
-            <span><strong>Order ID:</strong> ${orderNum}</span>
-            <span><strong>Status:</strong> Brewing 🧋</span>
+            <span><strong>N° Commande :</strong> ${orderNum}</span>
+            <span><strong>Statut :</strong> Préparation en cours 🧋</span>
           </div>
           <div style="margin-bottom:8px;">
-            <div><strong>Customer:</strong> ${custName} (${custPhone})</div>
-            <div><strong>Type:</strong> ${orderType === 'delivery' ? `Delivery to ${address}` : 'Pickup at Haie Vive Lounge'}</div>
-            ${notes ? `<div><strong>Notes:</strong> <em>${notes}</em></div>` : ''}
+            <div><strong>Client :</strong> ${custName} (${custPhone})</div>
+            <div><strong>Mode :</strong> ${orderType === 'delivery' ? `Livraison à ${address}` : 'Retrait au Salon Haie Vive'}</div>
+            ${notes ? `<div><strong>Précisions :</strong> <em>${notes}</em></div>` : ''}
           </div>
           <div style="border-top:1px dashed rgba(0,0,0,0.15); padding-top:8px; margin-top:8px;">
-            <div style="font-weight:700; margin-bottom:4px;">Items Ordered:</div>
+            <div style="font-weight:700; margin-bottom:4px;">Créations commandées :</div>
             ${cart.map(i => `
               <div style="display:flex; justify-content:space-between; font-size:0.84rem; margin-bottom:2px;">
                 <span>${i.quantity}x ${i.name}</span>
@@ -1063,12 +1063,12 @@ function initBobaBloom() {
               </div>
             `).join('')}
           </div>
-          <div style="border-top:1px solid rgba(0,0,0,0.1); padding-top:8px; margin-top:8px; font-weight:8px; display:flex; justify-content:space-between;">
-            <strong>Total Amount:</strong>
-            <strong style="color:var(--color-raspberry); font-size:1.05rem;">${grandTotal.toLocaleString()} FCFA</strong>
+          <div style="border-top:1px solid rgba(0,0,0,0.1); padding-top:8px; margin-top:8px; display:flex; justify-content:space-between;">
+            <strong>Total Réglé :</strong>
+            <strong style="color:var(--color-gold); font-size:1.15rem; font-family:var(--font-serif);">${grandTotal.toLocaleString()} FCFA</strong>
           </div>
-          <div style="margin-top:10px; font-size:0.8rem; color:var(--color-text-muted); text-align:center;">
-            ⏱ Estimated ready in: <strong>15–20 minutes</strong>
+          <div style="margin-top:10px; font-size:0.82rem; color:var(--color-text-muted); text-align:center;">
+            ⏱ Prêt au salon dans : <strong>15 à 20 minutes</strong>
           </div>
         `;
       }
@@ -1076,7 +1076,7 @@ function initBobaBloom() {
       // Pre-fill WhatsApp message link for direct follow-up
       if (btnWhatsappTrack) {
         const waText = encodeURIComponent(
-          `Hello Boba Bloom Cotonou! I just placed order ${orderNum} for ${custName}. Items: ${cart.map(i => `${i.quantity}x ${i.name}`).join(', ')}. Total: ${grandTotal.toLocaleString()} FCFA.`
+          `Bonjour Boba Bloom Cotonou ! Je viens de valider la commande ${orderNum} au nom de ${custName}. Articles : ${cart.map(i => `${i.quantity}x ${i.name}`).join(', ')}. Total : ${grandTotal.toLocaleString()} FCFA.`
         );
         btnWhatsappTrack.href = `https://wa.me/22997000000?text=${waText}`;
       }
@@ -1089,7 +1089,7 @@ function initBobaBloom() {
       cart = [];
       appliedPromo = null;
       renderCart();
-      showToast(`Order ${orderNum} confirmed! See you soon 🌸`);
+      showToast(`Commande ${orderNum} validée ! À très bientôt au Salon 🌸`);
     });
   }
 
@@ -1425,15 +1425,15 @@ function initBobaBloom() {
   if (btnOpenAllergens) {
     btnOpenAllergens.addEventListener('click', () => {
       openInfoModal(
-        'Allergen & Dietary Information',
+        'Guide des Allergènes & Ingrédients Nobles',
         `
-        <p><strong>Dairy / Lactose:</strong> Our standard milk teas are made with dairy milk. We offer 100% plant-based oat milk and coconut milk substitutions upon request at no extra charge!</p>
+        <p><strong>Lait & Lactose :</strong> Nos thés au lait traditionnels sont préparés avec du lait frais de qualité supérieure. Nous proposons des alternatives 100% végétales en lait d'avoine barista bio ou lait de coco artisanal sans supplément.</p>
         <br />
-        <p><strong>Tapioca Pearls:</strong> Our brown sugar pearls are made from cassava root starch (tapioca) and are naturally 100% vegan and gluten-free.</p>
+        <p><strong>Perles de Tapioca Kokuto :</strong> Nos perles de tapioca sont façonnées à partir de fécule de manioc pure, mijotées dans du sucre noir d'Okinawa. Elles sont 100% véganes, sans gélatine et naturellement sans gluten.</p>
         <br />
-        <p><strong>Popping Boba:</strong> Enclosed in plant-based seaweed extract (sodium alginate). No gelatin is used.</p>
+        <p><strong>Perles Fruitées Explosives (Popping Boba) :</strong> Enrobées d'une membrane végétale fine à base d'algues marines (alginate de sodium). Zéro gélatine animale.</p>
         <br />
-        <p><strong>Caffeine:</strong> Black, green, oolong, and matcha teas naturally contain tea caffeine. Our fruit infusions (like Hibiscus and Lychee Rose) can be prepared caffeine-free.</p>
+        <p><strong>Théine & Caféine :</strong> Nos grands crus de thés noir d'Assam, vert au jasmin de Nantou, oolong et matcha de cérémonie contiennent naturellement de la théine stimulante douce. Nos infusions florales (Hibiscus d'Atacora, Litchi Rose) sont naturellement sans théine.</p>
         `
       );
     });
@@ -1442,11 +1442,11 @@ function initBobaBloom() {
   if (btnOpenPrivacy) {
     btnOpenPrivacy.addEventListener('click', () => {
       openInfoModal(
-        'Privacy Policy & Local Service',
+        'Engagement de Confidentialité & Service Salon',
         `
-        <p><strong>Boba Bloom Cotonou</strong> respects your personal data. We only use your phone number and address to coordinate and deliver your drink orders across Cotonou, Benin.</p>
+        <p><strong>Boba Bloom Cotonou</strong> s'engage à protéger l'intimité et les données de ses hôtes. Votre numéro WhatsApp et vos coordonnées sont exclusivement utilisés pour orchestrer vos réservations de salon et acheminer vos commandes à Cotonou.</p>
         <br />
-        <p>We do not store credit card details or share your information with third-party advertisers. All orders are stored securely in your browser session.</p>
+        <p>Aucune coordonnée bancaire n'est conservée. Vos préférences sont sécurisées localement dans votre session de navigation. Notre service conciergerie est disponible au Salon Haie Vive.</p>
         `
       );
     });

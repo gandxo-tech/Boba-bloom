@@ -112,10 +112,9 @@
       </a>
 
       <!-- Desktop Navigation Links -->
-      <nav class="desktop-nav" aria-label="Primary Navigation">
+      <nav class="desktop-nav" aria-label="Navigation Principale">
         <ul class="nav-links">
           <li><a href="#hero" class="nav-link active" id="nav-link-home">Accueil</a></li>
-          <li><a href="#flavor-orbit" class="nav-link" id="nav-link-orbit">3D Orbit</a></li>
           <li><a href="#sommelier" class="nav-link" id="nav-link-sommelier">Sommelier</a></li>
           <li><a href="#menu" class="nav-link" id="nav-link-menu">La Carte</a></li>
           <li><a href="#builder" class="nav-link" id="nav-link-builder">L'Atelier</a></li>
@@ -164,8 +163,7 @@
   <div class="mobile-drawer" id="mobile-drawer" aria-label="Navigation Mobile" role="dialog" aria-modal="true" hidden>
     <ul class="mobile-drawer-links">
       <li><a href="#hero" class="mobile-drawer-link" id="mobile-link-home">Accueil</a></li>
-      <li><a href="#flavor-orbit" class="mobile-drawer-link" id="mobile-link-orbit">3D Orbit Signatures</a></li>
-      <li><a href="#sommelier" class="mobile-drawer-link" id="mobile-link-sommelier">Sommelier Boba</a></li>
+      <li><a href="#sommelier" class="mobile-drawer-link" id="mobile-link-sommelier">Sommelier & Accords</a></li>
       <li><a href="#menu" class="mobile-drawer-link" id="mobile-link-menu">La Carte Complète</a></li>
       <li><a href="#builder" class="mobile-drawer-link" id="mobile-link-builder">L'Atelier Sur-Mesure</a></li>
       <li><a href="#story" class="mobile-drawer-link" id="mobile-link-story">Histoire & Savoir-Faire</a></li>
@@ -173,9 +171,9 @@
       <li><a href="#location" class="mobile-drawer-link" id="mobile-link-contact">Accès & Horaires</a></li>
     </ul>
     <div class="mobile-drawer-footer">
-      <p style="font-size:0.9rem; color:var(--color-text-muted); margin-bottom:12px;">Haie Vive, Cotonou &bull; Lun–Sam: 10h–21h &bull; Dim: 14h–20h</p>
+      <p style="font-size:0.88rem; color:var(--color-text-muted); margin-bottom:14px; line-height:1.5;">Haie Vive, Cotonou &bull; Ouvert du Lundi au Dimanche</p>
       <div style="display:flex; gap:10px;">
-        <button type="button" class="btn btn-secondary" id="mobile-drawer-reserve" style="flex:1;">Réserver</button>
+        <button type="button" class="btn btn-secondary" id="mobile-drawer-reserve" style="flex:1;">Réserver Table</button>
         <a href="#menu" class="btn btn-primary" id="mobile-drawer-cta" style="flex:1;">Commander</a>
       </div>
     </div>
@@ -188,15 +186,6 @@
       <div class="hero-bg-blobs" aria-hidden="true">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
-      </div>
-
-      <!-- Floating Decorative Bubbles -->
-      <div class="floating-bubble-layer" aria-hidden="true">
-        <div class="hero-bubble bubble-b1"></div>
-        <div class="hero-bubble bubble-b2"></div>
-        <div class="hero-bubble bubble-b3"></div>
-        <div class="hero-bubble bubble-b4"></div>
-        <div class="hero-bubble bubble-b5"></div>
       </div>
 
       <div class="container hero-grid">
@@ -221,12 +210,6 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </a>
-            <a href="#builder" class="btn btn-secondary" id="hero-cta-builder">
-              <span>L'Atelier Sur-Mesure</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
               </svg>
             </a>
             <button type="button" class="btn btn-gold" id="hero-cta-reserve">
@@ -262,21 +245,12 @@
 
         <!-- Hero Visual Composition -->
         <div class="hero-visual">
-          <!-- Floating Badge Top Left -->
-          <div class="hero-badge-float hero-badge-top-left" id="hero-float-badge-1">
-            <div class="badge-avatar-group" aria-hidden="true">
-              <div class="badge-avatar">B</div>
-              <div class="badge-avatar">L</div>
-              <div class="badge-avatar">M</div>
-            </div>
-            <div class="badge-label">
-              +25 000 Créations Servies
-              <span>L'adresse boba N°1 à Cotonou</span>
-            </div>
-          </div>
-
           <!-- Central Boba Hero Card -->
           <div class="hero-cup-card" id="hero-featured-cup">
+            <div class="hero-card-prestige-tag">
+              <span class="hero-tag-badge">★ Création Signature</span>
+              <span class="hero-tag-rating">4.9 / 5 &bull; Haie Vive</span>
+            </div>
             <div class="hero-cup-container">
               <!-- Premium Custom Boba Illustration SVG with layered gradient tea & pearls -->
               <svg class="hero-boba-svg" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Artisanal Strawberry Cloud and Brown Sugar Boba drink">
@@ -339,17 +313,8 @@
               </svg>
             </div>
             <div style="font-size:0.8rem; font-weight:700; color:var(--color-raspberry); text-transform:uppercase; letter-spacing:0.08em;">Création Signature de la Maison</div>
-            <h3 style="font-size:1.4rem; margin-top:3px; font-family:var(--font-display);">Strawberry Cloud &bull; 3 200 FCFA</h3>
+            <h3 style="font-size:1.35rem; margin-top:3px; font-family:var(--font-display);">Strawberry Cloud &bull; 3 200 FCFA</h3>
             <p style="font-size:0.86rem; color:var(--color-text-muted); margin-top:4px;">Thé vert au jasmin biologique, purée de fraises fraîches & nuage de crème veloutée</p>
-          </div>
-
-          <!-- Floating Badge Bottom Right -->
-          <div class="hero-badge-float hero-badge-bottom-right" id="hero-float-badge-2">
-            <div class="rating-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="badge-label">
-              Note d'Excellence 4.9 / 5
-              <span>Recommandé par les amateurs de thé</span>
-            </div>
           </div>
         </div>
       </div>
@@ -473,416 +438,27 @@
       </div>
     </section>
 
-    <!-- ==================== 3D FLAVOR CAROUSEL (UIVERSE ADAPTATION) ==================== -->
-    <section class="section carousel-3d-section" id="flavor-orbit" aria-label="3D Boba Flavor Carousel">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-badge">✨ 360° Interactive Orbit</span>
-          <h2 class="section-title">Tour de nos 10 Saveurs Iconiques.</h2>
-          <p class="section-subtitle">
-            Survolez pour figer l'orbite 3D, faites glisser pour faire tourner manuellement, ou cliquez sur une création pour l'ajouter directement à votre commande.
-          </p>
-        </div>
-
-        <!-- Orbit Toolbar Controls -->
-        <div class="orbit-controls-bar">
-          <button type="button" class="orbit-ctrl-btn" id="btn-orbit-prev" aria-label="Boisson précédente dans le carrousel">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-            <span>Précédent</span>
-          </button>
-
-          <button type="button" class="orbit-ctrl-btn" id="btn-orbit-toggle" aria-label="Pause or play rotation">
-            <svg class="ctrl-icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <rect x="6" y="4" width="4" height="16" rx="1"></rect>
-              <rect x="14" y="4" width="4" height="16" rx="1"></rect>
-            </svg>
-            <svg class="ctrl-icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
-              <polygon points="5 3 19 12 5 21 5 3"></polygon>
-            </svg>
-            <span id="orbit-toggle-text">Pause</span>
-          </button>
-
-          <button type="button" class="orbit-ctrl-btn" id="btn-orbit-next" aria-label="Boisson suivante dans le carrousel">
-            <span>Suivant</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-
-          <button type="button" class="orbit-ctrl-btn" id="btn-orbit-reverse" aria-label="Reverse rotation direction">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
-              <path d="M3 3v5h5"></path>
-            </svg>
-            <span>Inverser</span>
-          </button>
-
-          <div class="orbit-speed-group" role="group" aria-label="Speed controls">
-            <button type="button" class="orbit-speed-btn" data-speed="slow">0.5x</button>
-            <button type="button" class="orbit-speed-btn active" data-speed="normal">1x</button>
-            <button type="button" class="orbit-speed-btn" data-speed="fast">2x</button>
-          </div>
-          
-          <div class="orbit-hint-pill">
-            <span>👆 Défilez avec la molette, flèches ou glissez</span>
-          </div>
-        </div>
-
-        <!-- Uiverse 3D Cylinder Container -->
-        <div class="boba-3d-stage" id="boba-3d-stage">
-          <!-- Floating Step Navigation Arrows -->
-          <button type="button" class="orbit-stage-arrow orbit-stage-prev" id="stage-orbit-prev" aria-label="Défiler à gauche">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </button>
-          <button type="button" class="orbit-stage-arrow orbit-stage-next" id="stage-orbit-next" aria-label="Défiler à droite">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-          <!-- From Uiverse.io by ilkhoeri - Adapted for Boba Bloom -->
-          <div class="wrapper">
-            <div class="inner" id="carousel-3d-inner" style="--quantity: 10;">
-              
-              <!-- Card 0: Ocean Butterfly Pea -->
-              <div class="card" style="--index: 0; --color-card: 106, 96, 176;" data-name="Ocean Butterfly Pea" data-price="2900" data-img="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=400&q=80">
-                <div class="img">
-                  <span class="card-drink-badge">Floral Infusion</span>
-                  <div class="card-drink-avatar">
-                    <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=400&q=80" alt="Ocean Butterfly Pea" loading="lazy" />
-                  </div>
-                  <div class="card-drink-meta">
-                    <h4 class="card-drink-name">Ocean Butterfly</h4>
-                    <div class="card-drink-price">2,900 FCFA</div>
-                  </div>
-                  <button type="button" class="card-drink-btn" aria-label="Add Ocean Butterfly Pea to order">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    <span>Ajouter</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Card 1: Jasmine Blossom -->
-              <div class="card" style="--index: 1; --color-card: 58, 157, 120;" data-name="Jasmine Blossom Tea" data-price="2800" data-img="https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=400&q=80">
-                <div class="img">
-                  <span class="card-drink-badge">Green Tea</span>
-                  <div class="card-drink-avatar">
-                    <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=400&q=80" alt="Jasmine Blossom Tea" loading="lazy" />
-                  </div>
-                  <div class="card-drink-meta">
-                    <h4 class="card-drink-name">Jasmine Blossom</h4>
-                    <div class="card-drink-price">2,800 FCFA</div>
-                  </div>
-                  <button type="button" class="card-drink-btn" aria-label="Add Jasmine Blossom to order">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    <span>Ajouter</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Card 2: Ceremonial Matcha Bloom -->
-              <div class="card" style="--index: 2; --color-card: 46, 139, 87;" data-name="Matcha Bloom" data-price="3400" data-img="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=400&q=80">
-                <div class="img">
-                  <span class="card-drink-badge">Uji Matcha</span>
-                  <div class="card-drink-avatar">
-                    <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=400&q=80" alt="Matcha Bloom" loading="lazy" />
-                  </div>
-                  <div class="card-drink-meta">
-                    <h4 class="card-drink-name">Matcha Bloom</h4>
-                    <div class="card-drink-price">3,400 FCFA</div>
-                  </div>
-                  <button type="button" class="card-drink-btn" aria-label="Add Matcha Bloom to order">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    <span>Ajouter</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Card 3: Coco Thaï & Mangue Dorée -->
-              <div class="card" style="--index: 3; --color-card: 217, 140, 50;" data-name="Coco Thaï & Mangue Dorée" data-price="3100" data-img="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=400&q=80">
-                <div class="img">
-                  <span class="card-drink-badge">Tropical Coco</span>
-                  <div class="card-drink-avatar">
-                    <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=400&q=80" alt="Coco Thaï et Mangue" loading="lazy" />
-                  </div>
-                  <div class="card-drink-meta">
-                    <h4 class="card-drink-name">Coco Thaï</h4>
-                    <div class="card-drink-price">3,100 FCFA</div>
-                  </div>
-                  <button type="button" class="card-drink-btn" aria-label="Add Coco Thaï to order">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    <span>Ajouter</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Card 4: Golden Honey Lemon -->
-              <div class="card" style="--index: 4; --color-card: 228, 160, 24;" data-name="Golden Honey Lemon" data-price="2800" data-img="https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=400&q=80">
-                <div class="img">
-                  <span class="card-drink-badge">Forest Honey</span>
-                  <div class="card-drink-avatar">
-                    <img src="https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=400&q=80" alt="Golden Honey Lemon" loading="lazy" />
-                  </div>
-                  <div class="card-drink-meta">
-                    <h4 class="card-drink-name">Honey Lemon</h4>
-                    <div class="card-drink-price">2,800 FCFA</div>
-                  </div>
-                  <button type="button" class="card-drink-btn" aria-label="Add Golden Honey Lemon to order">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    <span>Ajouter</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Card 5: Mango Passion Cooler -->
-              <div class="card" style="--index: 5; --color-card: 235, 120, 36;" data-name="Mango Passion" data-price="2800" data-img="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=400&q=80">
-                <div class="img">
-                  <span class="card-drink-badge">Alphonso Mango</span>
-                  <div class="card-drink-avatar">
-                    <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=400&q=80" alt="Mango Passion Cooler" loading="lazy" />
-                  </div>
-                  <div class="card-drink-meta">
-                    <h4 class="card-drink-name">Mango Passion</h4>
-                    <div class="card-drink-price">2,800 FCFA</div>
-                  </div>
-                  <button type="button" class="card-drink-btn" aria-label="Add Mango Passion to order">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    <span>Ajouter</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Card 6: Cotonou Hibiscus Ruby -->
-              <div class="card" style="--index: 6; --color-card: 217, 56, 104;" data-name="Cotonou Hibiscus Ruby" data-price="2900" data-img="https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=400&q=80">
-                <div class="img">
-                  <span class="card-drink-badge">Bissap Signature</span>
-                  <div class="card-drink-avatar">
-                    <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=400&q=80" alt="Cotonou Hibiscus Ruby" loading="lazy" />
-                  </div>
-                  <div class="card-drink-meta">
-                    <h4 class="card-drink-name">Hibiscus Ruby</h4>
-                    <div class="card-drink-price">2,900 FCFA</div>
-                  </div>
-                  <button type="button" class="card-drink-btn" aria-label="Add Cotonou Hibiscus Ruby to order">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    <span>Ajouter</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Card 7: Strawberry Cloud -->
-              <div class="card" style="--index: 7; --color-card: 232, 67, 101;" data-name="Strawberry Cloud" data-price="3200" data-img="https://images.unsplash.com/photo-1558857563-b37cf5c490ff?auto=format&fit=crop&w=400&q=80">
-                <div class="img">
-                  <span class="card-drink-badge">Velvet Cloud</span>
-                  <div class="card-drink-avatar">
-                    <img src="https://images.unsplash.com/photo-1558857563-b37cf5c490ff?auto=format&fit=crop&w=400&q=80" alt="Strawberry Cloud" loading="lazy" />
-                  </div>
-                  <div class="card-drink-meta">
-                    <h4 class="card-drink-name">Strawberry Cloud</h4>
-                    <div class="card-drink-price">3,200 FCFA</div>
-                  </div>
-                  <button type="button" class="card-drink-btn" aria-label="Add Strawberry Cloud to order">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    <span>Ajouter</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Card 8: Taro Velvet Dream -->
-              <div class="card" style="--index: 8; --color-card: 155, 107, 176;" data-name="Taro Velvet Dream" data-price="3000" data-img="https://images.unsplash.com/photo-1541658016709-82535e94bc69?auto=format&fit=crop&w=400&q=80">
-                <div class="img">
-                  <span class="card-drink-badge">Royal Taro</span>
-                  <div class="card-drink-avatar">
-                    <img src="https://images.unsplash.com/photo-1541658016709-82535e94bc69?auto=format&fit=crop&w=400&q=80" alt="Taro Velvet Dream" loading="lazy" />
-                  </div>
-                  <div class="card-drink-meta">
-                    <h4 class="card-drink-name">Taro Velvet</h4>
-                    <div class="card-drink-price">3,000 FCFA</div>
-                  </div>
-                  <button type="button" class="card-drink-btn" aria-label="Add Taro Velvet Dream to order">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    <span>Ajouter</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Card 9: Brown Sugar Bliss -->
-              <div class="card" style="--index: 9; --color-card: 176, 104, 52;" data-name="Brown Sugar Bliss" data-price="3000" data-img="https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=400&q=80">
-                <div class="img">
-                  <span class="card-drink-badge">Okinawa Tiger</span>
-                  <div class="card-drink-avatar">
-                    <img src="https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=400&q=80" alt="Brown Sugar Bliss" loading="lazy" />
-                  </div>
-                  <div class="card-drink-meta">
-                    <h4 class="card-drink-name">Brown Sugar Bliss</h4>
-                    <div class="card-drink-price">3,000 FCFA</div>
-                  </div>
-                  <button type="button" class="card-drink-btn" aria-label="Add Brown Sugar Bliss to order">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    <span>Ajouter</span>
-                  </button>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== BEST SELLERS SECTION ==================== -->
-    <section class="section best-sellers-section" id="best-sellers">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-badge">Crafted with Passion</span>
-          <h2 class="section-title">Meet the crowd favorites.</h2>
-          <p class="section-subtitle">
-            Handcrafted daily using slow-brewed tea leaves, creamy artisanal milk, and signature toppings that delight every sip.
-          </p>
-        </div>
-
-        <div class="products-grid" id="best-sellers-grid">
-          <!-- Card 1: Strawberry Cloud -->
-          <article class="product-card" data-product-id="bs-1">
-            <div class="product-image-wrap">
-              <span class="card-badge-top">★ Best Seller</span>
-              <span class="card-category-tag">Signature</span>
-              <img src="https://images.unsplash.com/photo-1558857563-b37cf5c490ff?auto=format&fit=crop&w=600&q=80" 
-                   alt="Strawberry Cloud Bubble Tea with creamy foam and strawberry boba" 
-                   class="product-image" 
-                   loading="lazy"
-                   onerror="this.src='https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=600&q=80'" />
-            </div>
-            <div class="product-info">
-              <h3 class="product-name">Strawberry Cloud</h3>
-              <p class="product-description">
-                Fresh jasmine green tea infused with sweet strawberry puree, crowned with velvet cream cloud foam and popping pearls.
-              </p>
-              <div class="product-meta">
-                <div class="product-price">3,200 <small>FCFA</small></div>
-                <button class="btn-add-product" data-name="Strawberry Cloud" data-price="3200" data-img="https://images.unsplash.com/photo-1558857563-b37cf5c490ff?auto=format&fit=crop&w=600&q=80">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                  </svg>
-                  <span>Add</span>
-                </button>
-              </div>
-            </div>
-          </article>
-
-          <!-- Card 2: Brown Sugar Bliss -->
-          <article class="product-card" data-product-id="bs-2">
-            <div class="product-image-wrap">
-              <span class="card-badge-top">★ Best Seller</span>
-              <span class="card-category-tag">Milk Tea</span>
-              <img src="https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=600&q=80" 
-                   alt="Brown Sugar Bliss Tiger Boba with caramelized tapioca pearls" 
-                   class="product-image" 
-                   loading="lazy"
-                   onerror="this.src='https://images.unsplash.com/photo-1541658016709-82535e94bc69?auto=format&fit=crop&w=600&q=80'" />
-            </div>
-            <div class="product-info">
-              <h3 class="product-name">Brown Sugar Bliss</h3>
-              <p class="product-description">
-                Slow-simmered Okinawa tiger brown sugar syrup swirled in Assam black milk tea with chewy, warm tapioca pearls.
-              </p>
-              <div class="product-meta">
-                <div class="product-price">3,000 <small>FCFA</small></div>
-                <button class="btn-add-product" data-name="Brown Sugar Bliss" data-price="3000" data-img="https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=600&q=80">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                  </svg>
-                  <span>Add</span>
-                </button>
-              </div>
-            </div>
-          </article>
-
-          <!-- Card 3: Mango Passion -->
-          <article class="product-card" data-product-id="bs-3">
-            <div class="product-image-wrap">
-              <span class="card-badge-top">★ Best Seller</span>
-              <span class="card-category-tag">Fruit Tea</span>
-              <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80" 
-                   alt="Mango Passion Fruit Tea with fresh tropical fruit notes" 
-                   class="product-image" 
-                   loading="lazy"
-                   onerror="this.src='https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=600&q=80'" />
-            </div>
-            <div class="product-info">
-              <h3 class="product-name">Mango Passion</h3>
-              <p class="product-description">
-                A sunshine splash of golden mango nectar and tangy passion fruit juice brewed with jade green tea and juicy popping boba.
-              </p>
-              <div class="product-meta">
-                <div class="product-price">2,800 <small>FCFA</small></div>
-                <button class="btn-add-product" data-name="Mango Passion" data-price="2800" data-img="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                  </svg>
-                  <span>Add</span>
-                </button>
-              </div>
-            </div>
-          </article>
-
-          <!-- Card 4: Matcha Bloom -->
-          <article class="product-card" data-product-id="bs-4">
-            <div class="product-image-wrap">
-              <span class="card-badge-top">★ Best Seller</span>
-              <span class="card-category-tag">Matcha</span>
-              <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=600&q=80" 
-                   alt="Matcha Bloom layered ceremonial green tea latte with sweet cold cream" 
-                   class="product-image" 
-                   loading="lazy"
-                   onerror="this.src='https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80'" />
-            </div>
-            <div class="product-info">
-              <h3 class="product-name">Matcha Bloom</h3>
-              <p class="product-description">
-                Ceremonial stone-ground Uji matcha whisked fresh, layered over creamy oat milk, sweetened lightly with honey tapioca.
-              </p>
-              <div class="product-meta">
-                <div class="product-price">3,400 <small>FCFA</small></div>
-                <button class="btn-add-product" data-name="Matcha Bloom" data-price="3400" data-img="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=600&q=80">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                  </svg>
-                  <span>Add</span>
-                </button>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <!-- ==================== INTERACTIVE MENU SECTION ==================== -->
     <section class="section menu-section" id="menu">
       <div class="container">
-        <div class="section-header">
-          <span class="section-badge">Full Menu</span>
-          <h2 class="section-title">Explore our handcrafted creations.</h2>
+        <div class="section-header text-center">
+          <span class="section-badge" style="background:var(--color-gold-light); color:var(--color-gold); border-color:var(--color-gold-border);">
+            ✨ Carte Haute Création
+          </span>
+          <h2 class="section-title">Nos Créations Artisanales.</h2>
           <p class="section-subtitle">
-            Filter by flavor profile or search for your favorite treat. Every drink is made fresh to order.
+            Feuilles nobles infusées minute, perles d'Okinawa mijotées 90 minutes et nectars de fruits frais. Filtrez par profil aromatique ou composez votre boisson sur-mesure.
           </p>
         </div>
 
         <!-- Category Filter Tabs -->
-        <div class="menu-controls" role="tablist" aria-label="Menu category filters">
-          <button class="category-tab active" data-category="all" role="tab" aria-selected="true">All Items</button>
-          <button class="category-tab" data-category="milk-tea" role="tab" aria-selected="false">Milk Tea</button>
-          <button class="category-tab" data-category="fruit-tea" role="tab" aria-selected="false">Fruit Tea</button>
-          <button class="category-tab" data-category="matcha" role="tab" aria-selected="false">Matcha</button>
-          <button class="category-tab" data-category="signature" role="tab" aria-selected="false">Signature</button>
-          <button class="category-tab" data-category="toppings" role="tab" aria-selected="false">Toppings</button>
+        <div class="menu-controls" role="tablist" aria-label="Filtres de catégories">
+          <button class="category-tab active" data-category="all" role="tab" aria-selected="true">Toutes les Créations</button>
+          <button class="category-tab" data-category="milk-tea" role="tab" aria-selected="false">Milk Teas Nobles</button>
+          <button class="category-tab" data-category="fruit-tea" role="tab" aria-selected="false">Thés Fruités Givrés</button>
+          <button class="category-tab" data-category="matcha" role="tab" aria-selected="false">Matcha Cérémonial</button>
+          <button class="category-tab" data-category="signature" role="tab" aria-selected="false">Signatures Cotonou</button>
+          <button class="category-tab" data-category="toppings" role="tab" aria-selected="false">Perles & Toppings</button>
         </div>
 
         <!-- Search Bar -->
@@ -891,7 +467,7 @@
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input type="text" id="menu-search-input" class="menu-search-input" placeholder="Search drinks, flavors, or toppings..." aria-label="Search menu items" />
+          <input type="text" id="menu-search-input" class="menu-search-input" placeholder="Rechercher une saveur, thé ou perle (ex. Hibiscus, Matcha, Taro, Mangue)..." aria-label="Rechercher sur la carte" />
         </div>
 
         <!-- Dynamic Product Grid -->
@@ -904,11 +480,13 @@
     <!-- ==================== BUILD YOUR BOBA (INTERACTIVE BUILDER) ==================== -->
     <section class="section builder-section" id="builder">
       <div class="container">
-        <div class="section-header">
-          <span class="section-badge">Customizer Lab</span>
-          <h2 class="section-title">Build Your Boba.</h2>
+        <div class="section-header text-center">
+          <span class="section-badge" style="background:var(--color-gold-light); color:var(--color-gold); border-color:var(--color-gold-border);">
+            🎨 Atelier Créatif Sur-Mesure
+          </span>
+          <h2 class="section-title">Composez Votre Boba d'Exception.</h2>
           <p class="section-subtitle">
-            Composez votre recette personnalisée pas à pas. Regardez votre verre se remplir et évoluer en direct à chaque choix !
+            Base noble infusée minute, nectars purs, perles fraîches d'Okinawa et dosage personnalisé. Regardez votre création prendre vie en temps réel.
           </p>
         </div>
 
@@ -946,14 +524,14 @@
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="sparkle-anim" aria-hidden="true">
                 <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
               </svg>
-              <span>Générer au fur et à mesure</span>
+              <span>Inspiration Aléatoire</span>
             </button>
             <button type="button" class="btn-builder-reset" id="btn-builder-reset" title="Réinitialiser la recette">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
                 <path d="M3 3v5h5"></path>
               </svg>
-              <span>Recommencer</span>
+              <span>Réinitialiser</span>
             </button>
           </div>
         </div>
@@ -1012,20 +590,20 @@
 
             <!-- Dynamic Drink Details & Price Ticker -->
             <div class="builder-live-info">
-              <div class="live-drink-name" id="builder-drink-name">Custom Milk Tea</div>
+              <div class="live-drink-name" id="builder-drink-name">Création Sur-Mesure</div>
               <div class="live-drink-summary" id="builder-drink-summary">
-                Black Tea Base &bull; Strawberry Flavor &bull; Tapioca &bull; 50% Sugar &bull; Regular Ice
+                Milk Tea Noble &bull; Fraise Gourmande &bull; Perles Tapioca &bull; 50% Sucre &bull; Glace Normale
               </div>
               <div class="live-drink-price-row">
-                <span class="live-price-label">Custom Drink Total</span>
-                <span class="live-price-val" id="builder-drink-price">3,000 FCFA</span>
+                <span class="live-price-label">Prix de votre création</span>
+                <span class="live-price-val" id="builder-drink-price">2 700 FCFA</span>
               </div>
               <button class="btn btn-primary" id="btn-add-custom-boba" style="width: 100%;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <line x1="12" y1="5" x2="12" y2="19"></line>
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                 </svg>
-                <span>Add to Order</span>
+                <span>Ajouter à ma Commande</span>
               </button>
             </div>
           </div>
@@ -1036,33 +614,33 @@
             <div class="builder-step-card active-step" id="step-base" data-step-index="1">
               <div class="step-header">
                 <span class="step-number">1</span>
-                <h3 class="step-title">Choose Your Tea Base</h3>
-                <span class="step-hint">Select 1</span>
+                <h3 class="step-title">Sélectionnez la Base de Thé</h3>
+                <span class="step-hint">1 choix</span>
               </div>
               <div class="option-chips-grid" data-step="base">
                 <button type="button" class="option-chip selected" data-value="Milk Tea" data-price="2200" data-color="#D2AC84">
                   <span class="option-chip-icon">🧋</span>
-                  <span class="option-chip-name">Milk Tea</span>
-                  <span class="option-chip-extra">Classic creamy</span>
+                  <span class="option-chip-name">Milk Tea Noble</span>
+                  <span class="option-chip-extra">Onctueux & réconfortant</span>
                 </button>
                 <button type="button" class="option-chip" data-value="Black Tea" data-price="2000" data-color="#8C4E2B">
                   <span class="option-chip-icon">☕</span>
-                  <span class="option-chip-name">Black Tea</span>
-                  <span class="option-chip-extra">Rich & bold</span>
+                  <span class="option-chip-name">Thé Noir Assam</span>
+                  <span class="option-chip-extra">Corsé & boisé</span>
                 </button>
                 <button type="button" class="option-chip" data-value="Green Tea" data-price="2000" data-color="#BDD4A0">
                   <span class="option-chip-icon">🍃</span>
-                  <span class="option-chip-name">Green Tea</span>
-                  <span class="option-chip-extra">Floral Jasmine</span>
+                  <span class="option-chip-name">Thé Vert Jasmin</span>
+                  <span class="option-chip-extra">Floral & délicat</span>
                 </button>
                 <button type="button" class="option-chip" data-value="Matcha" data-price="2500" data-color="#588157">
                   <span class="option-chip-icon">🍵</span>
-                  <span class="option-chip-name">Matcha</span>
+                  <span class="option-chip-name">Matcha Uji Bio</span>
                   <span class="option-chip-extra">+300 FCFA</span>
                 </button>
               </div>
               <div class="step-footer-action">
-                <button type="button" class="btn-next-step" data-next="2">Étape suivante : Saveur d'infusion ➔</button>
+                <button type="button" class="btn-next-step" data-next="2">Étape suivante : Nectar & Saveur ➔</button>
               </div>
             </div>
 
@@ -1070,38 +648,38 @@
             <div class="builder-step-card" id="step-flavor" data-step-index="2">
               <div class="step-header">
                 <span class="step-number">2</span>
-                <h3 class="step-title">Choose Your Flavor Infusion</h3>
-                <span class="step-hint">Select 1</span>
+                <h3 class="step-title">Infusion & Profil Aromatique</h3>
+                <span class="step-hint">1 choix</span>
               </div>
               <div class="option-chips-grid" data-step="flavor">
                 <button type="button" class="option-chip selected" data-value="Strawberry" data-color="#F28299">
                   <span class="option-chip-icon">🍓</span>
-                  <span class="option-chip-name">Strawberry</span>
-                  <span class="option-chip-extra">Sweet berry</span>
+                  <span class="option-chip-name">Fraise Sauvage</span>
+                  <span class="option-chip-extra">Purée fraîche</span>
                 </button>
                 <button type="button" class="option-chip" data-value="Mango" data-color="#EAA023">
                   <span class="option-chip-icon">🥭</span>
-                  <span class="option-chip-name">Mango</span>
-                  <span class="option-chip-extra">Tropical ripe</span>
+                  <span class="option-chip-name">Mangue Dorée</span>
+                  <span class="option-chip-extra">Nectar tropical</span>
                 </button>
                 <button type="button" class="option-chip" data-value="Passion Fruit" data-color="#DE7930">
                   <span class="option-chip-icon">🍊</span>
-                  <span class="option-chip-name">Passion Fruit</span>
-                  <span class="option-chip-extra">Zesty & tangy</span>
+                  <span class="option-chip-name">Fruit de la Passion</span>
+                  <span class="option-chip-extra">Acidulé & vif</span>
                 </button>
                 <button type="button" class="option-chip" data-value="Taro" data-color="#9C7FA8">
                   <span class="option-chip-icon">🍠</span>
-                  <span class="option-chip-name">Taro</span>
-                  <span class="option-chip-extra">Velvety purple</span>
+                  <span class="option-chip-name">Taro Impérial</span>
+                  <span class="option-chip-extra">Notes biscuitées</span>
                 </button>
                 <button type="button" class="option-chip" data-value="Brown Sugar" data-color="#6E3B1E">
                   <span class="option-chip-icon">🍯</span>
-                  <span class="option-chip-name">Brown Sugar</span>
-                  <span class="option-chip-extra">Caramel swirl</span>
+                  <span class="option-chip-name">Sucre Noir Tigré</span>
+                  <span class="option-chip-extra">Caramel d'Okinawa</span>
                 </button>
               </div>
               <div class="step-footer-action">
-                <button type="button" class="btn-next-step" data-next="3">Étape suivante : Toppings & perles ➔</button>
+                <button type="button" class="btn-next-step" data-next="3">Étape suivante : Perles & Toppings ➔</button>
               </div>
             </div>
 
@@ -1109,29 +687,29 @@
             <div class="builder-step-card" id="step-topping" data-step-index="3">
               <div class="step-header">
                 <span class="step-number">3</span>
-                <h3 class="step-title">Choose Your Primary Topping</h3>
+                <h3 class="step-title">Perles Nobles & Toppings Frais</h3>
                 <span class="step-hint">+500 FCFA</span>
               </div>
               <div class="option-chips-grid" data-step="topping">
                 <button type="button" class="option-chip selected" data-value="Tapioca" data-price="500" data-topping-class="tapioca">
                   <span class="option-chip-icon">⚫</span>
-                  <span class="option-chip-name">Tapioca</span>
-                  <span class="option-chip-extra">Chewy brown sugar</span>
+                  <span class="option-chip-name">Perles de Tapioca</span>
+                  <span class="option-chip-extra">Mijotées au sucre noir</span>
                 </button>
                 <button type="button" class="option-chip" data-value="Popping Boba" data-price="600" data-topping-class="popping">
                   <span class="option-chip-icon">🔴</span>
-                  <span class="option-chip-name">Popping Boba</span>
-                  <span class="option-chip-extra">Juice burst</span>
+                  <span class="option-chip-name">Popping Litchi</span>
+                  <span class="option-chip-extra">Explosion de jus</span>
                 </button>
                 <button type="button" class="option-chip" data-value="Jelly" data-price="500" data-topping-class="jelly">
                   <span class="option-chip-icon">🟨</span>
-                  <span class="option-chip-name">Jelly</span>
-                  <span class="option-chip-extra">Herbal grass jelly</span>
+                  <span class="option-chip-name">Gelée d'Herbes</span>
+                  <span class="option-chip-extra">Recette traditionnelle</span>
                 </button>
                 <button type="button" class="option-chip" data-value="Aloe Vera" data-price="600" data-topping-class="aloe">
                   <span class="option-chip-icon">🤍</span>
-                  <span class="option-chip-name">Aloe Vera</span>
-                  <span class="option-chip-extra">Crisp & refreshing</span>
+                  <span class="option-chip-name">Morceaux d'Aloe Vera</span>
+                  <span class="option-chip-extra">Fraîcheur croquante</span>
                 </button>
               </div>
               <div class="step-footer-action">
@@ -1143,18 +721,18 @@
             <div class="builder-step-card" id="step-sweetness" data-step-index="4">
               <div class="step-header">
                 <span class="step-number">4</span>
-                <h3 class="step-title">Select Sweetness Level</h3>
-                <span class="step-hint" id="current-sweetness-text">50% Regular</span>
+                <h3 class="step-title">Dosage du Sucre de Canne</h3>
+                <span class="step-hint" id="current-sweetness-text">50% Idéal</span>
               </div>
               <div class="slider-labels" data-step="sweetness">
-                <button type="button" class="slider-label-btn" data-value="0%">0% (Unsweetened)</button>
-                <button type="button" class="slider-label-btn" data-value="30%">30% (Light)</button>
-                <button type="button" class="slider-label-btn active" data-value="50%">50% (Balanced)</button>
-                <button type="button" class="slider-label-btn" data-value="70%">70% (Sweet)</button>
-                <button type="button" class="slider-label-btn" data-value="100%">100% (Full)</button>
+                <button type="button" class="slider-label-btn" data-value="0%">0% (Nature)</button>
+                <button type="button" class="slider-label-btn" data-value="30%">30% (Léger)</button>
+                <button type="button" class="slider-label-btn active" data-value="50%">50% (Idéal)</button>
+                <button type="button" class="slider-label-btn" data-value="70%">70% (Gourmand)</button>
+                <button type="button" class="slider-label-btn" data-value="100%">100% (Intense)</button>
               </div>
               <div class="step-footer-action">
-                <button type="button" class="btn-next-step" data-next="5">Étape suivante : Quantité de glaçons ➔</button>
+                <button type="button" class="btn-next-step" data-next="5">Étape suivante : Fraîcheur & Glaçons ➔</button>
               </div>
             </div>
 
@@ -1162,14 +740,14 @@
             <div class="builder-step-card" id="step-ice" data-step-index="5">
               <div class="step-header">
                 <span class="step-number">5</span>
-                <h3 class="step-title">Select Ice Level</h3>
-                <span class="step-hint" id="current-ice-text">Regular Ice</span>
+                <h3 class="step-title">Fraîcheur & Glaçons</h3>
+                <span class="step-hint" id="current-ice-text">Glaçons Normaux</span>
               </div>
               <div class="slider-labels" data-step="ice">
-                <button type="button" class="slider-label-btn" data-value="No Ice">No Ice</button>
-                <button type="button" class="slider-label-btn" data-value="Less Ice">Less Ice</button>
-                <button type="button" class="slider-label-btn active" data-value="Regular Ice">Regular Ice</button>
-                <button type="button" class="slider-label-btn" data-value="Extra Ice">Extra Ice</button>
+                <button type="button" class="slider-label-btn" data-value="No Ice">Sans Glace</button>
+                <button type="button" class="slider-label-btn" data-value="Less Ice">Peu de Glace</button>
+                <button type="button" class="slider-label-btn active" data-value="Regular Ice">Glace Normale</button>
+                <button type="button" class="slider-label-btn" data-value="Extra Ice">Extra Frais</button>
               </div>
               <div class="step-footer-action">
                 <button type="button" class="btn-finish-step" id="btn-finish-builder">🎉 Recette prête ! Ajouter à ma commande</button>
@@ -1186,73 +764,53 @@
         <!-- Visual Story Collage -->
         <div class="story-visual-collage">
           <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80" 
-               alt="Boba Bloom cafe lounge atmosphere in Cotonou" 
+               alt="Atmosphère cosy du salon de thé Boba Bloom à Haie Vive" 
                class="story-img-main" 
                loading="lazy" 
                onerror="this.src='https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80'" />
           <div class="story-floating-badge">
-            <strong>Born in Cotonou</strong>
-            <span>Crafting joy, one tea leaf and pearl at a time.</span>
+            <strong>Maison Fondée à Cotonou</strong>
+            <span>L'exigence du thé pur alliée aux nectars tropicaux.</span>
           </div>
         </div>
 
         <!-- Story Narrative Content -->
         <div class="story-content">
-          <span class="section-badge">Our Heritage & Craft</span>
-          <h2 class="section-title">More than a drink.</h2>
+          <span class="section-badge" style="background:var(--color-gold-light); color:var(--color-gold); border-color:var(--color-gold-border);">
+            Notre Savoir-Faire & Philosophie
+          </span>
+          <h2 class="section-title">L'Excellence du Thé Pur à Cotonou.</h2>
           <p class="story-lead">
-            Boba Bloom was born in the heart of Cotonou from a simple longing: to unite authentic Taiwanese tea traditions with the vibrant, sun-drenched spirit of coastal West Africa.
+            Boba Bloom est né au cœur de Haie Vive d'une passion inconditionnelle : marier la tradition séculaire des thés de montagne taïwanais à la fraîcheur gourmande des nectars tropicaux du Bénin.
           </p>
           <p class="story-p">
-            We don't do artificial syrups or pre-packaged powder mixes. Every morning, our team begins by brewing loose-leaf black teas, jasmine blossoms, and ceremonial matcha in small batches. Our tapioca pearls are hand-stirred in slow-reduced dark brown sugar for over 90 minutes until they achieve the quintessential bouncy chew.
+            Chaque feuille de thé vert au jasmin ou de thé noir Assam est infusée selon un rituel de température précis, renouvelé toutes les 4 heures. Nos perles de tapioca fraîches sont cuites chaque matin à feu doux pendant 90 minutes dans un sirop de sucre noir artisanal d'Okinawa.
           </p>
 
-          <!-- 3 Pillars required by prompt -->
+          <!-- 3 Pillars of Craft -->
           <div class="values-grid">
             <div class="value-card">
               <div class="value-icon" aria-hidden="true">🌱</div>
               <div>
-                <h4 class="value-title">Fresh</h4>
-                <p class="value-desc">Quality ingredients prepared with care. Whole tea leaves brewed fresh every 4 hours.</p>
+                <h4 class="value-title">Thés de Feuilles Nobles</h4>
+                <p class="value-desc">Zéro poudre industrielle, aucun arôme artificiel de synthèse.</p>
               </div>
             </div>
             <div class="value-card">
-              <div class="value-icon" aria-hidden="true">🎨</div>
+              <div class="value-icon" aria-hidden="true">🍯</div>
               <div>
-                <h4 class="value-title">Creative</h4>
-                <p class="value-desc">Unexpected flavors and endless combinations. Tropical mango, taro swirls, and popping boba.</p>
+                <h4 class="value-title">Perles Chaudes Artisanales</h4>
+                <p class="value-desc">Mijotées lentement pour une texture "QQ" moelleuse inégalée.</p>
               </div>
             </div>
             <div class="value-card">
-              <div class="value-icon" aria-hidden="true">❤️</div>
+              <div class="value-icon" aria-hidden="true">✨</div>
               <div>
-                <h4 class="value-title">Made With Love</h4>
-                <p class="value-desc">Every drink is prepared specifically for you, tailored to your exact ice and sweetness preference.</p>
+                <h4 class="value-title">Préparé Sous Vos Yeux</h4>
+                <p class="value-desc">Secoué minute au shaker selon votre niveau de sucre et de fraîcheur.</p>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== STATISTICS SECTION ==================== -->
-    <section class="section stats-section" id="stats" aria-label="Restaurant statistics">
-      <div class="container stats-grid">
-        <div class="stat-item">
-          <div class="stat-number" data-target="15" id="stat-recipes">0</div>
-          <div class="stat-label">Signature Recipes</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" data-target="20000" data-format="k" id="stat-drinks">0</div>
-          <div class="stat-label">Boba Drinks Served</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" data-target="4.9" data-decimal="1" id="stat-rating">0</div>
-          <div class="stat-label">Average Rating (5 Stars)</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" data-target="100" data-suffix="%" id="stat-vibes">0</div>
-          <div class="stat-label">Good Vibes in Cotonou</div>
         </div>
       </div>
     </section>
@@ -1260,66 +818,68 @@
     <!-- ==================== GALLERY SECTION ==================== -->
     <section class="section gallery-section" id="gallery">
       <div class="container">
-        <div class="section-header">
-          <span class="section-badge">Visual Moments</span>
-          <h2 class="section-title">The Boba Bloom Atmosphere.</h2>
+        <div class="section-header text-center">
+          <span class="section-badge" style="background:var(--color-gold-light); color:var(--color-gold); border-color:var(--color-gold-border);">
+            📸 Galerie & Atmosphère
+          </span>
+          <h2 class="section-title">L'Ambiance Boba Bloom.</h2>
           <p class="section-subtitle">
-            From our slow tea bar to happy smiles across Cotonou. Click any photo to expand.
+            Du comptoir d'infusion lente à nos salons climatisés de Haie Vive. Cliquez pour contempler.
           </p>
         </div>
 
         <div class="gallery-grid" id="gallery-grid">
           <!-- Gallery Item 1 -->
-          <div class="gallery-item gallery-item-wide" data-full="https://images.unsplash.com/photo-1558857563-b37cf5c490ff?auto=format&fit=crop&w=1200&q=80" data-caption="Signature Strawberry Cloud with real berry purée and cloud foam">
-            <img src="https://images.unsplash.com/photo-1558857563-b37cf5c490ff?auto=format&fit=crop&w=800&q=80" alt="Fresh strawberry bubble tea with sweet cream foam" class="gallery-img" loading="lazy" />
+          <div class="gallery-item gallery-item-wide" data-full="https://images.unsplash.com/photo-1558857563-b37cf5c490ff?auto=format&fit=crop&w=1200&q=80" data-caption="Nuage de Fraise avec purée de fruits frais et mousse veloutée">
+            <img src="https://images.unsplash.com/photo-1558857563-b37cf5c490ff?auto=format&fit=crop&w=800&q=80" alt="Bubble tea artisanal à la fraise avec mousse crémeuse" class="gallery-img" loading="lazy" />
             <div class="gallery-overlay">
-              <span class="gallery-tag">Product Close-up</span>
-              <span class="gallery-caption">Signature Strawberry Cloud</span>
+              <span class="gallery-tag">Création Signature</span>
+              <span class="gallery-caption">Nuage de Fraise Sauvage</span>
             </div>
           </div>
 
           <!-- Gallery Item 2 -->
-          <div class="gallery-item" data-full="https://images.unsplash.com/photo-1594488518001-0e1378370162?auto=format&fit=crop&w=1200&q=80" data-caption="Chewy tapioca pearls simmered in rich Okinawa brown sugar">
-            <img src="https://images.unsplash.com/photo-1594488518001-0e1378370162?auto=format&fit=crop&w=600&q=80" alt="Warm brown sugar boba pearls in syrup" class="gallery-img" loading="lazy" />
+          <div class="gallery-item" data-full="https://images.unsplash.com/photo-1594488518001-0e1378370162?auto=format&fit=crop&w=1200&q=80" data-caption="Perles de tapioca fraîches mijotées au sucre noir d'Okinawa">
+            <img src="https://images.unsplash.com/photo-1594488518001-0e1378370162?auto=format&fit=crop&w=600&q=80" alt="Perles de tapioca chaudes dans leur réduction de sucre brun" class="gallery-img" loading="lazy" />
             <div class="gallery-overlay">
-              <span class="gallery-tag">Ingredients</span>
-              <span class="gallery-caption">Handmade Brown Sugar Pearls</span>
+              <span class="gallery-tag">Matières Nobles</span>
+              <span class="gallery-caption">Perles Noires Artisanales</span>
             </div>
           </div>
 
           <!-- Gallery Item 3 -->
-          <div class="gallery-item gallery-item-tall" data-full="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=1200&q=80" data-caption="Hand-shaking drinks with precision behind our Cotonou tea bar">
-            <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80" alt="Barista preparing artisan bubble tea in shaker" class="gallery-img" loading="lazy" />
+          <div class="gallery-item gallery-item-tall" data-full="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=1200&q=80" data-caption="Préparation minutieuse au shaker par nos baristas passionnés">
+            <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80" alt="Barista préparant un thé artisanal au shaker" class="gallery-img" loading="lazy" />
             <div class="gallery-overlay">
-              <span class="gallery-tag">Preparation</span>
-              <span class="gallery-caption">Hand-Shaken Craftsmanship</span>
+              <span class="gallery-tag">Gestuelle</span>
+              <span class="gallery-caption">Art du Shaker Minute</span>
             </div>
           </div>
 
           <!-- Gallery Item 4 -->
-          <div class="gallery-item" data-full="https://images.unsplash.com/photo-1525268771113-32d9e9021a97?auto=format&fit=crop&w=1200&q=80" data-caption="Friends enjoying boba and laughter in our modern air-conditioned lounge">
-            <img src="https://images.unsplash.com/photo-1525268771113-32d9e9021a97?auto=format&fit=crop&w=600&q=80" alt="Customers enjoying bubble tea together" class="gallery-img" loading="lazy" />
+          <div class="gallery-item" data-full="https://images.unsplash.com/photo-1525268771113-32d9e9021a97?auto=format&fit=crop&w=1200&q=80" data-caption="Moments de détente et convivialité dans notre salon moderne">
+            <img src="https://images.unsplash.com/photo-1525268771113-32d9e9021a97?auto=format&fit=crop&w=600&q=80" alt="Clients dégustant leur boisson chez Boba Bloom" class="gallery-img" loading="lazy" />
             <div class="gallery-overlay">
-              <span class="gallery-tag">Community</span>
-              <span class="gallery-caption">Smiles in Cotonou</span>
+              <span class="gallery-tag">Partage</span>
+              <span class="gallery-caption">Sourires à Haie Vive</span>
             </div>
           </div>
 
           <!-- Gallery Item 5 -->
-          <div class="gallery-item" data-full="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=80" data-caption="Aesthetic pastel interior with cozy reading nooks and high-speed Wi-Fi">
-            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80" alt="Modern aesthetic cafe interior in Cotonou" class="gallery-img" loading="lazy" />
+          <div class="gallery-item" data-full="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=80" data-caption="Architecture feutrée, alcôves confortables et Wi-Fi très haut débit">
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80" alt="Intérieur contemporain et design du café Boba Bloom" class="gallery-img" loading="lazy" />
             <div class="gallery-overlay">
-              <span class="gallery-tag">Atmosphere</span>
-              <span class="gallery-caption">The Lounge Experience</span>
+              <span class="gallery-tag">Le Salon</span>
+              <span class="gallery-caption">Élégance & Sérénité</span>
             </div>
           </div>
 
           <!-- Gallery Item 6 -->
-          <div class="gallery-item gallery-item-wide" data-full="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=1200&q=80" data-caption="Sparkling tropical fruit teas garnished with fresh passion fruit">
-            <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80" alt="Sparkling iced tropical fruit tea drinks" class="gallery-img" loading="lazy" />
+          <div class="gallery-item gallery-item-wide" data-full="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=1200&q=80" data-caption="Thés glacés pétillants aux fruits de la passion du Bénin">
+            <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80" alt="Thé glacé pétillant et fruits exotiques frais" class="gallery-img" loading="lazy" />
             <div class="gallery-overlay">
-              <span class="gallery-tag">Fresh Flavors</span>
-              <span class="gallery-caption">Tropical Passion Fruit Sparkler</span>
+              <span class="gallery-tag">Fraîcheur Tropicale</span>
+              <span class="gallery-caption">Infusion Pétillante Passion</span>
             </div>
           </div>
         </div>
@@ -1329,10 +889,12 @@
     <!-- ==================== TESTIMONIALS SECTION ==================== -->
     <section class="section testimonials-section" id="testimonials">
       <div class="container">
-        <div class="section-header">
-          <span class="section-badge">Happy Customers</span>
-          <h2 class="section-title">Loved by Cotonou.</h2>
-          <p class="section-subtitle">Read what our community has to say about their favorite Boba Bloom drinks.</p>
+        <div class="section-header text-center">
+          <span class="section-badge" style="background:var(--color-gold-light); color:var(--color-gold); border-color:var(--color-gold-border);">
+            ⭐ Témoignages & Avis Vérifiés
+          </span>
+          <h2 class="section-title">L'Éloge de Nos Hôtes.</h2>
+          <p class="section-subtitle">Ce que disent les amoureux de haute mixologie et de thé d'exception à Cotonou.</p>
         </div>
 
         <div class="testimonials-slider-container">
@@ -1341,13 +903,13 @@
             <div class="testimonial-slide active" data-index="0">
               <div class="testimonial-rating" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
               <blockquote class="testimonial-quote">
-                &ldquo;The Strawberry Cloud is literally heaven in a cup. You can genuinely taste the fresh strawberry purée instead of sugary syrup. Having Boba Bloom in Cotonou has completely upgraded our weekend hangouts!&rdquo;
+                &ldquo;Le Nuage de Fraise est tout simplement un chef-d'œuvre. On sent la vraie pulpe fraîche de fruit et le thé vert au jasmin d'une pureté absolue, loin des sirops chimiques. Boba Bloom a hissé le boba à Cotonou au rang de haute gastronomie.&rdquo;
               </blockquote>
               <div class="testimonial-author">
                 <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Amina K." class="author-avatar" loading="lazy" />
                 <div class="author-info">
                   <div class="author-name">Amina K.</div>
-                  <div class="author-location">Content Creator &bull; Cotonou</div>
+                  <div class="author-location">Directrice Artistique &bull; Haie Vive</div>
                 </div>
               </div>
             </div>
@@ -1356,13 +918,13 @@
             <div class="testimonial-slide" data-index="1">
               <div class="testimonial-rating" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
               <blockquote class="testimonial-quote">
-                &ldquo;As someone who fell in love with boba while studying abroad, the Brown Sugar Bliss here is 100% authentic. The tapioca pearls are warm and delightfully chewy. The cozy space in Haie Vive is also perfect for remote work.&rdquo;
+                &ldquo;Après avoir vécu à Taipei, je désespérais de trouver un authentique thé au sucre noir en Afrique de l'Ouest. Le Tigre Sucre Noir de Boba Bloom est d'une justesse remarquable. Perles tièdes, moelleuses, texture QQ parfaite.&rdquo;
               </blockquote>
               <div class="testimonial-author">
                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Marc D." class="author-avatar" loading="lazy" />
                 <div class="author-info">
                   <div class="author-name">Marc D.</div>
-                  <div class="author-location">Architect &bull; Haie Vive</div>
+                  <div class="author-location">Architecte d'Intérieur &bull; Cotonou</div>
                 </div>
               </div>
             </div>
@@ -1371,13 +933,13 @@
             <div class="testimonial-slide" data-index="2">
               <div class="testimonial-rating" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
               <blockquote class="testimonial-quote">
-                &ldquo;I love the custom drink builder! Being able to request 30% sweetness with extra green tea and popping boba is amazing. The staff is super warm and the presentation is always 10/10 Instagram-worthy.&rdquo;
+                &ldquo;L'atelier de composition sur-mesure est bluffant ! Pouvoir ajuster le sucre à 30% avec un lait d'avoine et des morceaux d'aloe vera frais... Le service est d'une politesse exquise et le cadre est propice aux discussions feutrées.&rdquo;
               </blockquote>
               <div class="testimonial-author">
                 <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" alt="Sarah T." class="author-avatar" loading="lazy" />
                 <div class="author-info">
                   <div class="author-name">Sarah T.</div>
-                  <div class="author-location">Student &bull; Cadjèhoun</div>
+                  <div class="author-location">Consultante &bull; Cadjèhoun</div>
                 </div>
               </div>
             </div>
@@ -1385,17 +947,17 @@
 
           <!-- Controls (Arrows + Dots) -->
           <div class="slider-controls">
-            <button class="slider-arrow-btn" id="slider-prev" aria-label="Previous testimonial">
+            <button class="slider-arrow-btn" id="slider-prev" aria-label="Témoignage précédent">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polyline points="15 18 9 12 15 6"></polyline>
               </svg>
             </button>
-            <div class="slider-dots" id="slider-dots" role="tablist" aria-label="Testimonial slides">
-              <button class="slider-dot active" data-index="0" role="tab" aria-label="Slide 1"></button>
-              <button class="slider-dot" data-index="1" role="tab" aria-label="Slide 2"></button>
-              <button class="slider-dot" data-index="2" role="tab" aria-label="Slide 3"></button>
+            <div class="slider-dots" id="slider-dots" role="tablist" aria-label="Témoignages">
+              <button class="slider-dot active" data-index="0" role="tab" aria-label="Avis 1"></button>
+              <button class="slider-dot" data-index="1" role="tab" aria-label="Avis 2"></button>
+              <button class="slider-dot" data-index="2" role="tab" aria-label="Avis 3"></button>
             </div>
-            <button class="slider-arrow-btn" id="slider-next" aria-label="Next testimonial">
+            <button class="slider-arrow-btn" id="slider-next" aria-label="Témoignage suivant">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
@@ -1411,10 +973,12 @@
         <!-- Location Details -->
         <div class="location-info-card">
           <div>
-            <span class="section-badge">Visit Our Lounge</span>
-            <h2 class="section-title">Come say hi.</h2>
+            <span class="section-badge" style="background:var(--color-gold-light); color:var(--color-gold); border-color:var(--color-gold-border);">
+              📍 Notre Écrin à Cotonou
+            </span>
+            <h2 class="section-title">Venez Nous Rencontrer.</h2>
             <p class="section-subtitle" style="margin-bottom: var(--space-lg);">
-              Step into our pastel-hued, air-conditioned sanctuary in Cotonou for fresh boba, pleasant music, and friendly smiles.
+              Une parenthèse feutrée et climatisée à Haie Vive, conçue pour les amateurs de thé fin, de calme et d'élégance.
             </p>
           </div>
 
@@ -1426,14 +990,14 @@
               </svg>
             </div>
             <div class="info-content">
-              <h3>Boba Bloom Cafe</h3>
-              <p>Haie Vive, Cotonou, Benin</p>
-              <p style="font-size:0.84rem; color:var(--color-text-muted); margin-top:2px;">Just minutes from Boulevard de la Marina</p>
+              <h3>Salon de Thé Boba Bloom</h3>
+              <p>Quartier Haie Vive, Cotonou, Bénin</p>
+              <p style="font-size:0.84rem; color:var(--color-text-muted); margin-top:2px;">À 2 minutes du Boulevard de la Marina</p>
               <div class="amenities-chips">
-                <span class="amenity-chip">⚡ Fast Free Wi-Fi</span>
-                <span class="amenity-chip">❄️ Air Conditioned</span>
-                <span class="amenity-chip">🌿 Garden Terrace</span>
-                <span class="amenity-chip">💳 Mobile Money / Card</span>
+                <span class="amenity-chip">⚡ Fibre Wi-Fi Haut Débit</span>
+                <span class="amenity-chip">❄️ Salons Climatisés</span>
+                <span class="amenity-chip">🌿 Terrasse Arborée</span>
+                <span class="amenity-chip">💳 MoMo / Flooz / Carte Bancaire</span>
               </div>
             </div>
           </div>
@@ -1446,9 +1010,9 @@
               </svg>
             </div>
             <div class="info-content">
-              <h3>Opening Hours</h3>
-              <p><strong>Monday – Saturday:</strong> 10:00 AM – 9:00 PM</p>
-              <p><strong>Sunday:</strong> 2:00 PM – 8:00 PM</p>
+              <h3>Horaires d'Ouverture</h3>
+              <p><strong>Lundi – Samedi :</strong> 10h00 – 21h30 (Service continu)</p>
+              <p><strong>Dimanche :</strong> 13h00 – 20h30</p>
             </div>
           </div>
 
@@ -1459,9 +1023,9 @@
               </svg>
             </div>
             <div class="info-content">
-              <h3>Direct Contact & Orders</h3>
-              <p>WhatsApp / Call: <strong>+229 97 00 00 00</strong></p>
-              <p>Email: <strong>hello@bobabloom.bj</strong></p>
+              <h3>Conciergerie & Commandes Directes</h3>
+              <p>WhatsApp Concierge : <strong>+229 97 00 00 00</strong></p>
+              <p>Service Événements : <strong>concierge@bobabloom.bj</strong></p>
             </div>
           </div>
         </div>
@@ -1514,7 +1078,7 @@
                rel="noopener noreferrer" 
                class="btn btn-primary btn-sm" 
                id="btn-get-directions">
-              <span>Get Directions</span>
+              <span>Itinéraire Google Maps</span>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="7" y1="17" x2="17" y2="7"></line>
                 <polyline points="7 7 17 7 17 17"></polyline>
@@ -1594,22 +1158,22 @@
             <span>BOBA <span style="color:#FFD2DC;">BLOOM</span></span>
           </a>
           <p>
-            Cotonou's destination for freshly crafted artisanal Bubble Tea, rich brown sugar pearls, and tropical refreshing moments.
+            Maison de thé artisanal à Cotonou. Infusions nobles de feuilles entières, perles d'Okinawa mijotées minute et nectars de fruits tropicaux frais.
           </p>
           <div class="social-links">
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Follow Boba Bloom on Instagram">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Suivre Boba Bloom sur Instagram">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
               </svg>
             </a>
-            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Follow Boba Bloom on TikTok">
+            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Suivre Boba Bloom sur TikTok">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
               </svg>
             </a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Follow Boba Bloom on Facebook">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Suivre Boba Bloom sur Facebook">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
               </svg>
@@ -1621,36 +1185,37 @@
         <div>
           <h4 class="footer-title">Navigation</h4>
           <ul class="footer-links">
-            <li><a href="#hero" class="footer-link">Home</a></li>
-            <li><a href="#menu" class="footer-link">Full Menu</a></li>
-            <li><a href="#builder" class="footer-link">Build Your Boba</a></li>
-            <li><a href="#story" class="footer-link">Our Story</a></li>
-            <li><a href="#gallery" class="footer-link">Photo Gallery</a></li>
-            <li><a href="#location" class="footer-link">Find Us</a></li>
+            <li><a href="#hero" class="footer-link">Accueil</a></li>
+            <li><a href="#menu" class="footer-link">Carte des Thés</a></li>
+            <li><a href="#builder" class="footer-link">Atelier Sur-Mesure</a></li>
+            <li><a href="#story" class="footer-link">Notre Maison</a></li>
+            <li><a href="#gallery" class="footer-link">Galerie Salon</a></li>
+            <li><a href="#salon-privilege" class="footer-link">Salon Privilège</a></li>
+            <li><a href="#location" class="footer-link">Venir au Salon</a></li>
           </ul>
         </div>
 
         <!-- Hours & Location -->
         <div>
-          <h4 class="footer-title">Cotonou Lounge</h4>
+          <h4 class="footer-title">Salon Haie Vive</h4>
           <ul class="footer-links">
-            <li>Haie Vive, Cotonou, Benin</li>
-            <li>Mon – Sat: 10:00 AM – 9:00 PM</li>
-            <li>Sunday: 2:00 PM – 8:00 PM</li>
-            <li>hello@bobabloom.bj</li>
+            <li>Quartier Haie Vive, Cotonou</li>
+            <li>Lundi – Samedi : 10h00 – 21h30</li>
+            <li>Dimanche : 13h00 – 20h30</li>
+            <li>concierge@bobabloom.bj</li>
             <li>+229 97 00 00 00</li>
           </ul>
         </div>
 
         <!-- VIP Club Newsletter -->
         <div>
-          <h4 class="footer-title">Join the Bloom Club</h4>
+          <h4 class="footer-title">Cercle Privé Bloom</h4>
           <p style="font-size:0.88rem; color:rgba(250,246,240,0.7); margin-bottom:10px;">
-            Get secret menu drops, VIP tasting invites, and 10% off your next boba run.
+            Invitations aux dégustations sommelières, créations éphémères et privilèges réservés aux membres.
           </p>
           <form class="footer-newsletter-form" id="newsletter-form">
-            <input type="email" class="newsletter-input" placeholder="Your email address" required aria-label="Email address for newsletter" />
-            <button type="submit" class="btn btn-primary btn-sm">Join</button>
+            <input type="email" class="newsletter-input" placeholder="Votre adresse email" required aria-label="Adresse email pour le cercle privé" />
+            <button type="submit" class="btn btn-primary btn-sm">Rejoindre</button>
           </form>
         </div>
       </div>
@@ -1658,11 +1223,11 @@
       <!-- Footer Bottom Copyright & Legal -->
       <div class="footer-bottom">
         <div>
-          &copy; <span id="copyright-year">2026</span> BOBA BLOOM. All rights reserved. Handcrafted in Cotonou, Benin.
+          &copy; <span id="copyright-year">2026</span> BOBA BLOOM &bull; Haute Maison de Thé, Cotonou. Tous droits réservés.
         </div>
         <div class="legal-links">
-          <button class="legal-link" id="btn-open-allergens" style="background:none; border:none; color:inherit; cursor:pointer;">Allergen Information</button>
-          <button class="legal-link" id="btn-open-privacy" style="background:none; border:none; color:inherit; cursor:pointer;">Privacy Policy</button>
+          <button class="legal-link" id="btn-open-allergens" style="background:none; border:none; color:inherit; cursor:pointer;">Guide des Allergènes</button>
+          <button class="legal-link" id="btn-open-privacy" style="background:none; border:none; color:inherit; cursor:pointer;">Politique de Confidentialité</button>
         </div>
       </div>
     </div>
@@ -1670,13 +1235,13 @@
 
   <!-- ==================== CART DRAWER ==================== -->
   <div class="cart-drawer-overlay" id="cart-drawer-overlay" aria-hidden="true"></div>
-  <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping Cart Drawer" role="dialog" aria-modal="true" aria-hidden="true">
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Panier de commande" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="cart-header">
       <div class="cart-header-title">
-        <span>Your Order</span>
-        <span class="cart-count-pill" id="cart-drawer-count">0 items</span>
+        <span>Votre Sélection</span>
+        <span class="cart-count-pill" id="cart-drawer-count">0 article</span>
       </div>
-      <button class="cart-close-btn" id="cart-close-btn" aria-label="Close Shopping Cart">
+      <button class="cart-close-btn" id="cart-close-btn" aria-label="Fermer le panier">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -1687,7 +1252,7 @@
     <!-- Free Delivery Progress in Cotonou -->
     <div class="delivery-meter-box" id="delivery-meter-box">
       <div class="delivery-meter-text">
-        <span id="meter-label">Add 3,000 FCFA more for Free Cotonou Delivery</span>
+        <span id="meter-label">Plus que 3 000 FCFA pour la livraison offerte à Cotonou</span>
         <span id="meter-pct">0%</span>
       </div>
       <div class="meter-bar">
@@ -1704,39 +1269,39 @@
     <div class="cart-footer" id="cart-footer">
       <!-- Promo Code -->
       <div class="promo-row">
-        <input type="text" id="promo-input" class="promo-input" placeholder="Promo code (e.g. BLOOM10)" aria-label="Enter promotional discount code" />
-        <button type="button" class="btn btn-secondary btn-sm" id="btn-apply-promo">Apply</button>
+        <input type="text" id="promo-input" class="promo-input" placeholder="Code privilège (ex: BLOOM10)" aria-label="Code promotionnel" />
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-apply-promo">Appliquer</button>
       </div>
 
       <!-- Calculations -->
       <div class="order-calculation">
         <div class="calc-row">
-          <span>Subtotal</span>
+          <span>Sous-total</span>
           <span id="calc-subtotal">0 FCFA</span>
         </div>
-        <div class="calc-row" id="row-discount" style="display: none; color: var(--color-raspberry);">
-          <span>Discount (BLOOM10)</span>
+        <div class="calc-row" id="row-discount" style="display: none; color: var(--color-gold);">
+          <span>Privilège (BLOOM10)</span>
           <span id="calc-discount">-0 FCFA</span>
         </div>
         <div class="calc-row">
-          <span>Pickup / Delivery</span>
-          <span id="calc-delivery">Free Pickup</span>
+          <span>Retrait / Livraison</span>
+          <span id="calc-delivery">Retrait Salon Offert</span>
         </div>
         <div class="calc-row total">
-          <span>Total</span>
+          <span>Total Commande</span>
           <span id="calc-total">0 FCFA</span>
         </div>
       </div>
 
       <div class="cart-actions">
         <button class="btn btn-primary" id="btn-cart-checkout" style="width: 100%;">
-          <span>Continue to Checkout</span>
+          <span>Finaliser ma Commande</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
         </button>
-        <button class="btn-clear-cart" id="btn-clear-cart">Clear Cart</button>
+        <button class="btn-clear-cart" id="btn-clear-cart">Vider le panier</button>
       </div>
     </div>
   </aside>
@@ -1744,7 +1309,7 @@
   <!-- ==================== CHECKOUT MODAL ==================== -->
   <div class="modal-overlay" id="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-modal-title" aria-hidden="true">
     <div class="modal-dialog">
-      <button class="modal-close-btn" id="checkout-close-btn" aria-label="Close checkout modal">
+      <button class="modal-close-btn" id="checkout-close-btn" aria-label="Fermer la fenêtre de commande">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -1752,48 +1317,48 @@
       </button>
 
       <div id="checkout-form-view">
-        <span class="section-badge" style="margin-bottom:8px;">Quick Order</span>
-        <h2 id="checkout-modal-title" style="font-size:1.6rem; margin-bottom:var(--space-md);">Complete Your Order</h2>
+        <span class="section-badge" style="background:var(--color-gold-light); color:var(--color-gold); border-color:var(--color-gold-border); margin-bottom:8px;">Commande Express</span>
+        <h2 id="checkout-modal-title" style="font-size:1.5rem; margin-bottom:var(--space-md); font-family:var(--font-serif);">Confirmer Votre Commande</h2>
         <p style="font-size:0.9rem; color:var(--color-text-muted); margin-bottom:var(--space-lg);">
-          No account needed! Your order is sent directly to our barista bar at Boba Bloom Cotonou.
+          Sans création de compte. Votre commande est transmise en direct au comptoir de Boba Bloom Haie Vive.
         </p>
 
         <form id="checkout-form">
           <div class="form-group">
-            <label for="cust-name" class="form-label">Full Name *</label>
-            <input type="text" id="cust-name" class="form-input" placeholder="e.g. Marc Dossou" required />
+            <label for="cust-name" class="form-label">Nom & Prénom *</label>
+            <input type="text" id="cust-name" class="form-input" placeholder="ex. Marc Dossou" required />
           </div>
 
           <div class="form-group">
-            <label for="cust-phone" class="form-label">WhatsApp or Phone Number (Benin) *</label>
+            <label for="cust-phone" class="form-label">Numéro WhatsApp ou Téléphone (Bénin) *</label>
             <input type="tel" id="cust-phone" class="form-input" placeholder="+229 97 00 00 00" required />
           </div>
 
           <div class="form-group">
-            <label for="order-type" class="form-label">Order Type</label>
+            <label for="order-type" class="form-label">Mode de retrait / livraison</label>
             <select id="order-type" class="form-select">
-              <option value="pickup">Pickup at Haie Vive Lounge (Ready in 15 mins)</option>
-              <option value="delivery">Express Delivery in Cotonou (+1,000 FCFA)</option>
+              <option value="pickup">Retrait au Salon Haie Vive (Prêt en 15 min - Gratuit)</option>
+              <option value="delivery">Livraison Express Cotonou (+1 000 FCFA)</option>
             </select>
           </div>
 
           <div class="form-group" id="delivery-address-group" style="display: none;">
-            <label for="cust-address" class="form-label">Delivery Address in Cotonou *</label>
-            <input type="text" id="cust-address" class="form-input" placeholder="Neighborhood (e.g. Haie Vive, Cadjèhoun, Ganhi, Akpakpa)" />
+            <label for="cust-address" class="form-label">Adresse de livraison à Cotonou *</label>
+            <input type="text" id="cust-address" class="form-input" placeholder="Quartier (ex. Haie Vive, Cadjèhoun, Ganhi, Akpakpa, Fidjrossè)" />
           </div>
 
           <div class="form-group">
-            <label for="cust-notes" class="form-label">Special Instructions (Optional)</label>
-            <textarea id="cust-notes" class="form-textarea" rows="2" placeholder="e.g. Oat milk preferred, extra straw, gift packaging..."></textarea>
+            <label for="cust-notes" class="form-label">Précisions ou instructions particulières (Optionnel)</label>
+            <textarea id="cust-notes" class="form-textarea" rows="2" placeholder="ex. Paille supplémentaire, emballage cadeau, appel à l'arrivée..."></textarea>
           </div>
 
-          <div style="background:var(--color-cream); border-radius:var(--radius-md); padding:12px; margin-bottom:var(--space-lg); display:flex; justify-content:space-between; font-weight:700;">
-            <span>Total Payable:</span>
-            <span id="checkout-final-total" style="color:var(--color-raspberry); font-size:1.15rem;">0 FCFA</span>
+          <div style="background:var(--color-cream); border:1px solid var(--color-gold-border); border-radius:var(--radius-md); padding:14px; margin-bottom:var(--space-lg); display:flex; justify-content:space-between; align-items:center; font-weight:700;">
+            <span>Total à régler :</span>
+            <span id="checkout-final-total" style="color:var(--color-gold); font-size:1.3rem; font-family:var(--font-serif);">0 FCFA</span>
           </div>
 
           <button type="submit" class="btn btn-primary" style="width: 100%; padding:14px;">
-            <span>Confirm & Place Order</span>
+            <span>Valider & Transmettre la Commande</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
@@ -1809,9 +1374,9 @@
               <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
           </div>
-          <h3 style="font-size:1.5rem; margin-bottom:6px;">Order Received!</h3>
+          <h3 style="font-size:1.5rem; margin-bottom:6px; font-family:var(--font-serif);">Commande Confirmée !</h3>
           <p style="font-size:0.92rem; color:var(--color-text-muted);">
-            Our baristas have fired up the tea shakers. We're handcrafting your drinks right now!
+            Nos baristas préparent vos thés d'exception minute. Nous préparons votre commande au comptoir de Haie Vive !
           </p>
 
           <div class="receipt-paper" id="receipt-details">
@@ -1820,10 +1385,10 @@
 
           <div style="display: flex; gap: 10px; margin-top: var(--space-md);">
             <a id="btn-whatsapp-track" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-dark" style="flex:1;">
-              <span>WhatsApp Us</span>
+              <span>Suivre sur WhatsApp</span>
             </a>
             <button type="button" class="btn btn-secondary" id="btn-receipt-done" style="flex:1;">
-              Done
+              Terminer
             </button>
           </div>
         </div>
@@ -1834,13 +1399,13 @@
   <!-- ==================== GALLERY LIGHTBOX MODAL ==================== -->
   <div class="lightbox-overlay" id="lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="lightbox-content">
-      <button class="modal-close-btn" id="lightbox-close-btn" aria-label="Close full image view">
+      <button class="modal-close-btn" id="lightbox-close-btn" aria-label="Fermer la vue agrandie">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </button>
-      <img id="lightbox-img" class="lightbox-img" src="" alt="Enlarged Boba Bloom gallery photo" />
+      <img id="lightbox-img" class="lightbox-img" src="" alt="Vue agrandie de la galerie Boba Bloom" />
       <div id="lightbox-caption" class="lightbox-caption"></div>
     </div>
   </div>
@@ -1848,13 +1413,13 @@
   <!-- ==================== LEGAL / ALLERGEN MODAL ==================== -->
   <div class="modal-overlay" id="info-modal" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal-dialog">
-      <button class="modal-close-btn" id="info-modal-close-btn" aria-label="Close information dialog">
+      <button class="modal-close-btn" id="info-modal-close-btn" aria-label="Fermer la fenêtre d'information">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </button>
-      <h3 id="info-modal-title" style="font-size:1.4rem; margin-bottom:var(--space-md);">Allergen Information</h3>
+      <h3 id="info-modal-title" style="font-size:1.4rem; margin-bottom:var(--space-md); font-family:var(--font-serif);">Guide des Allergènes</h3>
       <div id="info-modal-body" style="font-size:0.95rem; color:var(--color-text-body); line-height:1.7;">
         <!-- Injected via script.js -->
       </div>
