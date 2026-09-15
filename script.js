@@ -1466,6 +1466,16 @@ function initBobaBloom() {
       closeCheckoutModal();
       closeLightbox();
       closeInfoModal();
+      const vipModal = document.getElementById('vip-booking-modal');
+      if (vipModal && vipModal.classList.contains('open')) {
+        vipModal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      const tastingModal = document.getElementById('tasting-sheet-modal');
+      if (tastingModal && tastingModal.classList.contains('open')) {
+        tastingModal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
       if (mobileDrawer && mobileDrawer.classList.contains('open')) {
         toggleMobileDrawer();
       }
@@ -1479,7 +1489,7 @@ function initBobaBloom() {
       e.preventDefault();
       const input = newsletterForm.querySelector('input[type="email"]');
       if (input && input.value) {
-        showToast('Welcome to the Bloom Club! Check your inbox for 10% off.');
+        showToast('Bienvenue au Club Boba Bloom ! Votre privilège de -10% est activé.');
         input.value = '';
       }
     });
@@ -1490,6 +1500,347 @@ function initBobaBloom() {
   if (copyrightYear) {
     copyrightYear.textContent = new Date().getFullYear();
   }
+
+  /* ==========================================================================
+     BOBA SOMMELIER & TASTING SHEET MODAL
+     ========================================================================== */
+  const sommelierData = {
+    fruity: {
+      name: 'Cotonou Hibiscus Blossom',
+      cat: 'Signature Exclusive Cotonou',
+      price: '2 900 FCFA',
+      numPrice: 2900,
+      img: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=800&q=80',
+      quote: '« Une création florale lumineuse célébrant la fleur d\'hibiscus locale de l\'Atacora, équilibrée par la rondeur du thé vert au jasmin et l\'éclat acidulé des perles de grenade explosives. »',
+      terroir: 'Bissap Atacora & Jasmin Vert',
+      aroma: 'Acidulé, Floral & Givré',
+      pairing: 'Mochi Mangue Passion',
+      sheet: {
+        terroir: "Fleurs d'Hibiscus Sabdariffa (Atacora, Bénin) & Jasmin de Nantou",
+        temp: "88°C • Infusion lente 5 min",
+        caffeine: "Modéré (15mg / 100ml)",
+        texture: "Légère, étincelante et désaltérante",
+        top: "Baies sauvages, Grenade fraîche & Fleur de tiaré",
+        heart: "Jasmin blanc infusé, Miel d'acacia subtil",
+        finish: "Acidulée vive, fraîcheur minérale prolongée",
+        pairing: "Mochi artisanal Mangue Passion ou Macaron à la Framboise"
+      }
+    },
+    comfort: {
+      name: 'Brown Sugar Bliss',
+      cat: 'Thé au Lait Caramélisé',
+      price: '3 000 FCFA',
+      numPrice: 3000,
+      img: 'https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=800&q=80',
+      quote: '« Le réconfort absolu d\'un thé noir d\'Assam corsé enrobé d\'un sirop de sucre roux d\'Okinawa longuement réduit, accompagné de perles de tapioca servies chaudes et fondantes. »',
+      terroir: 'Assam Royal 1ère Récolte & Sucre Noir',
+      aroma: 'Caramel beurré, Cassonade & Boisé',
+      pairing: 'Gaufre Dorée au Sucre Perlé',
+      sheet: {
+        terroir: "Feuilles entières d'Assam (Inde) & Cassonade Kokuto d'Okinawa",
+        temp: "95°C • Décoction soutenue 6 min",
+        caffeine: "Élevé (42mg / 100ml)",
+        texture: "Crémeuse, chaleureuse et enveloppante",
+        top: "Sucre caramélisé, Sirop d'érable fumé",
+        heart: "Malt torréfié, Lait riche et velouté",
+        finish: "Rondeur rémanente de mélasse noble",
+        pairing: "Gaufre liégeoise croustillante ou Cookies pécan"
+      }
+    },
+    matcha: {
+      name: 'Ceremonial Matcha Bloom',
+      cat: 'Grand Cru Japonais',
+      price: '3 400 FCFA',
+      numPrice: 3400,
+      img: 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=800&q=80',
+      quote: '« Fouetté traditionnellement au chasen en bambou, ce matcha de cérémonie Grade A d\'Uji déploie une texture veloutée sur lit de lait d\'avoine bio, marié à la douceur d\'un miel sauvage. »',
+      terroir: 'Uji (Kyoto) & Lait d\'Avoine Bio',
+      aroma: 'Végétal noble, Umami & Cacao blanc',
+      pairing: 'Mochi Matcha & Haricots Rouges',
+      sheet: {
+        terroir: "Tencha de première récolte ombragé 21 jours, Uji (Kyoto)",
+        temp: "75°C • Fouetté au Chasen traditionnel",
+        caffeine: "Tonique doux (30mg / 100ml)",
+        texture: "Mousseuse, dense et soyeuse",
+        top: "Chlorophylle fraîche, Herbe coupée, Amande",
+        heart: "Notes umami intenses, Lait végétal soyeux",
+        finish: "Amertume noble ultra-fine et persistante",
+        pairing: "Mochi traditionnel au thé vert ou Financier pistache"
+      }
+    },
+    gourmand: {
+      name: 'Tiger Crème Brûlée Boba',
+      cat: 'Haute Pâtisserie Liquide',
+      price: '3 500 FCFA',
+      numPrice: 3500,
+      img: 'https://images.unsplash.com/photo-1541658016709-82535e94bc69?auto=format&fit=crop&w=800&q=80',
+      quote: '« Une interprétation haute couture du dessert français : crème anglaise onctueuse caramélisée au chalumeau à la minute, perles tièdes et lait soyeux parfumé à la vanille de Madagascar. »',
+      terroir: 'Gousse Vanille Bourbon & Sucre de Canne',
+      aroma: 'Crème brûlée croustillante & Vanille',
+      pairing: 'Cheesecake Passion Vanille',
+      sheet: {
+        terroir: "Vanille Bourbon de Madagascar & Sucre roux de canne",
+        temp: "Service tempéré / Chaud-Froid minute",
+        caffeine: "Faible (10mg / 100ml)",
+        texture: "Épaisse, gourmande et contrastée",
+        top: "Caramel chaud craquant au chalumeau",
+        heart: "Custard onctueux, Vanille intense",
+        finish: "Perles tièdes fondantes au cœur",
+        pairing: "Tartelette sablée aux noix de cajou de Parakou"
+      }
+    }
+  };
+
+  let currentSommelierKey = 'fruity';
+
+  function updateSommelierUI(key) {
+    const item = sommelierData[key];
+    if (!item) return;
+    currentSommelierKey = key;
+
+    const img = document.getElementById('sommelier-img');
+    const cat = document.getElementById('sommelier-cat');
+    const name = document.getElementById('sommelier-name');
+    const price = document.getElementById('sommelier-price');
+    const quote = document.getElementById('sommelier-quote');
+    const terroir = document.getElementById('sommelier-terroir');
+    const aroma = document.getElementById('sommelier-aroma');
+    const pairing = document.getElementById('sommelier-pairing');
+    const card = document.getElementById('sommelier-card');
+
+    if (card) {
+      card.style.opacity = '0.7';
+      card.style.transform = 'translateY(6px)';
+      card.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
+    }
+
+    setTimeout(() => {
+      if (img) img.src = item.img;
+      if (cat) cat.textContent = item.cat;
+      if (name) name.textContent = item.name;
+      if (price) price.textContent = item.price;
+      if (quote) quote.textContent = item.quote;
+      if (terroir) terroir.textContent = item.terroir;
+      if (aroma) aroma.textContent = item.aroma;
+      if (pairing) pairing.textContent = item.pairing;
+
+      if (card) {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }
+    }, 150);
+  }
+
+  function initSommelier() {
+    const chips = document.querySelectorAll('.sommelier-chip');
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => {
+          c.classList.remove('active');
+          c.setAttribute('aria-selected', 'false');
+        });
+        chip.classList.add('active');
+        chip.setAttribute('aria-selected', 'true');
+        const mood = chip.getAttribute('data-mood');
+        updateSommelierUI(mood);
+      });
+    });
+
+    const btnAdd = document.getElementById('btn-sommelier-add');
+    if (btnAdd) {
+      btnAdd.addEventListener('click', () => {
+        const item = sommelierData[currentSommelierKey];
+        if (!item) return;
+        addToCart({
+          id: 'sommelier-' + currentSommelierKey + '-' + Date.now(),
+          name: item.name,
+          price: item.numPrice,
+          image: item.img,
+          specs: 'Accord Sommelier • Grand Cru 500ml',
+          quantity: 1
+        });
+        showToast(`Ajouté au panier: ${item.name} (${item.price})`);
+      });
+    }
+
+    // Tasting sheet modal
+    const tastingModal = document.getElementById('tasting-sheet-modal');
+    const btnSheet = document.getElementById('btn-sommelier-sheet');
+    const btnCloseSheet = document.getElementById('tasting-sheet-close-btn');
+    const btnCloseSheetBottom = document.getElementById('ts-btn-close');
+    const btnOrderFromSheet = document.getElementById('ts-btn-order');
+
+    function openTastingSheet(key) {
+      const item = sommelierData[key] || sommelierData.fruity;
+      const title = document.getElementById('tasting-sheet-title');
+      const sub = document.getElementById('tasting-sheet-subtitle');
+      const tsTerroir = document.getElementById('ts-terroir');
+      const tsTemp = document.getElementById('ts-temp');
+      const tsCaffeine = document.getElementById('ts-caffeine');
+      const tsTexture = document.getElementById('ts-texture');
+      const tsTop = document.getElementById('ts-top-notes');
+      const tsHeart = document.getElementById('ts-heart-notes');
+      const tsFinish = document.getElementById('ts-finish-notes');
+      const tsPairing = document.getElementById('ts-pairing');
+
+      if (title) title.textContent = item.name;
+      if (sub) sub.textContent = item.cat + ' • ' + item.price;
+      if (tsTerroir) tsTerroir.textContent = item.sheet.terroir;
+      if (tsTemp) tsTemp.textContent = item.sheet.temp;
+      if (tsCaffeine) tsCaffeine.textContent = item.sheet.caffeine;
+      if (tsTexture) tsTexture.textContent = item.sheet.texture;
+      if (tsTop) tsTop.textContent = item.sheet.top;
+      if (tsHeart) tsHeart.textContent = item.sheet.heart;
+      if (tsFinish) tsFinish.textContent = item.sheet.finish;
+      if (tsPairing) tsPairing.textContent = item.sheet.pairing;
+
+      if (tastingModal) {
+        tastingModal.classList.add('open');
+        tastingModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeTastingSheet() {
+      if (tastingModal) {
+        tastingModal.classList.remove('open');
+        tastingModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    }
+
+    if (btnSheet) {
+      btnSheet.addEventListener('click', () => openTastingSheet(currentSommelierKey));
+    }
+    if (btnCloseSheet) btnCloseSheet.addEventListener('click', closeTastingSheet);
+    if (btnCloseSheetBottom) btnCloseSheetBottom.addEventListener('click', closeTastingSheet);
+    if (tastingModal) {
+      tastingModal.addEventListener('click', (e) => {
+        if (e.target === tastingModal) closeTastingSheet();
+      });
+    }
+
+    if (btnOrderFromSheet) {
+      btnOrderFromSheet.addEventListener('click', () => {
+        const item = sommelierData[currentSommelierKey];
+        if (item) {
+          addToCart({
+            id: 'sommelier-' + currentSommelierKey + '-' + Date.now(),
+            name: item.name,
+            price: item.numPrice,
+            image: item.img,
+            specs: 'Accord Sommelier • Grand Cru 500ml',
+            quantity: 1
+          });
+          showToast(`Ajouté au panier: ${item.name} (${item.price})`);
+          closeTastingSheet();
+        }
+      });
+    }
+  }
+
+  /* ==========================================================================
+     VIP SALON PRIVILÈGE & TABLE BOOKING ENGINE
+     ========================================================================== */
+  function initVipBooking() {
+    const vipModal = document.getElementById('vip-booking-modal');
+    const btnCloseVip = document.getElementById('vip-modal-close-btn');
+    const btnCloseSuccess = document.getElementById('btn-vip-success-close');
+    const form = document.getElementById('vip-booking-form');
+    const successView = document.getElementById('vip-booking-success');
+    const dateInput = document.getElementById('vip-date');
+    const btnWhatsappDirect = document.getElementById('vip-whatsapp-direct');
+
+    // Set today as min date
+    if (dateInput) {
+      const today = new Date().toISOString().split('T')[0];
+      dateInput.min = today;
+      dateInput.value = today;
+    }
+
+    function openVipModal() {
+      if (vipModal) {
+        vipModal.classList.add('open');
+        vipModal.setAttribute('aria-hidden', 'false');
+        if (form) form.style.display = 'block';
+        if (successView) successView.style.display = 'none';
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeVipModal() {
+      if (vipModal) {
+        vipModal.classList.remove('open');
+        vipModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Connect all buttons requesting a table
+    const bookingButtons = [
+      document.getElementById('btn-nav-reserve'),
+      document.getElementById('mobile-drawer-reserve'),
+      document.getElementById('hero-cta-reserve'),
+      document.getElementById('btn-open-vip-modal'),
+      document.getElementById('final-cta-reserve-btn')
+    ];
+
+    bookingButtons.forEach(btn => {
+      if (btn) {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (mobileDrawer && mobileDrawer.classList.contains('open')) {
+            toggleMobileDrawer();
+          }
+          openVipModal();
+        });
+      }
+    });
+
+    if (btnCloseVip) btnCloseVip.addEventListener('click', closeVipModal);
+    if (btnCloseSuccess) btnCloseSuccess.addEventListener('click', closeVipModal);
+    if (vipModal) {
+      vipModal.addEventListener('click', (e) => {
+        if (e.target === vipModal) closeVipModal();
+      });
+    }
+
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('vip-name')?.value || '';
+        const phone = document.getElementById('vip-phone')?.value || '';
+        const guests = document.getElementById('vip-guests')?.value || '2';
+        const date = document.getElementById('vip-date')?.value || '';
+        const time = document.getElementById('vip-time')?.value || '';
+        const experience = document.getElementById('vip-experience')?.selectedOptions[0]?.text || '';
+        const notes = document.getElementById('vip-notes')?.value || '';
+
+        const textMessage = `Bonjour Boba Bloom Cotonou ! Je souhaite confirmer ma réservation au Salon Privilège :%0A%0A` +
+          `• Nom : ${encodeURIComponent(name)}%0A` +
+          `• Téléphone : ${encodeURIComponent(phone)}%0A` +
+          `• Convives : ${encodeURIComponent(guests)} pers.%0A` +
+          `• Date & Heure : ${encodeURIComponent(date)} à ${encodeURIComponent(time)}%0A` +
+          `• Expérience : ${encodeURIComponent(experience)}%0A` +
+          (notes ? `• Demande particulière : ${encodeURIComponent(notes)}%0A` : '') +
+          `%0AMerci de me confirmer la disponibilité !`;
+
+        const waUrl = `https://wa.me/22997000000?text=${textMessage}`;
+
+        if (btnWhatsappDirect) {
+          btnWhatsappDirect.href = waUrl;
+        }
+
+        form.style.display = 'none';
+        if (successView) successView.style.display = 'block';
+        showToast('Demande de réservation reçue avec succès !');
+      });
+    }
+  }
+
+  // Initialize Sommelier and VIP booking
+  initSommelier();
+  initVipBooking();
 
   /* ==========================================================================
      3D FLAVOR CAROUSEL — LIQUID GLASS ORBITAL ROTATION ENGINE

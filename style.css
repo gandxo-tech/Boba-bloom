@@ -8,45 +8,51 @@
 
 /* --- Design Tokens & Variables --- */
 :root {
-  /* Brand Palette */
-  --color-cream: #FAF6F0;
+  /* Luxury Brand Palette — Haute Horlogerie & Salon Artisanal */
+  --color-cream: #FAF7F2;
   --color-cream-light: #FFFDF9;
-  --color-cream-subtle: #F3ECE2;
-  --color-cream-border: #E8DED2;
+  --color-cream-subtle: #F4EFE6;
+  --color-cream-border: #E8DFD3;
   
-  --color-chocolate: #231511;
-  --color-chocolate-dark: #170C0A;
-  --color-chocolate-soft: #382520;
-  --color-text-body: #55423C;
-  --color-text-muted: #84726B;
+  --color-chocolate: #1E120E;
+  --color-chocolate-dark: #140A07;
+  --color-chocolate-soft: #32211B;
+  --color-text-body: #4E3C36;
+  --color-text-muted: #85726A;
   
-  --color-raspberry: #E84365;
-  --color-raspberry-hover: #D32E51;
-  --color-raspberry-light: #FFEBF0;
-  --color-raspberry-glow: rgba(232, 67, 101, 0.22);
+  --color-raspberry: #C93856;
+  --color-raspberry-hover: #B22946;
+  --color-raspberry-light: #FDF0F3;
+  --color-raspberry-glow: rgba(201, 56, 86, 0.22);
+
+  /* Gold & Champagne Luxury Accents */
+  --color-gold: #C5A059;
+  --color-gold-light: #FAF5EB;
+  --color-gold-border: rgba(197, 160, 89, 0.38);
+  --color-gold-glow: rgba(197, 160, 89, 0.25);
   
-  --color-purple: #865FC2;
-  --color-purple-light: #F4EFFF;
-  --color-purple-border: #D8C7F5;
+  --color-purple: #7E57B8;
+  --color-purple-light: #F4EFFD;
+  --color-purple-border: #D3C2EE;
   
-  --color-matcha: #588157;
-  --color-matcha-light: #EEF5EB;
-  --color-matcha-border: #BDD8B8;
+  --color-matcha: #4E784D;
+  --color-matcha-light: #EDF5EC;
+  --color-matcha-border: #B5D2B1;
   
-  --color-brown-sugar: #8C4E2B;
-  --color-brown-sugar-light: #FAF0E6;
-  --color-brown-sugar-glow: rgba(140, 78, 43, 0.18);
+  --color-brown-sugar: #844723;
+  --color-brown-sugar-light: #F9EFE6;
+  --color-brown-sugar-glow: rgba(132, 71, 35, 0.16);
   
-  --color-mango: #EAA023;
+  --color-mango: #E09516;
   --color-mango-light: #FFF6E5;
   
-  --color-taro: #9C7FA8;
-  --color-taro-light: #F7F1FA;
+  --color-taro: #9475A1;
+  --color-taro-light: #F6F0F9;
 
   --color-white: #FFFFFF;
-  --color-success: #2E7D32;
-  --color-success-light: #E8F5E9;
-  --color-warning: #ED6C02;
+  --color-success: #26732B;
+  --color-success-light: #E7F5E8;
+  --color-warning: #DE6400;
 
   /* Typography System — Premium Haute Gastronomie & Artisanal Salon */
   --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
@@ -54,7 +60,7 @@
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  /* Spacing Scale (Enhanced for generous breathing room & airy rhythm) */
+  /* Spacing Scale */
   --space-2xs: 0.25rem;  /* 4px */
   --space-xs: 0.5rem;    /* 8px */
   --space-sm: 0.75rem;   /* 12px */
@@ -68,16 +74,18 @@
   /* Border Radii (Disciplined & Nested) */
   --radius-sm: 8px;
   --radius-md: 12px;
-  --radius-lg: 18px;
-  --radius-xl: 26px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-sm: 0 2px 6px rgba(35, 21, 17, 0.03);
-  --shadow-md: 0 6px 18px rgba(35, 21, 17, 0.05);
-  --shadow-lg: 0 14px 32px rgba(35, 21, 17, 0.08);
-  --shadow-float: 0 20px 45px -12px rgba(35, 21, 17, 0.10);
-  --shadow-brand: 0 10px 24px rgba(232, 67, 101, 0.24);
+  /* Shadows — Silky Smooth Ambient Depth */
+  --shadow-sm: 0 2px 8px rgba(30, 18, 14, 0.03);
+  --shadow-md: 0 6px 20px rgba(30, 18, 14, 0.05);
+  --shadow-lg: 0 16px 36px rgba(30, 18, 14, 0.07);
+  --shadow-float: 0 24px 50px -12px rgba(30, 18, 14, 0.09);
+  --shadow-brand: 0 10px 26px rgba(201, 56, 86, 0.22);
+  --shadow-gold: 0 8px 24px rgba(197, 160, 89, 0.20);
 
   /* Transitions */
   --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
@@ -85,7 +93,7 @@
   --transition-bounce: 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Layout */
-  --container-max: 1220px;
+  --container-max: 1240px;
   --navbar-height: 80px;
   --z-nav: 100;
   --z-drawer: 200;
@@ -3639,4 +3647,505 @@ img {
     display: none;
   }
 }
+
+/* ==========================================================================
+   HAUTE MAISON — LUXURY ADDITIONS FOR 5K€ PRESTIGE LEVEL
+   ========================================================================== */
+
+/* --- Enhanced Concierge Top Bar --- */
+.top-bar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+
+.top-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.top-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #2ECC71;
+  box-shadow: 0 0 10px #2ECC71;
+  animation: pulseGreen 2s infinite;
+  display: inline-block;
+}
+
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.top-concierge-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #FFD2DC;
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+.top-concierge-link:hover {
+  color: var(--color-white);
+  text-decoration: underline;
+}
+
+@media (max-width: 860px) {
+  .top-bar-right { display: none; }
+  .top-bar-content { justify-content: center; text-align: center; }
+}
+
+/* --- Brand Logo Subtitle --- */
+.brand-logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+.brand-subtext {
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+/* --- Luxury Boba Sommelier Section --- */
+.sommelier-section {
+  background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-cream-subtle) 100%);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--color-cream-border);
+  border-bottom: 1px solid var(--color-cream-border);
+}
+
+.sommelier-container {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(197, 160, 89, 0.28);
+  border-radius: var(--radius-2xl);
+  padding: clamp(2rem, 4vw, 3.5rem);
+  box-shadow: var(--shadow-float);
+  position: relative;
+}
+
+.sommelier-mood-selector {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: var(--space-xl) auto;
+  max-width: 840px;
+}
+
+.sommelier-chip {
+  padding: 12px 22px;
+  border-radius: var(--radius-full);
+  background: var(--color-cream-light);
+  border: 1.5px solid var(--color-cream-border);
+  color: var(--color-chocolate);
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.sommelier-chip:hover {
+  border-color: var(--color-gold);
+  background: var(--color-white);
+  transform: translateY(-2px);
+}
+.sommelier-chip.active {
+  background: var(--color-chocolate);
+  color: var(--color-white);
+  border-color: var(--color-gold);
+  box-shadow: 0 4px 16px rgba(30, 18, 14, 0.2), 0 0 0 3px rgba(197, 160, 89, 0.25);
+}
+
+.sommelier-card {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: center;
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid var(--color-cream-border);
+  box-shadow: var(--shadow-md);
+  margin-top: var(--space-lg);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.sommelier-visual-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--color-cream);
+  border: 1px solid var(--color-cream-border);
+}
+.sommelier-visual-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.sommelier-card:hover .sommelier-visual-img {
+  transform: scale(1.04);
+}
+
+.sommelier-badge-gold {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(30, 18, 14, 0.88);
+  backdrop-filter: blur(10px);
+  color: #F7E7C4;
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+}
+
+.sommelier-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.sommelier-category {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 4px;
+}
+
+.sommelier-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  color: var(--color-chocolate-dark);
+  line-height: 1.2;
+  margin-bottom: var(--space-xs);
+}
+
+.sommelier-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: var(--space-md);
+}
+.sommelier-price {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-raspberry);
+}
+.sommelier-specs {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+.sommelier-quote {
+  font-style: italic;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--color-text-body);
+  border-left: 3px solid var(--color-gold);
+  padding-left: var(--space-md);
+  margin-bottom: var(--space-lg);
+  background: rgba(197, 160, 89, 0.05);
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.sommelier-notes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: var(--space-lg);
+}
+
+.sommelier-note-item {
+  background: var(--color-cream);
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-cream-border);
+}
+.sommelier-note-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin-bottom: 2px;
+}
+.sommelier-note-val {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--color-chocolate-dark);
+}
+
+.sommelier-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .sommelier-card {
+    grid-template-columns: 1fr;
+  }
+  .sommelier-notes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Payment & Assurance Trust Strip --- */
+.trust-strip {
+  background: var(--color-white);
+  border-top: 1px solid var(--color-cream-border);
+  border-bottom: 1px solid var(--color-cream-border);
+  padding: var(--space-lg) 0;
+}
+.trust-strip-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+}
+.trust-strip-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.trust-strip-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--color-cream);
+  border: 1px solid var(--color-cream-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-raspberry);
+  flex-shrink: 0;
+}
+.trust-strip-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-chocolate);
+  line-height: 1.25;
+}
+.trust-strip-sub {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  line-height: 1.35;
+}
+@media (max-width: 990px) {
+  .trust-strip-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  .trust-strip-grid { grid-template-columns: 1fr; }
+}
+
+/* --- Quick Tasting Sheet Modal (Fiche Dégustation) --- */
+.tasting-modal-dialog {
+  max-width: 620px;
+  background: var(--color-white);
+  border-radius: var(--radius-2xl);
+  padding: clamp(1.75rem, 3.5vw, 2.5rem);
+  box-shadow: 0 25px 60px -15px rgba(30, 18, 14, 0.25);
+  border: 1px solid var(--color-cream-border);
+}
+
+.tasting-sheet-header {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--color-cream-border);
+}
+.tasting-sheet-thumb {
+  width: 110px;
+  height: 110px;
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+  border: 1px solid var(--color-cream-border);
+  flex-shrink: 0;
+}
+.tasting-sheet-specs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-md) 0;
+  font-size: 0.88rem;
+}
+.tasting-sheet-specs-table tr {
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.tasting-sheet-specs-table td {
+  padding: 8px 6px;
+}
+.tasting-sheet-specs-table td:first-child {
+  font-weight: 600;
+  color: var(--color-text-muted);
+  width: 38%;
+}
+.tasting-sheet-specs-table td:last-child {
+  color: var(--color-chocolate-dark);
+  font-weight: 500;
+}
+
+/* --- VIP Salon Table Booking Button & Section --- */
+.vip-booking-banner {
+  background: linear-gradient(135deg, #1E120E 0%, #2D1A14 100%);
+  color: var(--color-white);
+  border-radius: var(--radius-2xl);
+  padding: clamp(2.5rem, 5vw, 4rem);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-float);
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+.vip-booking-banner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.vip-booking-content {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+}
+.vip-booking-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  background: rgba(197, 160, 89, 0.2);
+  border: 1px solid rgba(197, 160, 89, 0.5);
+  color: #F7E7C4;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+}
+.vip-booking-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  line-height: 1.15;
+  color: #FFFFFF;
+  margin-bottom: var(--space-sm);
+}
+.vip-booking-text {
+  font-size: 1.05rem;
+  color: rgba(250, 247, 242, 0.85);
+  line-height: 1.7;
+  margin-bottom: var(--space-xl);
+}
+
+/* Button with gold luxury feel */
+.btn-gold {
+  background: linear-gradient(135deg, #DFBA73 0%, #C5A059 100%);
+  color: #1A0F0B;
+  font-weight: 700;
+  box-shadow: var(--shadow-gold);
+  border: none;
+}
+.btn-gold:hover {
+  background: linear-gradient(135deg, #E9C988 0%, #D4AF67 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(197, 160, 89, 0.35);
+}
+
+/* --- Card Quick-View Button on Menu Cards --- */
+.product-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+.btn-quick-view {
+  background: var(--color-cream);
+  border: 1px solid var(--color-cream-border);
+  color: var(--color-chocolate);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.btn-quick-view:hover {
+  background: var(--color-white);
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+/* --- Delivery Badges in Checkout --- */
+.payment-methods-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.pay-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--color-cream);
+  border: 1px solid var(--color-cream-border);
+  color: var(--color-chocolate);
+}
+
+/* Subtle luxury custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: #DFD5C8;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
+
 

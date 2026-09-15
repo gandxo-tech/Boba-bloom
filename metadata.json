@@ -1,6 +1,6 @@
 {
   "name": "BOBA BLOOM",
-  "description": "Trendy Bubble Tea restaurant in Cotonou, Benin offering fresh, handcrafted, customizable boba drinks.",
+  "description": "Maison de thé artisanal et Bubble Tea de prestige à Cotonou, Bénin. Infusions de feuilles entières, perles de tapioca fraîches et atelier de personnalisation sur-mesure à Haie Vive.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
