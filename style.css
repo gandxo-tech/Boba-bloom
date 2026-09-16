@@ -4350,4 +4350,198 @@ img {
   background: var(--color-gold);
 }
 
+/* ==========================================================================
+   HIGH-CRAFT LUXURY MICRO-TRANSITIONS & TACTILE INTERACTIONS
+   ========================================================================== */
+
+/* Tactile Spring Press on Interactive Elements */
+.btn, 
+.btn-add-product, 
+.category-tab, 
+.preset-chip-btn, 
+.stepper-step, 
+.custom-option, 
+.social-btn, 
+.filter-btn, 
+.size-opt-btn, 
+.card-drink-btn, 
+.btn-quick-view,
+.back-to-top-btn,
+.cart-qty-btn,
+.btn-icon-only {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.22s ease,
+              border-color 0.22s ease,
+              color 0.2s ease;
+}
+
+.btn:active, 
+.btn-add-product:active, 
+.category-tab:active, 
+.preset-chip-btn:active, 
+.stepper-step:active, 
+.custom-option:active, 
+.social-btn:active, 
+.filter-btn:active, 
+.size-opt-btn:active, 
+.card-drink-btn:active,
+.btn-quick-view:active,
+.back-to-top-btn:active {
+  transform: scale(0.95) !important;
+}
+
+/* Material Click Ripple Wave */
+.ripple-wave {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.7) 0%, rgba(232, 67, 101, 0.25) 60%, transparent 100%);
+  transform: scale(0);
+  animation: rippleSpread 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  pointer-events: none;
+  z-index: 10;
+}
+@keyframes rippleSpread {
+  0% {
+    transform: scale(0);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(3.5);
+    opacity: 0;
+  }
+}
+
+/* Flying Boba Pearl Animation Element */
+.flying-boba-pearl {
+  position: fixed;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle at 32% 32%, #FFFFFF 0%, #FFA8BA 30%, #E84365 70%, #8C1C35 100%);
+  box-shadow: 0 4px 18px rgba(232, 67, 101, 0.6), 0 0 20px rgba(255, 143, 163, 0.6), inset -2px -2px 4px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  z-index: 99999;
+  will-change: transform, opacity;
+}
+
+/* Cart Icon Wiggle & Spring Badge Pop */
+@keyframes cartWiggle {
+  0% { transform: scale(1) rotate(0deg); }
+  20% { transform: scale(1.22) rotate(-14deg); }
+  40% { transform: scale(1.25) rotate(12deg); }
+  60% { transform: scale(1.15) rotate(-8deg); }
+  80% { transform: scale(1.08) rotate(4deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.cart-wiggle {
+  animation: cartWiggle 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+@keyframes badgeSpringPop {
+  0% { transform: scale(0.6) rotate(0deg); }
+  35% { transform: scale(1.5) rotate(-8deg); }
+  65% { transform: scale(0.9) rotate(4deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.cart-badge.bump, 
+.badge-counter.bump,
+#cart-counter.bump {
+  animation: badgeSpringPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+/* Scroll Staggered Micro-Reveal */
+.micro-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0s);
+  will-change: opacity, transform;
+}
+
+.micro-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Subtle Desktop Card 3D Tilt container */
+.product-card, 
+.sommelier-card, 
+.builder-step-card, 
+.testimonial-card,
+.feature-pillar-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.product-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 16px 36px -8px rgba(35, 21, 17, 0.12),
+              0 6px 16px rgba(232, 67, 101, 0.08);
+  border-color: rgba(232, 67, 101, 0.35);
+}
+
+/* Option Selection Pulse */
+.custom-option {
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.custom-option.active {
+  transform: translateY(-2px) scale(1.02);
+  border-color: var(--color-raspberry);
+  box-shadow: 0 6px 18px rgba(232, 67, 101, 0.22);
+}
+.option-pop-anim {
+  animation: optionPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes optionPop {
+  0% { transform: scale(0.94); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* Navigation Links Smooth Expand Indicator */
+.nav-link {
+  position: relative;
+  transition: color 0.25s ease;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 2.5px;
+  background: var(--color-raspberry);
+  border-radius: var(--radius-full);
+  transform: translateX(-50%);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 75%;
+}
+
+/* Floating Back-to-Top Button Levitation */
+.back-to-top-btn {
+  animation: gentleFloat 4s ease-in-out infinite alternate;
+}
+@keyframes gentleFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-4px); }
+}
+.back-to-top-btn:hover {
+  animation: none;
+  transform: translateY(-4px) scale(1.08);
+}
+
+
 

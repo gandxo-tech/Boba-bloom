@@ -194,7 +194,7 @@ function initBobaBloom() {
 
     // Attach click handlers to newly generated add buttons
     menuGrid.querySelectorAll('.btn-add-product').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
         const name = btn.getAttribute('data-name');
         const price = parseInt(btn.getAttribute('data-price'), 10);
         const img = btn.getAttribute('data-img');
@@ -205,7 +205,7 @@ function initBobaBloom() {
           image: img,
           specs: 'Recette Signature &bull; Glaçons modérés',
           quantity: 1
-        });
+        }, btn);
         showToast(`${name} ajouté à votre commande`);
       });
     });
@@ -235,7 +235,7 @@ function initBobaBloom() {
 
   // Also bind Best Sellers "Add" buttons
   document.querySelectorAll('#best-sellers-grid .btn-add-product').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
       const name = btn.getAttribute('data-name');
       const price = parseInt(btn.getAttribute('data-price'), 10);
       const img = btn.getAttribute('data-img');
@@ -246,7 +246,7 @@ function initBobaBloom() {
         image: img,
         specs: 'Sélection Exclusive &bull; Perles Fraîches',
         quantity: 1
-      });
+      }, btn);
       showToast(`${name} ajouté à votre commande`);
     });
   });
@@ -694,7 +694,7 @@ function initBobaBloom() {
         image: 'https://images.unsplash.com/photo-1558857563-b37cf5c490ff?auto=format&fit=crop&w=600&q=80',
         specs: customSpecs,
         quantity: 1
-      });
+      }, btnAddCustomBoba);
 
       showToast(`Création "${customName}" ajoutée au panier`);
       openCartDrawer();
@@ -871,7 +871,53 @@ function initBobaBloom() {
     saveCart();
   }
 
-  function addToCart(newItem) {
+  function animateFlyingBoba(sourceEl) {
+    if (!sourceEl) return;
+    const cartBtn = document.getElementById('cart-toggle-btn') || document.getElementById('cart-counter');
+    if (!cartBtn) return;
+
+    try {
+      const startRect = sourceEl.getBoundingClientRect();
+      const endRect = cartBtn.getBoundingClientRect();
+
+      const startX = startRect.left + startRect.width / 2;
+      const startY = startRect.top + startRect.height / 2;
+      const endX = endRect.left + endRect.width / 2;
+      const endY = endRect.top + endRect.height / 2;
+
+      const pearl = document.createElement('div');
+      pearl.className = 'flying-boba-pearl';
+      pearl.style.left = `${startX}px`;
+      pearl.style.top = `${startY}px`;
+      document.body.appendChild(pearl);
+
+      const midX = (startX + endX) / 2 + (Math.random() * 24 - 12);
+      const midY = Math.min(startY, endY) - 65;
+
+      const animation = pearl.animate([
+        { transform: 'translate(-50%, -50%) scale(0.6)', opacity: 0.3 },
+        { transform: 'translate(-50%, -50%) scale(1.35)', opacity: 1, offset: 0.15 },
+        { transform: `translate(${midX - startX}px, ${midY - startY}px) scale(1.1)`, opacity: 0.95, offset: 0.55 },
+        { transform: `translate(${endX - startX}px, ${endY - startY}px) scale(0.35)`, opacity: 0.7 }
+      ], {
+        duration: 620,
+        easing: 'cubic-bezier(0.2, 0.8, 0.25, 1)',
+        fill: 'forwards'
+      });
+
+      animation.onfinish = () => {
+        pearl.remove();
+        cartBtn.classList.remove('cart-wiggle');
+        void cartBtn.offsetWidth;
+        cartBtn.classList.add('cart-wiggle');
+        setTimeout(() => cartBtn.classList.remove('cart-wiggle'), 650);
+      };
+    } catch (err) {
+      // Fallback
+    }
+  }
+
+  function addToCart(newItem, sourceEl = null) {
     // Check if an identical standard item exists
     const existingIndex = cart.findIndex(item => item.name === newItem.name && item.specs === newItem.specs);
     if (existingIndex > -1) {
@@ -880,6 +926,18 @@ function initBobaBloom() {
       cart.push(newItem);
     }
     renderCart();
+
+    if (sourceEl) {
+      animateFlyingBoba(sourceEl);
+    } else {
+      const cartBtn = document.getElementById('cart-toggle-btn');
+      if (cartBtn) {
+        cartBtn.classList.remove('cart-wiggle');
+        void cartBtn.offsetWidth;
+        cartBtn.classList.add('cart-wiggle');
+        setTimeout(() => cartBtn.classList.remove('cart-wiggle'), 650);
+      }
+    }
   }
 
   function increaseQty(id) {
@@ -1397,8 +1455,12 @@ function initBobaBloom() {
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.innerHTML = `
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--color-gold); flex-shrink:0;">
-        <path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--color-raspberry); flex-shrink:0;">
+        <path d="M17 8h1a4 4 0 1 1 0 8h-1"></path>
+        <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"></path>
+        <line x1="6" y1="2" x2="6" y2="4"></line>
+        <line x1="10" y1="2" x2="10" y2="4"></line>
+        <line x1="14" y1="2" x2="14" y2="4"></line>
       </svg>
       <span>${message}</span>
     `;
@@ -1676,7 +1738,7 @@ function initBobaBloom() {
           image: item.img,
           specs: 'Accord Sommelier • Grand Cru 500ml',
           quantity: 1
-        });
+        }, btnAdd);
         showToast(`Ajouté au panier: ${item.name} (${item.price})`);
       });
     }
@@ -1749,7 +1811,7 @@ function initBobaBloom() {
             image: item.img,
             specs: 'Accord Sommelier • Grand Cru 500ml',
             quantity: 1
-          });
+          }, btnOrderFromSheet);
           showToast(`Ajouté au panier: ${item.name} (${item.price})`);
           closeTastingSheet();
         }
@@ -2149,7 +2211,7 @@ function initBobaBloom() {
           image: img,
           specs: 'Signature Orbit Liquid Glass • Perles Fraîches',
           quantity: 1
-        });
+        }, btn);
         showToast(`Ajouté au panier: ${name} (${price.toLocaleString()} FCFA)`);
       }
 
@@ -2174,6 +2236,102 @@ function initBobaBloom() {
       });
     });
   }
+
+  /* ==========================================================================
+     MICRO-TRANSITIONS & TACTILE INTERACTION ENGINES
+     ========================================================================== */
+  function initMicroRipples() {
+    document.addEventListener('pointerdown', (e) => {
+      const target = e.target.closest('.btn, .btn-add-product, .category-tab, .preset-chip-btn, .stepper-step, .custom-option, .social-btn, .nav-item, .filter-btn, .size-opt-btn, .card-drink-btn, .back-to-top-btn, .cart-qty-btn, .btn-icon-only');
+      if (!target) return;
+
+      const rect = target.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple-wave';
+      const size = Math.max(rect.width, rect.height) * 1.6;
+      const x = e.clientX - rect.left - size / 2;
+      const y = e.clientY - rect.top - size / 2;
+
+      ripple.style.width = `${size}px`;
+      ripple.style.height = `${size}px`;
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+
+      target.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+    });
+  }
+
+  function initCardMicroTilt() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.innerWidth < 992) return;
+
+    const tiltTargets = document.querySelectorAll('.product-card, .sommelier-card, .builder-step-card, .testimonial-card, .feature-pillar-card');
+    tiltTargets.forEach(card => {
+      let ticking = false;
+
+      card.addEventListener('mousemove', (e) => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -4;
+          const rotateY = ((x - centerX) / centerX) * 4;
+
+          card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-5px)`;
+          ticking = false;
+        });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+        setTimeout(() => {
+          card.style.transition = '';
+        }, 400);
+      });
+    });
+  }
+
+  function initScrollMicroReveals() {
+    if (!('IntersectionObserver' in window)) return;
+
+    const revealElements = document.querySelectorAll('.section-title, .section-subtitle, .product-card, .feature-pillar-card, .sommelier-card, .gallery-item, .testimonial-card, .vip-booking-banner, .faq-item, .hero-badge');
+    
+    revealElements.forEach((el) => {
+      el.classList.add('micro-reveal');
+      const parentGrid = el.closest('.products-grid, .features-grid, .gallery-grid, .testimonials-grid, .footer-grid');
+      if (parentGrid) {
+        const siblings = Array.from(parentGrid.children);
+        const index = siblings.indexOf(el);
+        if (index >= 0) {
+          el.style.setProperty('--reveal-delay', `${(index % 4) * 0.08}s`);
+        }
+      }
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -30px 0px'
+    });
+
+    revealElements.forEach(el => observer.observe(el));
+  }
+
+  // Initialize Micro-Transitions
+  initMicroRipples();
+  initCardMicroTilt();
+  initScrollMicroReveals();
 
   // Initialize 3D Orbit Carousel
   init3DOrbitCarousel();
