@@ -3043,7 +3043,7 @@ img {
 .back-to-top-btn {
   position: fixed;
   bottom: 24px;
-  left: 24px;
+  right: 24px;
   width: 44px;
   height: 44px;
   border-radius: var(--radius-full);
@@ -3068,6 +3068,14 @@ img {
   color: var(--color-white);
   border-color: var(--color-raspberry);
   transform: translateY(-3px);
+}
+@media (max-width: 768px) {
+  .back-to-top-btn {
+    bottom: 20px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+  }
 }
 
 /* --- LIGHTBOX MODAL --- */
@@ -4195,23 +4203,25 @@ img {
 }
 .vip-booking-desc,
 .vip-booking-text {
-  font-size: 1rem;
-  color: rgba(250, 247, 242, 0.88);
-  line-height: 1.7;
+  font-size: 1.02rem;
+  color: #EDE6DE;
+  line-height: 1.75;
   margin-bottom: var(--space-lg);
+  opacity: 0.95;
 }
 .vip-booking-meta {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   margin-bottom: var(--space-xl);
 }
 .vip-meta-item {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.9rem;
-  color: rgba(250, 247, 242, 0.9);
+  font-size: 0.95rem;
+  color: #FFFFFF;
+  font-weight: 500;
 }
 .vip-meta-item svg {
   color: var(--color-gold);
@@ -4255,6 +4265,29 @@ img {
   background: linear-gradient(135deg, #E9C988 0%, #D4AF67 100%);
   transform: translateY(-2px);
   box-shadow: 0 12px 30px rgba(197, 160, 89, 0.35);
+}
+
+/* Concierge WhatsApp VIP outline button */
+.btn-vip-whatsapp {
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF !important;
+  border: 1.5px solid rgba(197, 160, 89, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: all var(--transition-fast);
+}
+.btn-vip-whatsapp:hover {
+  background: rgba(197, 160, 89, 0.22);
+  border-color: var(--color-gold);
+  color: #F7E7C4 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(197, 160, 89, 0.3);
 }
 
 /* --- Card Quick-View Button on Menu Cards --- */

@@ -1388,6 +1388,12 @@ function initBobaBloom() {
 
   function showToast(message) {
     if (!toastContainer) return;
+    
+    // Limit to max 3 simultaneous toasts on screen to prevent viewport crowding
+    while (toastContainer.children.length >= 3) {
+      toastContainer.removeChild(toastContainer.firstElementChild);
+    }
+
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.innerHTML = `
