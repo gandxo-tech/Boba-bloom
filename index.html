@@ -74,14 +74,30 @@
   <!-- Accessible Skip Link -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Top Announcement & Concierge Bar -->
+  <!-- Top Announcement & Concierge Bar with Micro-Ticker Défilement -->
   <div class="top-bar" id="top-announcement">
     <div class="top-bar-content">
       <div class="top-bar-left">
-        <span class="top-live-dot" aria-hidden="true"></span>
-        <span><strong>Salon de Thé de Prestige</strong> &bull; Quartier Haie Vive, Cotonou</span>
-        <span class="top-bar-divider">|</span>
-        <span>Livraison Privilège Cotonou (Offerte dès 6 000 FCFA &bull; Code <strong>BLOOM10</strong>)</span>
+        <div class="top-ticker-track" id="top-ticker-track">
+          <div class="top-ticker-item active">
+            <span class="top-live-dot" aria-hidden="true"></span>
+            <span><strong>Salon de Thé de Prestige</strong> &bull; Quartier Haie Vive, Cotonou</span>
+            <span class="top-bar-divider">|</span>
+            <span>Livraison Privilège Cotonou (Offerte dès 6 000 FCFA &bull; Code <strong>BLOOM10</strong>)</span>
+          </div>
+          <div class="top-ticker-item">
+            <span class="top-live-dot" aria-hidden="true"></span>
+            <span><strong>Nouvelle Récolte d'Uji</strong> &bull; Matcha Cérémonial & Perles au Sucre Noir</span>
+            <span class="top-bar-divider">|</span>
+            <span>Dégustation & Barista Bar en continu</span>
+          </div>
+          <div class="top-ticker-item">
+            <span class="top-live-dot" aria-hidden="true"></span>
+            <span><strong>Privatisation & Salon VIP</strong> &bull; Dégustations & Ateliers sur réservation</span>
+            <span class="top-bar-divider">|</span>
+            <span>Service Concierge WhatsApp dédié</span>
+          </div>
+        </div>
       </div>
       <div class="top-bar-right">
         <a href="https://wa.me/22997000000?text=Bonjour%20Boba%20Bloom%20Cotonou%2C%20je%20souhaite%20un%20renseignement%20VIP" target="_blank" rel="noopener noreferrer" class="top-concierge-link">
@@ -218,7 +234,7 @@
           </div>
 
           <h1 class="hero-headline">
-            L'art du Bubble Tea, <br />sublimé à <span class="highlight">Cotonou.</span>
+            L'art du Bubble Tea, <br />sublimé par <span class="highlight text-rotator-container" id="hero-dynamic-container"><span class="text-rotator-word active" id="hero-dynamic-word">l'Excellence.</span></span>
           </h1>
 
           <p class="hero-subtext">
@@ -346,6 +362,32 @@
         </div>
       </div>
     </section>
+ 
+    <!-- ==================== LUXURY INFINITE TEXT MARQUEE RIBBON ==================== -->
+    <div class="luxury-marquee-section" aria-label="Engagements et Distinctions Boba Bloom">
+      <div class="marquee-track">
+        <div class="marquee-content">
+          <span class="marquee-item"><span class="marquee-dot">✦</span> THÉS D'ORIGINE BIOLOGIQUES</span>
+          <span class="marquee-item"><span class="marquee-dot">✦</span> PERLES DE TAPIOCA FAÇONNÉES EN SALON</span>
+          <span class="marquee-item"><span class="marquee-dot">✦</span> EXTRACTION À FROID 16H</span>
+          <span class="marquee-item"><span class="marquee-dot">✦</span> NECTARS PURS SANS SIROPS ARTIFICIELS</span>
+          <span class="marquee-item"><span class="marquee-dot">✦</span> ACCORDS SOMMELIER EXCLUSIFS</span>
+          <span class="marquee-item"><span class="marquee-dot">✦</span> SALON PRIVILÈGE HAIE VIVE COTONOU</span>
+          <span class="marquee-item"><span class="marquee-dot">✦</span> LAITS VÉGÉTAUX D'AVOINE & AMANDE BIO</span>
+          <span class="marquee-item"><span class="marquee-dot">✦</span> CRÉATIONS FRAPPÉES MINUTE</span>
+        </div>
+        <div class="marquee-content" aria-hidden="true">
+          <span class="marquee-item"><span class="marquee-dot">✦</span> THÉS D'ORIGINE BIOLOGIQUES</span>
+          <span class="marquee-item"><span class="marquee-dot">✦</span> PERLES DE TAPIOCA FAÇONNÉES EN SALON</span>
+          <span class="marquee-item"><span class="marquee-dot">✦</span> EXTRACTION À FROID 16H</span>
+          <span class="marquee-item"><span class="marquee-dot">✦</span> NECTARS PURS SANS SIROPS ARTIFICIELS</span>
+          <span class="marquee-item"><span class="marquee-dot">✦</span> ACCORDS SOMMELIER EXCLUSIFS</span>
+          <span class="marquee-item"><span class="marquee-dot">✦</span> SALON PRIVILÈGE HAIE VIVE COTONOU</span>
+          <span class="marquee-item"><span class="marquee-dot">✦</span> LAITS VÉGÉTAUX D'AVOINE & AMANDE BIO</span>
+          <span class="marquee-item"><span class="marquee-dot">✦</span> CRÉATIONS FRAPPÉES MINUTE</span>
+        </div>
+      </div>
+    </div>
 
     <!-- ==================== HAUTE ASSURANCE TRUST STRIP ==================== -->
     <section class="trust-strip" aria-label="Engagements Qualité">

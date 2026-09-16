@@ -159,8 +159,8 @@ function initBobaBloom() {
       return;
     }
 
-    menuGrid.innerHTML = filtered.map(product => `
-      <article class="product-card" data-product-id="${product.id}">
+    menuGrid.innerHTML = filtered.map((product, idx) => `
+      <article class="product-card card-enter" data-product-id="${product.id}" style="--stagger-i: ${idx * 45}ms;">
         <div class="product-image-wrap">
           <span class="card-category-tag">${product.category.replace('-', ' ')}</span>
           <img src="${product.image}" 
@@ -2328,10 +2328,125 @@ function initBobaBloom() {
     revealElements.forEach(el => observer.observe(el));
   }
 
-  // Initialize Micro-Transitions
+  /* ==========================================================================
+     DYNAMIC HEADLINE TEXT ROTATOR ENGINE
+     ========================================================================== */
+  function initHeroTextRotator() {
+    const container = document.getElementById('hero-dynamic-container');
+    const wordEl = document.getElementById('hero-dynamic-word');
+    if (!container || !wordEl) return;
+
+    const phrases = [
+      "l'Excellence.",
+      "nos Grands Crus.",
+      "la Passion.",
+      "l'Artisanat Pur.",
+      "Cotonou."
+    ];
+    let currentIndex = 0;
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % phrases.length;
+      const nextText = phrases[currentIndex];
+
+      // Morph animation with smooth 3D flip-up
+      wordEl.classList.remove('active');
+      wordEl.classList.add('leaving');
+
+      setTimeout(() => {
+        wordEl.textContent = nextText;
+        wordEl.classList.remove('leaving');
+        wordEl.classList.add('active');
+      }, 350);
+    }, 3200);
+  }
+
+  /* ==========================================================================
+     TOP ANNOUNCEMENT BAR VERTICAL TICKER
+     ========================================================================== */
+  function initTopAnnouncementTicker() {
+    const track = document.getElementById('top-ticker-track');
+    if (!track) return;
+    const items = track.querySelectorAll('.top-ticker-item');
+    if (items.length <= 1) return;
+
+    let activeIdx = 0;
+
+    setInterval(() => {
+      const current = items[activeIdx];
+      activeIdx = (activeIdx + 1) % items.length;
+      const next = items[activeIdx];
+
+      current.classList.remove('active');
+      current.classList.add('leaving');
+
+      setTimeout(() => {
+        current.classList.remove('leaving');
+      }, 450);
+
+      next.classList.add('active');
+    }, 4500);
+  }
+
+  /* ==========================================================================
+     LIVE TASTING MICRO-TOAST TICKER (DISCRETE SALON AMBIANCE)
+     ========================================================================== */
+  function initLiveTastingTicker() {
+    if (window.innerWidth < 768) return; // Keep discrete on desktop
+
+    const activities = [
+      { icon: "✨", text: "Commande préparée : Matcha Impérial & Sucre d'Okinawa" },
+      { icon: "🧋", text: "Infusion fraîche : Thé Oolong Pêche Blanche de Taïwan" },
+      { icon: "👑", text: "Dégustation VIP en cours au Salon Haie Vive" },
+      { icon: "🍃", text: "Nouveau lot de perles de tapioca bio cuisinées à la minute" }
+    ];
+
+    let toastContainer = document.querySelector('.micro-live-toast-container');
+    if (!toastContainer) {
+      toastContainer = document.createElement('div');
+      toastContainer.className = 'micro-live-toast-container';
+      document.body.appendChild(toastContainer);
+    }
+
+    let actIdx = 0;
+
+    function showLiveActivity() {
+      const act = activities[actIdx];
+      actIdx = (actIdx + 1) % activities.length;
+
+      const toast = document.createElement('div');
+      toast.className = 'micro-live-toast';
+      toast.innerHTML = `
+        <span class="micro-live-toast-icon">${act.icon}</span>
+        <span>${act.text}</span>
+      `;
+      toastContainer.appendChild(toast);
+
+      requestAnimationFrame(() => {
+        toast.classList.add('show');
+      });
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+        toast.classList.add('hide');
+        setTimeout(() => toast.remove(), 450);
+      }, 4200);
+    }
+
+    // First live toast after 6s, then every 16s
+    setTimeout(() => {
+      showLiveActivity();
+      setInterval(showLiveActivity, 16000);
+    }, 6000);
+  }
+
+  // Initialize Micro-Transitions & Dynamic Displays
   initMicroRipples();
   initCardMicroTilt();
   initScrollMicroReveals();
+  initHeroTextRotator();
+  initTopAnnouncementTicker();
+  initLiveTastingTicker();
 
   // Initialize 3D Orbit Carousel
   init3DOrbitCarousel();

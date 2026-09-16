@@ -322,14 +322,60 @@ img {
   justify-content: center;
 }
 
-/* --- Top Announcement Bar --- */
+/* --- Top Announcement Bar with Micro-Ticker Défilement --- */
 .top-bar {
   background: var(--color-chocolate);
   color: var(--color-cream);
   font-size: 0.82rem;
-  padding: 8px 16px;
+  padding: 6px 16px;
   text-align: center;
   font-weight: 500;
+  overflow: hidden;
+}
+.top-bar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  min-height: 24px;
+}
+.top-bar-left {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  height: 24px;
+  display: flex;
+  align-items: center;
+}
+.top-ticker-track {
+  position: relative;
+  width: 100%;
+  height: 24px;
+}
+.top-ticker-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.top-ticker-item.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.top-ticker-item.leaving {
+  opacity: 0;
+  transform: translateY(-14px);
+  pointer-events: none;
 }
 .top-bar strong {
   color: #FFB3C1;
@@ -4542,6 +4588,184 @@ img {
   animation: none;
   transform: translateY(-4px) scale(1.08);
 }
+
+/* ==========================================================================
+   DYNAMIC TEXT ROTATOR & MORPHING HEADLINES
+   ========================================================================== */
+.text-rotator-container {
+  display: inline-block;
+  position: relative;
+  vertical-align: bottom;
+  min-width: 220px;
+  text-align: left;
+  overflow: hidden;
+  height: 1.25em;
+  line-height: 1.25;
+}
+
+.text-rotator-word {
+  display: inline-block;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(100%) rotateX(-20deg);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  background: linear-gradient(135deg, var(--color-raspberry) 0%, #D81B60 50%, var(--color-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform-origin: bottom center;
+}
+
+.text-rotator-word.active {
+  opacity: 1;
+  transform: translateY(0) rotateX(0deg);
+}
+
+.text-rotator-word.leaving {
+  opacity: 0;
+  transform: translateY(-100%) rotateX(20deg);
+}
+
+/* ==========================================================================
+   LUXURY INFINITE TEXT MARQUEE RIBBON
+   ========================================================================== */
+.luxury-marquee-section {
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(90deg, #1E120E 0%, #2A1713 50%, #1E120E 100%);
+  color: #FFFDF9;
+  padding: 13px 0;
+  box-shadow: inset 0 1px 0 rgba(212, 168, 83, 0.25), inset 0 -1px 0 rgba(212, 168, 83, 0.25);
+  position: relative;
+  z-index: 10;
+  user-select: none;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: infiniteMarqueeScroll 38s linear infinite;
+}
+
+.luxury-marquee-section:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-content {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 32px;
+  padding-right: 32px;
+}
+
+.marquee-item {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #F7EDE2;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+.marquee-item:hover {
+  color: #FFB3C1;
+}
+
+.marquee-dot {
+  color: var(--color-gold);
+  font-size: 0.75rem;
+  opacity: 0.85;
+}
+
+@keyframes infiniteMarqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ==========================================================================
+   STAGGERED MENU CARD DISPLAY TRANSITIONS
+   ========================================================================== */
+.product-card.card-enter {
+  animation: menuCardEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--stagger-i, 0ms);
+  opacity: 0;
+}
+
+@keyframes menuCardEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================================================================
+   LIVE TASTING MICRO-TOAST TICKER (DISCRETE SOCIAL PROOF)
+   ========================================================================== */
+.micro-live-toast-container {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.micro-live-toast {
+  background: rgba(30, 18, 14, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #FFFDF9;
+  border: 1px solid rgba(212, 168, 83, 0.3);
+  border-radius: var(--radius-full);
+  padding: 8px 16px 8px 12px;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: translateY(16px) scale(0.95);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+
+.micro-live-toast.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.micro-live-toast.hide {
+  opacity: 0;
+  transform: translateY(-12px) scale(0.95);
+}
+
+.micro-live-toast-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  background: rgba(232, 67, 101, 0.2);
+  color: #FFB3C1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
 
 
 
