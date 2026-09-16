@@ -17,7 +17,7 @@ function initBobaBloom() {
       category: 'signature',
       price: 3200,
       description: 'Jasmine green tea with fresh strawberry purée, velvety sweet cream cloud foam, and strawberry popping pearls.',
-      image: 'https://images.unsplash.com/photo-1558857563-b37cf5c490ff?auto=format&fit=crop&w=600&q=80',
+      image: 'https://images.unsplash.com/photo-1558857563-b37cf5c490ff?auto=format&fit=crop&w=700&q=85',
       tags: ['Best Seller', 'Fresh Berries', 'Signature']
     },
     {
@@ -26,7 +26,7 @@ function initBobaBloom() {
       category: 'milk-tea',
       price: 3000,
       description: 'Assam black tea swirled with caramelized Okinawa tiger brown sugar syrup and warm, bouncy tapioca pearls.',
-      image: 'https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=600&q=80',
+      image: 'https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=700&q=85',
       tags: ['Customer Favorite', 'Chewy Tapioca']
     },
     {
@@ -35,7 +35,7 @@ function initBobaBloom() {
       category: 'fruit-tea',
       price: 2800,
       description: 'Sun-ripened tropical mango and zesty passion fruit infused into jade green tea with popping juice boba.',
-      image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80',
+      image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=700&q=85',
       tags: ['Refreshing', 'Dairy Free']
     },
     {
@@ -44,7 +44,7 @@ function initBobaBloom() {
       category: 'matcha',
       price: 3400,
       description: 'First-harvest Uji ceremonial matcha whisked to perfection over creamy oat milk and golden honey pearls.',
-      image: 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=600&q=80',
+      image: 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=700&q=85',
       tags: ['Ceremonial Grade', 'Antioxidants']
     },
     {
@@ -53,7 +53,7 @@ function initBobaBloom() {
       category: 'milk-tea',
       price: 3000,
       description: 'Sweet and creamy roasted taro blended with slow-steeped black tea, topped with chewy herbal grass jelly.',
-      image: 'https://images.unsplash.com/photo-1541658016709-82535e94bc69?auto=format&fit=crop&w=600&q=80',
+      image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=700&q=85',
       tags: ['Velvety Sweet', 'Natural Color']
     },
     {
@@ -62,7 +62,7 @@ function initBobaBloom() {
       category: 'signature',
       price: 2900,
       description: 'Our signature coastal tribute: West African Bissap hibiscus flowers, pomegranate pearls, and cooling mint.',
-      image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=600&q=80',
+      image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=700&q=85',
       tags: ['Local Twist', 'Cotonou Exclusive']
     },
     {
@@ -71,7 +71,7 @@ function initBobaBloom() {
       category: 'matcha',
       price: 3500,
       description: 'Artistic three-layer drink: homemade strawberry compote, silk milk, and vivid green whisked matcha.',
-      image: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80',
+      image: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=700&q=85',
       tags: ['Layered Latte', 'House Special']
     },
     {
@@ -80,7 +80,7 @@ function initBobaBloom() {
       category: 'milk-tea',
       price: 2800,
       description: 'Fragrant bergamot Earl Grey leaves infused with whole milk and brown sugar tapioca.',
-      image: 'https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=600&q=80',
+      image: 'https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&w=700&q=85',
       tags: ['Floral', 'Classic']
     },
     {
@@ -89,7 +89,7 @@ function initBobaBloom() {
       category: 'fruit-tea',
       price: 3000,
       description: 'Crisp green tea with juicy sweet lychee nectar, fragrant edible rose water, and crystal aloe vera.',
-      image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80',
+      image: 'https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=700&q=85',
       tags: ['Floral & Crisp', 'Light Sugar']
     },
     {
@@ -98,7 +98,7 @@ function initBobaBloom() {
       category: 'signature',
       price: 3600,
       description: 'Rich brown sugar milk tea topped with fresh egg custard cream torched into a crispy caramelized sugar crust.',
-      image: 'https://images.unsplash.com/photo-1541658016709-82535e94bc69?auto=format&fit=crop&w=600&q=80',
+      image: 'https://images.unsplash.com/photo-1541658016709-82535e94bc69?auto=format&fit=crop&w=700&q=85',
       tags: ['Torched Custard', 'Decadent']
     },
     {
@@ -107,7 +107,7 @@ function initBobaBloom() {
       category: 'toppings',
       price: 500,
       description: 'Portion of slow-simmered Taiwanese black tapioca pearls coated in Okinawa brown sugar syrup.',
-      image: 'https://images.unsplash.com/photo-1594488518001-0e1378370162?auto=format&fit=crop&w=600&q=80',
+      image: 'https://images.unsplash.com/photo-1594488518001-0e1378370162?auto=format&fit=crop&w=700&q=85',
       tags: ['Slow Simmered', 'Chewy']
     },
     {
@@ -116,7 +116,7 @@ function initBobaBloom() {
       category: 'toppings',
       price: 600,
       description: 'Thin translucent sea-kelp pearls filled with real, bursting mango fruit juice.',
-      image: 'https://images.unsplash.com/photo-1558857563-b37cf5c490ff?auto=format&fit=crop&w=600&q=80',
+      image: 'https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=700&q=85',
       tags: ['Juice Explosion', 'Fun Texture']
     }
   ];
