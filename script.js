@@ -102,17 +102,17 @@ function createToast(message, type = 'info') {
 const menuProducts = [
   {
     id: "prod-1",
-    name: "Brown Sugar Bliss",
+    name: "Délice Sucre Noir",
     category: "signature",
     price: 3000,
     base: "Thé Noir d'Assam & Lait Frais",
     desc: "Perles de tapioca chaudes mijotées au sucre noir d'Okinawa et crème fouettée maison.",
     image: "https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=700&q=85",
-    tags: ["Best Seller", "Signature"]
+    tags: ["Incontournable", "Signature"]
   },
   {
     id: "prod-2",
-    name: "Strawberry Cloud",
+    name: "Nuage de Fraise",
     category: "milk-tea",
     price: 3200,
     base: "Thé Vert Jasmin & Coulis de Fraise",
@@ -122,7 +122,7 @@ const menuProducts = [
   },
   {
     id: "prod-3",
-    name: "Matcha Uji Imperial",
+    name: "Matcha Uji Impérial",
     category: "matcha",
     price: 3400,
     base: "Matcha Cérémonial de Kyoto Bio",
@@ -132,7 +132,7 @@ const menuProducts = [
   },
   {
     id: "prod-4",
-    name: "Mangue Passion Sparkle",
+    name: "Éclat Mangue Passion",
     category: "fruity",
     price: 2800,
     base: "Thé Oolong des 4 Saisons",
@@ -142,7 +142,7 @@ const menuProducts = [
   },
   {
     id: "prod-5",
-    name: "Taro Royal Velvet",
+    name: "Velours de Taro Royal",
     category: "milk-tea",
     price: 3200,
     base: "Racine de Taro Pourpre & Lait de Coco",
@@ -152,7 +152,7 @@ const menuProducts = [
   },
   {
     id: "prod-6",
-    name: "Hibiscus Rose Dégustation",
+    name: "Infusion Hibiscus Rose",
     category: "fruity",
     price: 2600,
     base: "Infusion Florale de Bissap & Pétales de Rose",
@@ -161,45 +161,6 @@ const menuProducts = [
     tags: ["Origine Bénin", "Floral"]
   }
 ];
-
-const sommelierData = {
-  fruity: {
-    title: "Mangue Passion Sparkle",
-    desc: "Un éclat vibrant d'agrumes et de mangues mûries au soleil sur un thé Oolong floral.",
-    price: "2 800 FCFA",
-    image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=700&q=85",
-    aroma: "Notes de fruits de la passion, mangue fraîche, finale citronnée.",
-    pairing: "Macaron yuzu ou tartelette mangue.",
-    rawItem: { id: "som-1", name: "Mangue Passion Sparkle", price: 2800, image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=700&q=85" }
-  },
-  comfort: {
-    title: "Brown Sugar Bliss",
-    desc: "La douceur réconfortante du caramel d'Okinawa chaud marié à un thé noir d'Assam corsé.",
-    price: "3 000 FCFA",
-    image: "https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=700&q=85",
-    aroma: "Sucre caramélisé, vanille bourbon, thé malté velouté.",
-    pairing: "Cookie pépites chocolat noir ou cannelé.",
-    rawItem: { id: "som-2", name: "Brown Sugar Bliss", price: 3000, image: "https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=700&q=85" }
-  },
-  matcha: {
-    title: "Matcha Uji Imperial",
-    desc: "Énergie propre et clarté d'esprit grâce à notre grand cru de thé vert biologique d'Uji.",
-    price: "3 400 FCFA",
-    image: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=700&q=85",
-    aroma: "Herbe fraîche coupée, umami délicat, douceur lactée.",
-    pairing: "Mochi haricot rouge azuki ou financier.",
-    rawItem: { id: "som-3", name: "Matcha Uji Imperial", price: 3400, image: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=700&q=85" }
-  },
-  gourmand: {
-    title: "Taro Royal Velvet",
-    desc: "Une rondeur irrésistible aux nuances de vanille et de noisette, servi avec tapioca chaud.",
-    price: "3 200 FCFA",
-    image: "https://images.unsplash.com/photo-1563227812-0ea4c22e6cc8?auto=format&fit=crop&w=700&q=85",
-    aroma: "Noisette biscuitée, lait de coco, vanille onctueuse.",
-    pairing: "Chou à la crème vanille ou gaufre liégeoise.",
-    rawItem: { id: "som-4", name: "Taro Royal Velvet", price: 3200, image: "https://images.unsplash.com/photo-1563227812-0ea4c22e6cc8?auto=format&fit=crop&w=700&q=85" }
-  }
-};
 
 const legalContents = {
   privacy: {
@@ -268,6 +229,8 @@ class CartManager {
   constructor() {
     this.cart = this.loadCart();
     this.discountPercent = 0;
+    this.orderTracker = null;
+    this.activeTab = 'items';
     this.initElements();
     this.bindEvents();
     this.render();
@@ -290,13 +253,24 @@ class CartManager {
     }
   }
 
+  setOrderTracker(orderTracker) {
+    this.orderTracker = orderTracker;
+  }
+
   initElements() {
     this.cartDrawer = document.getElementById('cart-drawer');
     this.cartOverlay = document.getElementById('cart-overlay');
     this.cartOpenBtn = document.getElementById('cart-toggle-btn');
     this.cartCloseBtn = document.getElementById('cart-close-btn');
+    
+    this.tabItemsBtn = document.getElementById('tab-cart-items');
+    this.tabTrackerBtn = document.getElementById('tab-cart-tracker');
+    this.cartItemsView = document.getElementById('cart-items-view');
+    this.cartTrackerView = document.getElementById('cart-tracker-view');
+    
     this.cartItemsContainer = document.getElementById('cart-items-container');
     this.cartBadge = document.getElementById('cart-badge-count');
+    this.cartTabCount = document.getElementById('cart-tab-count');
     this.cartTotalEl = document.getElementById('cart-total-price');
     this.cartSubtotalEl = document.getElementById('cart-subtotal-price');
     this.cartDiscountRow = document.getElementById('cart-discount-row');
@@ -315,9 +289,13 @@ class CartManager {
   }
 
   bindEvents() {
-    this.cartOpenBtn?.addEventListener('click', () => this.openCart());
+    this.cartOpenBtn?.addEventListener('click', () => this.openCart('items'));
     this.cartCloseBtn?.addEventListener('click', () => this.closeCart());
     this.cartOverlay?.addEventListener('click', () => this.closeCart());
+    
+    this.tabItemsBtn?.addEventListener('click', () => this.switchTab('items'));
+    this.tabTrackerBtn?.addEventListener('click', () => this.switchTab('tracker'));
+
     this.promoBtn?.addEventListener('click', () => this.applyPromo());
     this.checkoutBtn?.addEventListener('click', () => this.openCheckout());
     this.checkoutCloseBtn?.addEventListener('click', () => this.closeCheckout());
@@ -325,10 +303,27 @@ class CartManager {
     this.receiptCloseBtn?.addEventListener('click', () => this.closeReceipt());
   }
 
-  openCart() {
+  switchTab(tabName) {
+    this.activeTab = tabName;
+    if (tabName === 'items') {
+      this.tabItemsBtn?.classList.add('active');
+      this.tabTrackerBtn?.classList.remove('active');
+      this.cartItemsView?.classList.add('active');
+      this.cartTrackerView?.classList.remove('active');
+    } else {
+      this.tabItemsBtn?.classList.remove('active');
+      this.tabTrackerBtn?.classList.add('active');
+      this.cartItemsView?.classList.remove('active');
+      this.cartTrackerView?.classList.add('active');
+      this.orderTracker?.render();
+    }
+  }
+
+  openCart(tabName = 'items') {
     this.cartDrawer?.classList.add('open');
     this.cartOverlay?.classList.add('open');
     document.body.style.overflow = 'hidden';
+    this.switchTab(tabName);
   }
 
   closeCart() {
@@ -358,7 +353,7 @@ class CartManager {
 
     this.saveCart();
     this.render();
-    this.openCart();
+    this.openCart('items');
     createToast(`"${item.name}" ajouté à votre commande !`, 'success');
   }
 
@@ -409,6 +404,9 @@ class CartManager {
     if (this.cartBadge) {
       this.cartBadge.textContent = String(totalItems);
       this.cartBadge.style.display = totalItems > 0 ? 'inline-flex' : 'none';
+    }
+    if (this.cartTabCount) {
+      this.cartTabCount.textContent = String(totalItems);
     }
 
     const { subtotal, discount, total } = this.calculateTotals();
@@ -528,6 +526,20 @@ class CartManager {
 
     const { subtotal, discount, total } = this.calculateTotals();
     const orderNum = 'BB-' + Math.floor(100000 + Math.random() * 900000);
+    const orderedItems = [...this.cart];
+
+    // Initialize Active Live Order Simulation
+    if (this.orderTracker) {
+      this.orderTracker.createOrder({
+        orderId: orderNum,
+        clientName,
+        clientPhone,
+        deliveryMethod,
+        paymentMethod,
+        total,
+        items: orderedItems
+      });
+    }
 
     if (this.receiptContainer) {
       clearChildren(this.receiptContainer);
@@ -544,9 +556,15 @@ class CartManager {
           el('div', { style: { borderTop: '1px dashed var(--color-border)', paddingTop: '10px', marginTop: '10px' } },
             el('div', { style: { fontSize: '1.15rem', fontWeight: '700', color: 'var(--color-espresso)' } }, `Total : ${total.toLocaleString('fr-FR')} FCFA`)
           ),
-          el('p', { style: { fontSize: '0.8rem', color: 'var(--color-text-muted)', marginTop: '12px' } },
-            'Présentez ce reçu au salon de Haie Vive ou au livreur.'
-          )
+          el('button', {
+            type: 'button',
+            className: 'btn btn-primary',
+            style: { width: '100%', marginTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' },
+            onclick: () => {
+              this.closeReceipt();
+              this.openCart('tracker');
+            }
+          }, 'Suivre la préparation en direct')
         )
       );
     }
@@ -572,12 +590,12 @@ class DrinkBuilder {
     this.cartManager = cartManager;
     this.state = {
       currentStep: 1,
-      base: 'Milk Tea',
+      base: 'Thé au Lait',
       basePrice: 2200,
       baseColor: '#D2AC84',
       baseIntensity: 'Moyenne (Assam)',
       baseCal: 140,
-      flavor: 'Strawberry',
+      flavor: 'Fraise',
       flavorColor: '#F28299',
       flavorCal: 60,
       topping: 'Tapioca',
@@ -600,6 +618,8 @@ class DrinkBuilder {
     this.liquidTop = document.getElementById('liquidStopTop');
     this.liquidMid = document.getElementById('liquidStopMid');
     this.liquidBottom = document.getElementById('liquidStopBottom');
+    this.liquidWaveBack = document.getElementById('svg-liquid-wave-back');
+    this.liquidWave = document.getElementById('svg-liquid-wave');
     this.pearlsGroup = document.getElementById('svg-pearls-group');
     this.iceGroup = document.getElementById('svg-ice-cubes-group');
     this.bubblesGroup = document.getElementById('svg-fizzy-bubbles');
@@ -615,7 +635,6 @@ class DrinkBuilder {
   }
 
   bindEvents() {
-    // Option selections
     document.querySelectorAll('.option-chip').forEach(chip => {
       chip.addEventListener('click', (e) => {
         const target = e.currentTarget;
@@ -712,83 +731,119 @@ class DrinkBuilder {
   }
 
   updateVisuals() {
-    // 1. Dynamic Liquid Gradient
+    // 1. Dynamic Liquid Gradients & Multi-layer Waves
     if (this.liquidTop) this.liquidTop.setAttribute('stop-color', this.state.flavorColor);
     if (this.liquidMid) this.liquidMid.setAttribute('stop-color', this.state.flavorColor);
     if (this.liquidBottom) this.liquidBottom.setAttribute('stop-color', this.state.baseColor);
 
-    // 2. SVG 3D Boba Pearls
+    // 2. Realistic 3D Pearls with Specular Gloss & Buoyancy Motion
     if (this.pearlsGroup) {
       clearChildren(this.pearlsGroup);
       if (this.state.toppingClass !== 'none') {
         const pearlLayout = [
-          { cx: 100, cy: 405, r: 11 },
-          { cx: 122, cy: 412, r: 10 },
-          { cx: 144, cy: 408, r: 12 },
-          { cx: 168, cy: 412, r: 11 },
-          { cx: 190, cy: 404, r: 10 },
-          { cx: 110, cy: 388, r: 11.5 },
-          { cx: 132, cy: 392, r: 11 },
-          { cx: 154, cy: 386, r: 12 },
-          { cx: 178, cy: 390, r: 11.5 },
-          { cx: 124, cy: 370, r: 10.5 },
-          { cx: 148, cy: 368, r: 11.5 },
-          { cx: 168, cy: 372, r: 10 },
-          { cx: 138, cy: 350, r: 11 }
+          // Bottom foundation row
+          { cx: 98, cy: 412, r: 12, anim: 1 },
+          { cx: 122, cy: 416, r: 11, anim: 2 },
+          { cx: 145, cy: 414, r: 13, anim: 3 },
+          { cx: 170, cy: 417, r: 11.5, anim: 1 },
+          { cx: 194, cy: 411, r: 11, anim: 2 },
+          // Second elevated layer
+          { cx: 108, cy: 393, r: 11.5, anim: 2 },
+          { cx: 132, cy: 396, r: 12, anim: 3 },
+          { cx: 156, cy: 392, r: 12.5, anim: 1 },
+          { cx: 180, cy: 395, r: 11.5, anim: 2 },
+          // Third floating layer
+          { cx: 118, cy: 374, r: 11, anim: 3 },
+          { cx: 144, cy: 372, r: 12, anim: 1 },
+          { cx: 168, cy: 376, r: 11, anim: 2 },
+          // Top suspended gems
+          { cx: 133, cy: 352, r: 11.5, anim: 1 },
+          { cx: 156, cy: 354, r: 10.5, anim: 3 }
         ];
 
         pearlLayout.forEach(p => {
+          const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          g.setAttribute('class', `svg-boba-pearl pearl-float-${p.anim}`);
+
           if (this.state.toppingClass === 'jelly') {
             const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
             rect.setAttribute('x', String(p.cx - 10));
-            rect.setAttribute('y', String(p.cy - 10));
+            rect.setAttribute('y', String(p.cy - 9));
             rect.setAttribute('width', '20');
             rect.setAttribute('height', '18');
             rect.setAttribute('rx', '4');
             rect.setAttribute('fill', this.state.toppingGrad);
-            rect.setAttribute('class', 'svg-boba-pearl');
-            this.pearlsGroup.appendChild(rect);
+            g.appendChild(rect);
+
+            // Specular facet
+            const facet = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            facet.setAttribute('x', String(p.cx - 8));
+            facet.setAttribute('y', String(p.cy - 7));
+            facet.setAttribute('width', '6');
+            facet.setAttribute('height', '5');
+            facet.setAttribute('rx', '2');
+            facet.setAttribute('fill', 'rgba(255,255,255,0.7)');
+            g.appendChild(facet);
           } else {
+            // Main sphere
             const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
             circle.setAttribute('cx', String(p.cx));
             circle.setAttribute('cy', String(p.cy));
             circle.setAttribute('r', String(p.r));
             circle.setAttribute('fill', this.state.toppingGrad);
-            circle.setAttribute('class', 'svg-boba-pearl');
-            this.pearlsGroup.appendChild(circle);
+            g.appendChild(circle);
+
+            // 3D Specular Highlight 1 (Curved Glossy Rim)
+            const gloss1 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            gloss1.setAttribute('cx', String(p.cx - p.r * 0.32));
+            gloss1.setAttribute('cy', String(p.cy - p.r * 0.32));
+            gloss1.setAttribute('r', String(p.r * 0.3));
+            gloss1.setAttribute('fill', 'rgba(255,255,255,0.75)');
+            g.appendChild(gloss1);
+
+            // 3D Secondary subtle reflection
+            const gloss2 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            gloss2.setAttribute('cx', String(p.cx + p.r * 0.35));
+            gloss2.setAttribute('cy', String(p.cy + p.r * 0.35));
+            gloss2.setAttribute('r', String(p.r * 0.16));
+            gloss2.setAttribute('fill', 'rgba(255,255,255,0.3)');
+            g.appendChild(gloss2);
           }
+
+          this.pearlsGroup.appendChild(g);
         });
       }
     }
 
-    // 3. SVG 3D Ice Cubes
+    // 3. Faceted 3D Ice Cubes with Dynamic Wobble
     if (this.iceGroup) {
       clearChildren(this.iceGroup);
       const iceLevels = {
         '0%': [],
         '30%': [
-          { x: 105, y: 190, w: 32, h: 28, rot: 12 },
-          { x: 160, y: 200, w: 34, h: 30, rot: -15 }
+          { x: 104, y: 190, w: 34, h: 28, rot: 10, wobble: 1 },
+          { x: 158, y: 200, w: 34, h: 30, rot: -14, wobble: 2 }
         ],
         '50%': [
-          { x: 95, y: 175, w: 34, h: 30, rot: 14 },
-          { x: 155, y: 180, w: 36, h: 32, rot: -18 },
-          { x: 125, y: 220, w: 32, h: 28, rot: 8 },
-          { x: 165, y: 235, w: 30, h: 26, rot: -10 }
+          { x: 94, y: 172, w: 34, h: 30, rot: 14, wobble: 1 },
+          { x: 154, y: 178, w: 36, h: 32, rot: -18, wobble: 2 },
+          { x: 122, y: 218, w: 32, h: 28, rot: 8, wobble: 1 },
+          { x: 164, y: 232, w: 30, h: 26, rot: -10, wobble: 2 }
         ],
         '100%': [
-          { x: 90, y: 160, w: 34, h: 30, rot: 15 },
-          { x: 150, y: 165, w: 36, h: 32, rot: -20 },
-          { x: 110, y: 205, w: 34, h: 30, rot: 6 },
-          { x: 160, y: 215, w: 32, h: 28, rot: -12 },
-          { x: 130, y: 250, w: 34, h: 30, rot: 18 },
-          { x: 95, y: 260, w: 30, h: 26, rot: -8 }
+          { x: 90, y: 158, w: 34, h: 30, rot: 15, wobble: 1 },
+          { x: 150, y: 164, w: 36, h: 32, rot: -20, wobble: 2 },
+          { x: 110, y: 204, w: 34, h: 30, rot: 6, wobble: 1 },
+          { x: 160, y: 214, w: 32, h: 28, rot: -12, wobble: 2 },
+          { x: 128, y: 248, w: 34, h: 30, rot: 18, wobble: 1 },
+          { x: 96, y: 258, w: 30, h: 26, rot: -8, wobble: 2 }
         ]
       };
 
       const cubes = iceLevels[this.state.ice] || iceLevels['50%'];
       cubes.forEach(c => {
         const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('class', `svg-ice-cube ice-wobble-${c.wobble}`);
         g.setAttribute('transform', `rotate(${c.rot} ${c.x + c.w/2} ${c.y + c.h/2})`);
 
         const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
@@ -798,32 +853,41 @@ class DrinkBuilder {
         rect.setAttribute('height', String(c.h));
         rect.setAttribute('rx', '6');
         rect.setAttribute('fill', 'url(#iceCubeGrad)');
-        rect.setAttribute('stroke', 'rgba(255,255,255,0.8)');
+        rect.setAttribute('stroke', 'rgba(255,255,255,0.85)');
         rect.setAttribute('stroke-width', '1.5');
-        rect.setAttribute('class', 'svg-ice-cube');
-
         g.appendChild(rect);
+
+        // Internal bevel line for 3D realism
+        const innerLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        innerLine.setAttribute('d', `M${c.x + 4} ${c.y + c.h - 4} L${c.x + 8} ${c.y + 6} L${c.x + c.w - 6} ${c.y + 6}`);
+        innerLine.setAttribute('fill', 'none');
+        innerLine.setAttribute('stroke', 'rgba(255,255,255,0.6)');
+        innerLine.setAttribute('stroke-width', '1.2');
+        g.appendChild(innerLine);
+
         this.iceGroup.appendChild(g);
       });
     }
 
-    // 4. Fizzy Micro Bubbles
+    // 4. Rising Fizzy Micro-Bubbles
     if (this.bubblesGroup) {
       clearChildren(this.bubblesGroup);
       const bubblePositions = [
-        { cx: 88, cy: 320, r: 2.5 },
-        { cx: 120, cy: 290, r: 3 },
-        { cx: 175, cy: 310, r: 2 },
-        { cx: 195, cy: 260, r: 3.5 },
-        { cx: 140, cy: 240, r: 2.5 },
-        { cx: 105, cy: 210, r: 2 }
+        { cx: 88, cy: 370, r: 2.5, delay: '0s' },
+        { cx: 120, cy: 385, r: 3, delay: '0.6s' },
+        { cx: 175, cy: 360, r: 2, delay: '1.2s' },
+        { cx: 195, cy: 390, r: 3.5, delay: '1.8s' },
+        { cx: 140, cy: 350, r: 2.5, delay: '2.4s' },
+        { cx: 105, cy: 330, r: 2, delay: '3.0s' }
       ];
       bubblePositions.forEach(b => {
         const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
         c.setAttribute('cx', String(b.cx));
         c.setAttribute('cy', String(b.cy));
         c.setAttribute('r', String(b.r));
-        c.setAttribute('fill', 'rgba(255,255,255,0.6)');
+        c.setAttribute('fill', 'rgba(255,255,255,0.8)');
+        c.setAttribute('class', 'fizzy-micro-bubble');
+        c.style.animationDelay = b.delay;
         this.bubblesGroup.appendChild(c);
       });
     }
@@ -856,99 +920,272 @@ class DrinkBuilder {
   }
 }
 
-class SommelierManager {
-  constructor(cartManager) {
-    this.cartManager = cartManager;
-    this.currentMood = 'comfort';
-    this.init();
+/* ==========================================================================
+   Order Tracker Manager & Status Simulator
+   ========================================================================== */
+class OrderTrackerManager {
+  constructor() {
+    this.container = document.getElementById('order-tracker-content');
+    this.autoTimer = null;
+    this.currentOrder = this.loadOrder() || {
+      orderId: 'BB-742910',
+      clientName: 'Yasmine Dossou',
+      clientPhone: '+229 97 00 11 22',
+      deliveryMethod: 'Click & Collect (Haie Vive)',
+      paymentMethod: 'MTN Mobile Money',
+      total: 5900,
+      statusStep: 2, // 1: Enregistrée, 2: En préparation, 3: Prêt / En livraison, 4: Livré
+      items: [
+        { name: 'Brown Sugar Lait Frais', quantity: 1, price: 3200, size: '500ml', sweetness: '50%', ice: '50%', toppings: 'Tapioca Chaud' },
+        { name: 'Matcha Cérémonie Glacé', quantity: 1, price: 2700, size: '500ml', sweetness: '30%', ice: '70%', toppings: 'Perles Litchi' }
+      ],
+      createdAt: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
+    };
+
+    this.render();
   }
 
-  init() {
-    const chips = document.querySelectorAll('.sommelier-chip');
-    chips.forEach(chip => {
-      chip.addEventListener('click', (e) => {
-        chips.forEach(c => c.classList.remove('active'));
-        e.currentTarget.classList.add('active');
-        this.currentMood = e.currentTarget.dataset.mood;
-        this.renderRecommendation();
-      });
-    });
-
-    document.getElementById('btn-order-sommelier')?.addEventListener('click', () => {
-      const rec = sommelierData[this.currentMood];
-      if (rec) {
-        this.cartManager.addItem({
-          id: rec.rawItem.id,
-          name: rec.rawItem.name,
-          price: rec.rawItem.price,
-          image: rec.rawItem.image,
-          size: '500ml',
-          sweetness: '50%',
-          ice: '50%',
-          toppings: 'Inclus'
-        });
-      }
-    });
-
-    const tastingModal = document.getElementById('tasting-sheet-modal');
-    document.getElementById('btn-open-tasting-sheet')?.addEventListener('click', () => {
-      const rec = sommelierData[this.currentMood];
-      if (rec && tastingModal) {
-        const titleEl = document.getElementById('ts-drink-title');
-        const descEl = document.getElementById('ts-drink-desc');
-        const aromaEl = document.getElementById('ts-aroma-notes');
-        const pairingEl = document.getElementById('ts-pairing');
-        
-        if (titleEl) titleEl.textContent = rec.title;
-        if (descEl) descEl.textContent = rec.desc;
-        if (aromaEl) aromaEl.textContent = rec.aroma;
-        if (pairingEl) pairingEl.textContent = rec.pairing;
-        
-        tastingModal.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-    });
-
-    document.getElementById('ts-modal-close')?.addEventListener('click', () => {
-      tastingModal?.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-    document.getElementById('ts-btn-close')?.addEventListener('click', () => {
-      tastingModal?.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-    document.getElementById('ts-btn-order')?.addEventListener('click', () => {
-      tastingModal?.classList.remove('open');
-      document.body.style.overflow = '';
-      const rec = sommelierData[this.currentMood];
-      if (rec) {
-        this.cartManager.addItem({
-          id: rec.rawItem.id,
-          name: rec.rawItem.name,
-          price: rec.rawItem.price,
-          image: rec.rawItem.image,
-          size: '500ml',
-          sweetness: '50%',
-          ice: '50%',
-          toppings: 'Inclus'
-        });
-      }
-    });
+  loadOrder() {
+    try {
+      const data = localStorage.getItem('boba_bloom_active_order');
+      return data ? JSON.parse(data) : null;
+    } catch {
+      return null;
+    }
   }
 
-  renderRecommendation() {
-    const rec = sommelierData[this.currentMood];
-    if (!rec) return;
+  saveOrder() {
+    try {
+      localStorage.setItem('boba_bloom_active_order', JSON.stringify(this.currentOrder));
+    } catch (e) {
+      console.warn('Order tracker storage error:', e);
+    }
+  }
 
-    const imgEl = document.getElementById('sommelier-rec-img');
-    const titleEl = document.getElementById('sommelier-rec-title');
-    const descEl = document.getElementById('sommelier-rec-desc');
-    const priceEl = document.getElementById('sommelier-rec-price');
+  createOrder(details) {
+    this.currentOrder = {
+      ...details,
+      statusStep: 1,
+      createdAt: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
+    };
+    this.saveOrder();
+    this.render();
 
-    if (imgEl) imgEl.src = rec.image;
-    if (titleEl) titleEl.textContent = rec.title;
-    if (descEl) descEl.textContent = rec.desc;
-    if (priceEl) priceEl.textContent = rec.price;
+    // Automatically advance to 'En préparation' after 3.5s for realism
+    if (this.autoTimer) clearTimeout(this.autoTimer);
+    this.autoTimer = setTimeout(() => {
+      if (this.currentOrder && this.currentOrder.statusStep === 1) {
+        this.setStep(2);
+        createToast('Mise à jour : Votre Bubble Tea est en cours de préparation au comptoir !', 'info');
+      }
+    }, 3500);
+  }
+
+  setStep(stepIndex) {
+    if (!this.currentOrder) return;
+    this.currentOrder.statusStep = stepIndex;
+    this.saveOrder();
+    this.render();
+  }
+
+  startAutoSimulation() {
+    if (this.autoTimer) clearInterval(this.autoTimer);
+    let step = 1;
+    this.setStep(step);
+    createToast('Simulation démarrée : 1. Enregistrée', 'info');
+
+    this.autoTimer = setInterval(() => {
+      step++;
+      if (step > 4) {
+        clearInterval(this.autoTimer);
+        this.autoTimer = null;
+        createToast('Simulation terminée : Commande livrée et dégustée !', 'success');
+        return;
+      }
+      this.setStep(step);
+      const names = ['', 'Enregistrée', 'En préparation', 'Prêt à être récupéré / En livraison', 'Livré & Dégusté'];
+      createToast(`Simulation : Étape ${step} - ${names[step]}`, 'info');
+    }, 4000);
+  }
+
+  render() {
+    if (!this.container) return;
+    clearChildren(this.container);
+
+    const order = this.currentOrder;
+    if (!order) {
+      this.container.appendChild(
+        el('div', { style: { textAlign: 'center', padding: '30px 10px', color: 'var(--color-text-muted)' } },
+          el('h4', { style: { fontFamily: 'var(--font-display)', marginBottom: '8px', color: 'var(--color-espresso)' } }, 'Aucune commande active'),
+          el('p', { style: { fontSize: '0.85rem' } }, 'Validez une commande pour suivre son statut en temps réel.')
+        )
+      );
+      return;
+    }
+
+    const isDelivery = order.deliveryMethod && order.deliveryMethod.toLowerCase().includes('livraison');
+    const step = order.statusStep || 1;
+
+    // Step configuration
+    const stepConfigs = {
+      1: {
+        pillClass: 'status-registered',
+        pillLabel: 'Reçue au salon',
+        headline: 'Commande confirmée',
+        desc: "Votre commande est transmise avec succès au comptoir Boba Bloom (Haie Vive).",
+        eta: 'Prêt dans ~12 min'
+      },
+      2: {
+        pillClass: 'status-prep',
+        pillLabel: 'En préparation',
+        headline: 'Infusion & Assemblage Artisanal',
+        desc: "Nos baristas infusent les thés d'origine, cuisent les perles au sucre d'Okinawa et émulsionnent votre création minute.",
+        eta: 'Prêt dans ~6 min'
+      },
+      3: {
+        pillClass: 'status-ready',
+        pillLabel: isDelivery ? 'En cours de livraison' : 'Prêt à être récupéré',
+        headline: isDelivery ? 'Livreur Express en route' : 'Votre Bubble Tea vous attend au bar',
+        desc: isDelivery
+          ? 'Votre commande fraîchement scellée est confiée au livreur express vers votre adresse à Cotonou.'
+          : 'Votre boisson est dressée au comptoir du salon de Haie Vive. Présentez votre numéro de commande.',
+        eta: isDelivery ? 'Arrivée dans ~10 min' : 'Disponible immédiatement'
+      },
+      4: {
+        pillClass: 'status-delivered',
+        pillLabel: 'Dégustation & Livré',
+        headline: 'Commande remise avec succès',
+        desc: 'Merci pour votre confiance chez Boba Bloom. Excellente dégustation à vous !',
+        eta: 'Terminée'
+      }
+    };
+
+    const currentCfg = stepConfigs[step] || stepConfigs[1];
+
+    // Status Card
+    const statusCard = el('div', { className: 'tracker-status-card' },
+      el('div', { className: 'tracker-badge-row' },
+        el('span', { className: `tracker-status-pill ${currentCfg.pillClass}` },
+          el('span', { className: 'live-pulse-dot' }),
+          currentCfg.pillLabel
+        ),
+        el('span', { className: 'tracker-countdown-tag' }, currentCfg.eta)
+      ),
+      el('div', { className: 'tracker-order-id' }, `Commande n° ${order.orderId} • ${order.createdAt || 'Aujourd\'hui'}`),
+      el('h4', { className: 'tracker-headline' }, currentCfg.headline),
+      el('p', { className: 'tracker-desc' }, currentCfg.desc)
+    );
+
+    // Timeline 4-step progress
+    const stepsData = [
+      {
+        num: 1,
+        title: '1. Commande Reçue',
+        sub: 'Enregistrée en caisse',
+        iconSvg: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>'
+      },
+      {
+        num: 2,
+        title: '2. En préparation',
+        sub: 'Infusion du thé & cuisson perles',
+        iconSvg: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="m4.93 10.93 2.83-2.83"/><path d="M2 18h20"/><path d="M20 18v-2a6 6 0 0 0-6-6H10a6 6 0 0 0-6 6v2"/><path d="m19.07 10.93-2.83-2.83"/></svg>'
+      },
+      {
+        num: 3,
+        title: isDelivery ? '3. En cours de livraison' : '3. Prêt à être récupéré',
+        sub: isDelivery ? 'En route avec le coursier' : 'Au comptoir de Haie Vive',
+        iconSvg: isDelivery
+          ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18.5" cy="17.5" r="2.5"/><circle cx="5.5" cy="17.5" r="2.5"/><path d="M15 6h-5a2 2 0 0 0-2 2v7h10V9a3 3 0 0 0-3-3Z"/></svg>'
+          : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>'
+      },
+      {
+        num: 4,
+        title: '4. Dégustation & Livré',
+        sub: 'Boisson remise au client',
+        iconSvg: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>'
+      }
+    ];
+
+    const timelineEl = el('div', { className: 'tracker-timeline' });
+    stepsData.forEach(s => {
+      let stateClass = '';
+      if (step > s.num) stateClass = 'completed';
+      else if (step === s.num) stateClass = 'active';
+
+      const iconBox = el('div', { className: 'tracker-step-icon-box' });
+      iconBox.innerHTML = s.iconSvg;
+
+      const itemEl = el('div', { className: `tracker-step-item ${stateClass}` },
+        iconBox,
+        el('div', { className: 'tracker-step-details' },
+          el('div', { className: 'tracker-step-title' }, s.title),
+          el('div', { className: 'tracker-step-subtitle' }, s.sub)
+        )
+      );
+      timelineEl.appendChild(itemEl);
+    });
+
+    // Order Summary Info
+    const orderDetailsCard = el('div', { style: { background: 'var(--color-cream-bg)', borderRadius: 'var(--radius-md)', padding: '14px', fontSize: '0.85rem' } },
+      el('div', { style: { fontWeight: '700', color: 'var(--color-espresso)', marginBottom: '8px' } }, 'Détails de la commande'),
+      el('div', { style: { display: 'flex', justifyContent: 'space-between', marginBottom: '4px' } },
+        el('span', { style: { color: 'var(--color-text-muted)' } }, 'Destinataire :'),
+        el('span', { style: { fontWeight: '600' } }, order.clientName)
+      ),
+      el('div', { style: { display: 'flex', justifyContent: 'space-between', marginBottom: '4px' } },
+        el('span', { style: { color: 'var(--color-text-muted)' } }, 'Mode :'),
+        el('span', { style: { fontWeight: '600' } }, order.deliveryMethod)
+      ),
+      el('div', { style: { display: 'flex', justifyContent: 'space-between', marginBottom: '8px' } },
+        el('span', { style: { color: 'var(--color-text-muted)' } }, 'Paiement :'),
+        el('span', { style: { fontWeight: '600' } }, order.paymentMethod)
+      ),
+      el('div', { style: { borderTop: '1px dashed var(--color-border)', paddingTop: '6px', display: 'flex', justifyContent: 'space-between', fontWeight: '700', color: 'var(--color-espresso)' } },
+        el('span', {}, 'Total réglé :'),
+        el('span', {}, `${(order.total || 0).toLocaleString('fr-FR')} FCFA`)
+      )
+    );
+
+    // Interactive Simulator Controls
+    const simulatorPanel = el('div', { className: 'tracker-sim-panel' },
+      el('div', { className: 'tracker-sim-header' },
+        el('span', {}, 'Simulateur d\'état'),
+        el('span', { style: { fontSize: '0.72rem', color: 'var(--color-text-muted)', textTransform: 'none' } }, 'Test en direct')
+      ),
+      el('div', { className: 'tracker-sim-buttons-grid' },
+        el('button', {
+          type: 'button',
+          className: `sim-btn-step ${step === 1 ? 'active' : ''}`,
+          onclick: () => this.setStep(1)
+        }, '1. Reçue'),
+        el('button', {
+          type: 'button',
+          className: `sim-btn-step ${step === 2 ? 'active' : ''}`,
+          onclick: () => this.setStep(2)
+        }, '2. En préparation'),
+        el('button', {
+          type: 'button',
+          className: `sim-btn-step ${step === 3 ? 'active' : ''}`,
+          onclick: () => this.setStep(3)
+        }, isDelivery ? '3. En livraison' : '3. Prêt au bar'),
+        el('button', {
+          type: 'button',
+          className: `sim-btn-step ${step === 4 ? 'active' : ''}`,
+          onclick: () => this.setStep(4)
+        }, '4. Livré & Dégusté')
+      ),
+      el('button', {
+        type: 'button',
+        className: 'btn btn-secondary',
+        style: { width: '100%', marginTop: '10px', fontSize: '0.8rem', padding: '8px 12px' },
+        onclick: () => this.startAutoSimulation()
+      }, '▶ Lancer le cycle automatique (4s/étape)')
+    );
+
+    this.container.appendChild(statusCard);
+    this.container.appendChild(timelineEl);
+    this.container.appendChild(orderDetailsCard);
+    this.container.appendChild(simulatorPanel);
   }
 }
 
@@ -1010,14 +1247,17 @@ class BobaBloomApp {
     this.searchQuery = '';
     
     this.cartManager = new CartManager();
+    this.orderTracker = new OrderTrackerManager();
+    this.cartManager.setOrderTracker(this.orderTracker);
     this.drinkBuilder = new DrinkBuilder(this.cartManager);
-    this.sommelier = new SommelierManager(this.cartManager);
     this.legalModals = new LegalModalManager();
 
     this.initNavigation();
     this.initHeroSwitcher();
     this.initMenuSection();
     this.initReservation();
+    this.initTestimonialsCarousel();
+    this.initFaqSection();
     this.initCookies();
     this.initGallery();
     this.initNewsletter();
@@ -1108,14 +1348,33 @@ class BobaBloomApp {
       }
 
       filtered.forEach(product => {
+        const spinner = el('div', { className: 'card-media-spinner' },
+          el('div', { className: 'boba-mini-spinner' })
+        );
+
+        const imgEl = el('img', {
+          src: product.image,
+          alt: product.name,
+          className: 'card-img',
+          loading: 'lazy'
+        });
+
+        const onImageReady = () => {
+          imgEl.classList.add('loaded');
+          spinner.classList.add('hidden');
+        };
+
+        if (imgEl.complete && imgEl.naturalHeight !== 0) {
+          onImageReady();
+        } else {
+          imgEl.addEventListener('load', onImageReady);
+          imgEl.addEventListener('error', onImageReady);
+        }
+
         const card = el('div', { className: 'menu-product-card' },
           el('div', { className: 'card-media-wrapper' },
-            el('img', {
-              src: product.image,
-              alt: product.name,
-              className: 'card-img',
-              loading: 'lazy'
-            }),
+            spinner,
+            imgEl,
             el('div', { className: 'card-tags-list' },
               ...product.tags.map(t => el('span', { className: 'product-tag-pill' }, t))
             )
@@ -1164,6 +1423,240 @@ class BobaBloomApp {
     render();
   }
 
+  initTestimonialsCarousel() {
+    const track = document.getElementById('testimonials-track');
+    const carouselWrapper = document.getElementById('testimonials-carousel');
+    const prevBtn = document.getElementById('testi-prev-btn');
+    const nextBtn = document.getElementById('testi-next-btn');
+    const dotsContainer = document.getElementById('testi-dots-container');
+
+    if (!track || !carouselWrapper) return;
+
+    const slides = Array.from(track.querySelectorAll('.testimonial-slide'));
+    if (!slides.length) return;
+
+    let currentIndex = 0;
+    let autoInterval = null;
+    let isPaused = false;
+
+    const getVisibleCount = () => {
+      const width = window.innerWidth;
+      if (width > 1024) return 3;
+      if (width > 640) return 2;
+      return 1;
+    };
+
+    const getMaxIndex = () => {
+      const visible = getVisibleCount();
+      return Math.max(0, slides.length - visible);
+    };
+
+    const buildDots = () => {
+      if (!dotsContainer) return;
+      dotsContainer.innerHTML = '';
+      const maxIdx = getMaxIndex();
+      
+      for (let i = 0; i <= maxIdx; i++) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = `carousel-dot ${i === currentIndex ? 'active' : ''}`;
+        dot.setAttribute('aria-label', `Voir groupe d'avis ${i + 1}`);
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-selected', i === currentIndex ? 'true' : 'false');
+        dot.addEventListener('click', () => {
+          goToSlide(i);
+          restartAutoPlay();
+        });
+        dotsContainer.appendChild(dot);
+      }
+    };
+
+    const updateCarousel = () => {
+      const maxIdx = getMaxIndex();
+      if (currentIndex > maxIdx) currentIndex = maxIdx;
+
+      // Calculate actual offset
+      const firstSlide = slides[0];
+      if (!firstSlide) return;
+
+      const slideRect = firstSlide.getBoundingClientRect();
+      const trackStyle = window.getComputedStyle(track);
+      const gap = parseFloat(trackStyle.gap) || 24;
+      const slideWidth = slideRect.width;
+
+      const translateX = currentIndex * (slideWidth + gap);
+      track.style.transform = `translateX(-${translateX}px)`;
+
+      // Update dots
+      if (dotsContainer) {
+        const dots = dotsContainer.querySelectorAll('.carousel-dot');
+        dots.forEach((dot, idx) => {
+          const isActive = idx === currentIndex;
+          dot.classList.toggle('active', isActive);
+          dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+      }
+    };
+
+    const goToSlide = (idx) => {
+      const maxIdx = getMaxIndex();
+      if (idx < 0) currentIndex = maxIdx;
+      else if (idx > maxIdx) currentIndex = 0;
+      else currentIndex = idx;
+      updateCarousel();
+    };
+
+    const nextSlide = () => {
+      const maxIdx = getMaxIndex();
+      if (currentIndex >= maxIdx) {
+        currentIndex = 0;
+      } else {
+        currentIndex++;
+      }
+      updateCarousel();
+    };
+
+    const prevSlide = () => {
+      const maxIdx = getMaxIndex();
+      if (currentIndex <= 0) {
+        currentIndex = maxIdx;
+      } else {
+        currentIndex--;
+      }
+      updateCarousel();
+    };
+
+    const startAutoPlay = () => {
+      stopAutoPlay();
+      autoInterval = setInterval(() => {
+        if (!isPaused) {
+          nextSlide();
+        }
+      }, 4500);
+    };
+
+    const stopAutoPlay = () => {
+      if (autoInterval) {
+        clearInterval(autoInterval);
+        autoInterval = null;
+      }
+    };
+
+    const restartAutoPlay = () => {
+      stopAutoPlay();
+      startAutoPlay();
+    };
+
+    // Button Events
+    nextBtn?.addEventListener('click', () => {
+      nextSlide();
+      restartAutoPlay();
+    });
+
+    prevBtn?.addEventListener('click', () => {
+      prevSlide();
+      restartAutoPlay();
+    });
+
+    // Pause on Hover & Focus
+    carouselWrapper.addEventListener('mouseenter', () => { isPaused = true; });
+    carouselWrapper.addEventListener('mouseleave', () => { isPaused = false; });
+    carouselWrapper.addEventListener('focusin', () => { isPaused = true; });
+    carouselWrapper.addEventListener('focusout', () => { isPaused = false; });
+
+    // Touch / Swipe Navigation
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let touchStartTime = 0;
+
+    track.addEventListener('touchstart', (e) => {
+      isPaused = true;
+      touchStartX = e.touches[0].clientX;
+      touchStartTime = Date.now();
+    }, { passive: true });
+
+    track.addEventListener('touchmove', (e) => {
+      touchEndX = e.touches[0].clientX;
+    }, { passive: true });
+
+    track.addEventListener('touchend', () => {
+      isPaused = false;
+      const swipeDistance = touchStartX - touchEndX;
+      const swipeDuration = Date.now() - touchStartTime;
+
+      if (Math.abs(swipeDistance) > 40 && swipeDuration < 600) {
+        if (swipeDistance > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+        restartAutoPlay();
+      }
+      touchStartX = 0;
+      touchEndX = 0;
+    });
+
+    // Keyboard support
+    carouselWrapper.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        nextSlide();
+        restartAutoPlay();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+        restartAutoPlay();
+      }
+    });
+
+    // Responsive resize handling
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        buildDots();
+        updateCarousel();
+      }, 150);
+    });
+
+    // Initial setup
+    buildDots();
+    updateCarousel();
+    startAutoPlay();
+  }
+
+  initFaqSection() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const btn = item.querySelector('.faq-question-btn');
+      const panel = item.querySelector('.faq-answer-panel');
+      if (!btn || !panel) return;
+
+      btn.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+
+        // Close other items for single-accordion luxury feel
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item && otherItem.classList.contains('open')) {
+            otherItem.classList.remove('open');
+            const otherBtn = otherItem.querySelector('.faq-question-btn');
+            const otherPanel = otherItem.querySelector('.faq-answer-panel');
+            if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+            if (otherPanel) otherPanel.style.maxHeight = '0';
+          }
+        });
+
+        if (isOpen) {
+          item.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+          panel.style.maxHeight = '0';
+        } else {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          panel.style.maxHeight = `${panel.scrollHeight + 30}px`;
+        }
+      });
+    });
+  }
+
   initReservation() {
     const form = document.getElementById('salon-booking-form');
     form?.addEventListener('submit', (e) => {
@@ -1197,18 +1690,59 @@ class BobaBloomApp {
   initGallery() {
     const lightbox = document.getElementById('gallery-lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
-    document.querySelectorAll('.gallery-thumb-item img').forEach(img => {
-      img.parentElement.addEventListener('click', () => {
-        if (lightboxImg && lightbox) {
-          lightboxImg.src = img.src;
-          lightbox.classList.add('open');
-          document.body.style.overflow = 'hidden';
+    const lightboxSpinner = document.getElementById('lightbox-spinner');
+
+    // Gallery thumbnail image loading handling
+    document.querySelectorAll('.gallery-thumb-item').forEach(thumb => {
+      const img = thumb.querySelector('.gallery-img');
+      const spinner = thumb.querySelector('.gallery-skeleton-spinner');
+
+      if (img) {
+        const onLoaded = () => {
+          img.classList.add('loaded');
+          spinner?.classList.add('hidden');
+        };
+
+        if (img.complete && img.naturalHeight !== 0) {
+          onLoaded();
+        } else {
+          img.addEventListener('load', onLoaded);
+          img.addEventListener('error', onLoaded);
         }
-      });
+
+        thumb.addEventListener('click', () => {
+          if (lightboxImg && lightbox) {
+            lightboxSpinner?.classList.remove('hidden');
+            lightboxImg.style.opacity = '0';
+            lightboxImg.src = img.src;
+
+            const onLightboxImgReady = () => {
+              lightboxSpinner?.classList.add('hidden');
+              lightboxImg.style.opacity = '1';
+            };
+
+            if (lightboxImg.complete && lightboxImg.naturalHeight !== 0) {
+              onLightboxImgReady();
+            } else {
+              lightboxImg.onload = onLightboxImgReady;
+              lightboxImg.onerror = onLightboxImgReady;
+            }
+
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+          }
+        });
+      }
     });
-    document.getElementById('lightbox-close-btn')?.addEventListener('click', () => {
+
+    const closeLightbox = () => {
       lightbox?.classList.remove('open');
       document.body.style.overflow = '';
+    };
+
+    document.getElementById('lightbox-close-btn')?.addEventListener('click', closeLightbox);
+    lightbox?.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
     });
   }
 
