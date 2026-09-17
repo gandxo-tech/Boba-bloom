@@ -294,16 +294,39 @@ a {
 /* Hero Section */
 .hero-section {
   position: relative;
-  padding: 60px 0 80px;
-  background: radial-gradient(circle at 80% 20%, #FFE4EC 0%, #FAF7F2 70%);
+  padding: 70px 0 90px;
+  background-color: #FAF7F2;
+  background-image: 
+    linear-gradient(90deg, rgba(250, 247, 242, 0.96) 0%, rgba(250, 247, 242, 0.90) 42%, rgba(250, 247, 242, 0.45) 70%, rgba(250, 247, 242, 0.18) 100%),
+    url('/assets/hero-bg.jpg');
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: cover;
   overflow: hidden;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 85% 30%, rgba(255, 228, 236, 0.35) 0%, transparent 60%);
+  pointer-events: none;
 }
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1.15fr 0.85fr;
   gap: 50px;
   align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-text-content {
+  position: relative;
 }
 
 .hero-headline {
@@ -312,6 +335,7 @@ a {
   line-height: 1.15;
   color: var(--color-espresso);
   margin-bottom: 20px;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
 }
 
 .hero-headline span {
@@ -324,6 +348,7 @@ a {
   color: var(--color-text-muted);
   margin-bottom: 32px;
   max-width: 520px;
+  line-height: 1.65;
 }
 
 .hero-cta-group {
@@ -2316,8 +2341,25 @@ a {
 }
 
 @media (max-width: 960px) {
+  .hero-section {
+    padding: 40px 0 60px;
+    background-image: 
+      linear-gradient(180deg, rgba(250, 247, 242, 0.82) 0%, rgba(250, 247, 242, 0.68) 40%, rgba(250, 247, 242, 0.92) 85%),
+      url('/assets/hero-mobile-bg.jpg');
+    background-position: center top;
+  }
+  .hero-text-content {
+    background: rgba(255, 255, 255, 0.68);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 30px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow: 0 12px 35px rgba(62, 39, 35, 0.06);
+  }
   .hero-grid, .builder-layout, .story-grid, .salon-grid, .sommelier-result-card {
     grid-template-columns: 1fr;
+    gap: 36px;
   }
   .nav-links-desktop {
     display: none;
@@ -2326,7 +2368,7 @@ a {
     display: flex;
   }
   .hero-headline {
-    font-size: 2.4rem;
+    font-size: 2.35rem;
   }
   .builder-cup-stage {
     position: static;
@@ -2337,6 +2379,26 @@ a {
   .rating-highlight-banner {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-headline {
+    font-size: 2.05rem;
+  }
+  .hero-text-content {
+    padding: 24px 18px;
+  }
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-cta-group .btn {
+    width: 100%;
+  }
+  .hero-trust-badges {
+    flex-direction: column;
+    gap: 14px;
   }
 }
 
