@@ -1261,6 +1261,8 @@ class BobaBloomApp {
     this.initCookies();
     this.initGallery();
     this.initNewsletter();
+    this.initScrollReveal();
+    this.initHeroTextRotator();
   }
 
   initNavigation() {
@@ -1296,6 +1298,75 @@ class BobaBloomApp {
     mobileDrawerClose?.addEventListener('click', () => toggleMobile(false));
     document.querySelectorAll('.mobile-nav-link').forEach(link => {
       link.addEventListener('click', () => toggleMobile(false));
+    });
+  }
+
+  initHeroTextRotator() {
+    const textEl = document.getElementById('hero-rotating-text');
+    const cursorEl = document.querySelector('.hero-rotator-cursor');
+    if (!textEl) return;
+
+    const phrases = [
+      'Thés Rares',
+      'Créations Florales',
+      'Perles d’Okinawa',
+      'Infusions Nobles',
+      'Saveurs d’Asie',
+      'Douceurs Gourmandes'
+    ];
+
+    let phraseIndex = 0;
+    let charIndex = phrases[0].length;
+    let isDeleting = true;
+    let timeoutId = null;
+
+    const typeLoop = () => {
+      if (document.hidden) {
+        timeoutId = setTimeout(typeLoop, 400);
+        return;
+      }
+
+      const currentPhrase = phrases[phraseIndex];
+
+      if (isDeleting) {
+        cursorEl?.classList.add('is-typing');
+        charIndex--;
+        textEl.textContent = currentPhrase.substring(0, charIndex);
+
+        if (charIndex <= 0) {
+          isDeleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          cursorEl?.classList.remove('is-typing');
+          timeoutId = setTimeout(typeLoop, 380);
+          return;
+        }
+
+        timeoutId = setTimeout(typeLoop, 45);
+      } else {
+        cursorEl?.classList.add('is-typing');
+        charIndex++;
+        textEl.textContent = currentPhrase.substring(0, charIndex);
+
+        if (charIndex >= currentPhrase.length) {
+          isDeleting = true;
+          cursorEl?.classList.remove('is-typing');
+          timeoutId = setTimeout(typeLoop, 2200);
+          return;
+        }
+
+        // Cadence de frappe réaliste type clavier
+        const typingDelay = 65 + Math.floor(Math.random() * 45);
+        timeoutId = setTimeout(typeLoop, typingDelay);
+      }
+    };
+
+    // Pause initiale pour savourer le premier mot
+    timeoutId = setTimeout(typeLoop, 2400);
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && !timeoutId) {
+        typeLoop();
+      }
     });
   }
 
@@ -1347,7 +1418,7 @@ class BobaBloomApp {
         return;
       }
 
-      filtered.forEach(product => {
+      filtered.forEach((product, idx) => {
         const spinner = el('div', { className: 'card-media-spinner' },
           el('div', { className: 'boba-mini-spinner' })
         );
@@ -1371,7 +1442,10 @@ class BobaBloomApp {
           imgEl.addEventListener('error', onImageReady);
         }
 
-        const card = el('div', { className: 'menu-product-card' },
+        const card = el('div', { 
+          className: 'menu-product-card',
+          style: { animationDelay: `${Math.min(idx * 0.05, 0.4)}s` }
+        },
           el('div', { className: 'card-media-wrapper' },
             spinner,
             imgEl,
@@ -1752,6 +1826,46 @@ class BobaBloomApp {
       e.preventDefault();
       createToast('Merci ! Bienvenue dans le Club Privilège Boba Bloom.', 'success');
       form.reset();
+    });
+  }
+
+  initScrollReveal() {
+    const selectors = [
+      '.section-header',
+      '.story-grid',
+      '.values-grid',
+      '.builder-container',
+      '.salons-grid',
+      '.testimonials-wrapper',
+      '.faq-item',
+      '.newsletter-container',
+      '.gallery-grid',
+      '.contact-card'
+    ];
+
+    const elements = document.querySelectorAll(selectors.join(', '));
+    if (!elements.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+      elements.forEach(el => el.classList.add('is-revealed'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.08,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    elements.forEach(el => {
+      el.classList.add('reveal-init');
+      observer.observe(el);
     });
   }
 }

@@ -191,78 +191,29 @@
   <main>
     <!-- Hero Section -->
     <section class="hero-section" id="hero">
-      <div class="container hero-grid">
+      <div class="hero-backdrop" aria-hidden="true">
+        <picture>
+          <source media="(max-width: 640px)" srcset="/assets/hero-mobile-bg.jpg" />
+          <img src="/assets/hero-bg.jpg" alt="Ambiance Maison de Thé Boba Bloom" class="hero-spread-img" loading="eager" />
+        </picture>
+        <div class="hero-spread-overlay"></div>
+      </div>
+      <div class="container hero-container-inner">
         <div class="hero-text-content" id="hero-text-zone">
-          <div class="hero-card-bg-layer" aria-hidden="true">
-            <img src="/assets/hero-card-bg.jpg" alt="" class="hero-card-bg-img" loading="eager" />
-            <div class="hero-card-bg-overlay"></div>
-          </div>
-          <div class="hero-card-content-inner">
-            <span class="section-tag">Haie Vive • Cotonou</span>
-            <h1 class="hero-headline">L'Art du Bubble Tea &amp; <span>Thés Rares</span></h1>
-            <p class="hero-lead">
-              Infusions de feuilles entières, perles de tapioca au sucre noir d'Okinawa et créations sur-mesure.
-            </p>
-            <div class="hero-cta-group">
-              <a href="#builder" class="btn btn-primary">Créer mon Bubble Tea</a>
-              <a href="#menu" class="btn btn-secondary">Découvrir la Carte</a>
-            </div>
-            <div class="hero-trust-badges">
-              <div class="trust-badge-item">
-                <span class="trust-badge-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 9.2A7 7 0 0 1 11 20z"></path>
-                    <path d="m2 21 9-9"></path>
-                  </svg>
-                </span>
-                <div class="trust-badge-text">
-                  <strong>100% Feuilles Bio</strong>
-                  <span>Origine certifiée</span>
-                </div>
-              </div>
-              <div class="trust-badge-item">
-                <span class="trust-badge-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg>
-                </span>
-                <div class="trust-badge-text">
-                  <strong>Tapioca Minute</strong>
-                  <span>Cuit toutes les 4h</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-visual-stage">
-          <div class="hero-image-card">
-            <img id="hero-main-photo"
-                 src="https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&amp;fit=crop&amp;w=700&amp;q=85"
-                 alt="Signature Boba Bloom Délice Sucre Noir" />
-            <div class="hero-floating-badge" id="hero-recipe-badge">Incontournable • Sucre Noir d'Okinawa</div>
-            <div class="hero-drink-overlay-info">
-              <h2 class="hero-drink-title" id="hero-drink-title">Délice Sucre Noir</h2>
-              <div class="hero-drink-price" id="hero-drink-price">3 000 FCFA</div>
-            </div>
-          </div>
-          <div class="hero-switcher-controls">
-            <button type="button" class="hero-drink-btn active"
-                    data-img="https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&amp;fit=crop&amp;w=700&amp;q=85"
-                    data-title="Délice Sucre Noir" data-price="3000" data-badge="Incontournable • Sucre Noir d'Okinawa">
-              Sucre Noir
-            </button>
-            <button type="button" class="hero-drink-btn"
-                    data-img="https://images.unsplash.com/photo-1589733955941-5eeaf752f6dd?auto=format&amp;fit=crop&amp;w=700&amp;q=85"
-                    data-title="Nuage de Fraise" data-price="3200" data-badge="Signature • Jasmin Fraise">
-              Nuage de Fraise
-            </button>
-            <button type="button" class="hero-drink-btn"
-                    data-img="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&amp;fit=crop&amp;w=700&amp;q=85"
-                    data-title="Matcha Uji Impérial" data-price="3400" data-badge="Grand Cru • Uji Première Récolte">
-              Matcha Uji
-            </button>
+          <span class="section-tag">Haie Vive • Cotonou</span>
+          <h1 class="hero-headline">
+            L'Art du Bubble Tea &amp; 
+            <span class="hero-rotator-wrapper">
+              <span class="hero-rotator-text" id="hero-rotating-text">Thés Rares</span>
+              <span class="hero-rotator-cursor" aria-hidden="true"></span>
+            </span>
+          </h1>
+          <p class="hero-lead">
+            Infusions de feuilles entières, perles de tapioca au sucre noir d'Okinawa et créations sur-mesure.
+          </p>
+          <div class="hero-cta-group">
+            <a href="#builder" class="btn btn-primary">Créer mon Bubble Tea</a>
+            <a href="#menu" class="btn btn-secondary">Découvrir la Carte</a>
           </div>
         </div>
       </div>
@@ -655,9 +606,6 @@
             <img class="story-mosaic-main"
                  src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&amp;fit=crop&amp;w=800&amp;q=80"
                  alt="Cérémonie du thé artisanale" loading="lazy" />
-            <img class="story-mosaic-sub"
-                 src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&amp;fit=crop&amp;w=600&amp;q=80"
-                 alt="Préparation de matcha et tapioca" loading="lazy" />
           </div>
           <div class="story-text-col">
             <span class="section-tag">Notre Histoire</span>
