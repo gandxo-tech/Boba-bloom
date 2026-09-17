@@ -17,7 +17,7 @@ function initBobaBloom() {
       category: 'signature',
       price: 3200,
       description: 'Jasmine green tea with fresh strawberry purée, velvety sweet cream cloud foam, and strawberry popping pearls.',
-      image: 'https://images.unsplash.com/photo-1558857563-b37cf5c490ff?auto=format&fit=crop&w=700&q=85',
+      image: 'https://images.unsplash.com/photo-1589733955941-5eeaf752f6dd?auto=format&fit=crop&w=700&q=85',
       tags: ['Best Seller', 'Fresh Berries', 'Signature']
     },
     {
@@ -107,7 +107,7 @@ function initBobaBloom() {
       category: 'toppings',
       price: 500,
       description: 'Portion of slow-simmered Taiwanese black tapioca pearls coated in Okinawa brown sugar syrup.',
-      image: 'https://images.unsplash.com/photo-1594488518001-0e1378370162?auto=format&fit=crop&w=700&q=85',
+      image: 'https://images.unsplash.com/photo-1628088062854-d1870b4553da?auto=format&fit=crop&w=700&q=85',
       tags: ['Slow Simmered', 'Chewy']
     },
     {
@@ -167,7 +167,7 @@ function initBobaBloom() {
                alt="${product.name}" 
                class="product-image" 
                loading="lazy" 
-               onerror="this.src='https://images.unsplash.com/photo-1558857563-b37cf5c490ff?auto=format&fit=crop&w=600&q=80'" />
+               onerror="this.src='https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=600&q=80'" />
         </div>
         <div class="product-info">
           <div class="product-tag-list">
@@ -691,7 +691,7 @@ function initBobaBloom() {
         id: 'custom-' + Date.now(),
         name: customName,
         price: customDrinkTotal,
-        image: 'https://images.unsplash.com/photo-1558857563-b37cf5c490ff?auto=format&fit=crop&w=600&q=80',
+        image: 'https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=600&q=80',
         specs: customSpecs,
         quantity: 1
       }, btnAddCustomBoba);
@@ -818,7 +818,7 @@ function initBobaBloom() {
     } else {
       cartItemsContainer.innerHTML = cart.map(item => `
         <div class="cart-item" data-cart-id="${item.id}">
-          <img src="${item.image}" alt="${item.name}" class="cart-item-img" onerror="this.src='https://images.unsplash.com/photo-1558857563-b37cf5c490ff?auto=format&fit=crop&w=120&q=80'" />
+          <img src="${item.image}" alt="${item.name}" class="cart-item-img" onerror="this.src='https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=120&q=80'" />
           <div class="cart-item-details">
             <h4 class="cart-item-title">${item.name}</h4>
             <div class="cart-item-specs">${item.specs || 'Regular Ice'}</div>
@@ -1346,6 +1346,41 @@ function initBobaBloom() {
       if (e.target === lightboxModal) closeLightbox();
     });
   }
+
+  /* ==========================================================================
+     HERO SIGNATURE DRINK SWITCHER
+     ========================================================================== */
+  const heroDrinkBtns = document.querySelectorAll('.hero-drink-btn');
+  const heroDrinkPhoto = document.getElementById('hero-drink-photo');
+  const heroDrinkTitle = document.getElementById('hero-drink-title');
+  const heroDrinkSub = document.getElementById('hero-drink-sub');
+  const heroDrinkTag = document.getElementById('hero-drink-tag');
+
+  heroDrinkBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      heroDrinkBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const img = btn.getAttribute('data-img');
+      const title = btn.getAttribute('data-title');
+      const sub = btn.getAttribute('data-sub');
+      const tag = btn.getAttribute('data-tag');
+
+      if (heroDrinkPhoto) {
+        heroDrinkPhoto.style.opacity = '0';
+        heroDrinkPhoto.style.transform = 'scale(0.97)';
+        setTimeout(() => {
+          heroDrinkPhoto.src = img;
+          heroDrinkPhoto.alt = title;
+          heroDrinkPhoto.style.opacity = '1';
+          heroDrinkPhoto.style.transform = 'scale(1)';
+        }, 180);
+      }
+      if (heroDrinkTitle) heroDrinkTitle.innerHTML = title;
+      if (heroDrinkSub) heroDrinkSub.textContent = sub;
+      if (heroDrinkTag) heroDrinkTag.textContent = tag;
+    });
+  });
 
   /* ==========================================================================
      8. STICKY NAVBAR & MOBILE DRAWER NAVIGATION

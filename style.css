@@ -875,7 +875,64 @@ img {
   transform: translateY(-4px);
 }
 
-/* SVG Hero Boba Illustration */
+/* Photography Hero Boba Visual & Interactive Switcher */
+.hero-cup-photo-stage {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  height: 320px;
+  margin: 0 auto var(--space-sm);
+  border-radius: var(--radius-lg);
+}
+
+.hero-drink-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 14px 28px rgba(35, 21, 17, 0.12);
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-cup-card:hover .hero-drink-img {
+  transform: scale(1.02);
+}
+
+.hero-drink-switcher {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.hero-drink-btn {
+  background: var(--color-cream-soft);
+  border: 1px solid var(--color-cream-border);
+  color: var(--color-espresso);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.hero-drink-btn:hover {
+  background: var(--color-cream);
+  border-color: var(--color-gold);
+  transform: translateY(-1px);
+}
+
+.hero-drink-btn.active {
+  background: var(--color-espresso);
+  color: var(--color-white);
+  border-color: var(--color-espresso);
+  box-shadow: 0 3px 10px rgba(30, 18, 14, 0.2);
+}
+
+/* SVG Hero Boba Illustration (Fallback / Alternate) */
 .hero-cup-container {
   position: relative;
   width: 220px;
