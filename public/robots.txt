@@ -1,0 +1,11 @@
+# ==============================================================================
+# BOBA BLOOM - Maison de Thé & Bubble Tea d'Exception (Cotonou, Bénin)
+# Robots.txt File for Search Engine Crawlers & Social Bots
+# ==============================================================================
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemaps
+Sitemap: https://bobabloom.bj/sitemap.xml
