@@ -44,18 +44,45 @@ function createToast(message, type = 'info') {
   const container = document.getElementById('toast-container');
   if (!container) return;
 
-  const iconMap = {
-    success: '✓',
-    error: '✕',
-    info: 'ℹ'
-  };
+  const svgIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svgIcon.setAttribute('width', '18');
+  svgIcon.setAttribute('height', '18');
+  svgIcon.setAttribute('viewBox', '0 0 24 24');
+  svgIcon.setAttribute('fill', 'none');
+  svgIcon.setAttribute('stroke', 'currentColor');
+  svgIcon.setAttribute('stroke-width', '2.5');
+  svgIcon.setAttribute('stroke-linecap', 'round');
+  svgIcon.setAttribute('stroke-linejoin', 'round');
+
+  if (type === 'success') {
+    const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+    poly.setAttribute('points', '20 6 9 17 4 12');
+    svgIcon.appendChild(poly);
+  } else if (type === 'error') {
+    const l1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    l1.setAttribute('x1', '18'); l1.setAttribute('y1', '6'); l1.setAttribute('x2', '6'); l1.setAttribute('y2', '18');
+    const l2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    l2.setAttribute('x1', '6'); l2.setAttribute('y1', '6'); l2.setAttribute('x2', '18'); l2.setAttribute('y2', '18');
+    svgIcon.appendChild(l1);
+    svgIcon.appendChild(l2);
+  } else {
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', '12'); circle.setAttribute('cy', '12'); circle.setAttribute('r', '10');
+    const l1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    l1.setAttribute('x1', '12'); l1.setAttribute('y1', '16'); l1.setAttribute('x2', '12'); l1.setAttribute('y2', '12');
+    const l2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    l2.setAttribute('x1', '12'); l2.setAttribute('y1', '8'); l2.setAttribute('x2', '12.01'); l2.setAttribute('y2', '8');
+    svgIcon.appendChild(circle);
+    svgIcon.appendChild(l1);
+    svgIcon.appendChild(l2);
+  }
 
   const toast = el('div', {
     className: `toast-message toast-${type}`,
     role: 'status',
     'aria-live': 'polite'
   },
-    el('span', { className: 'toast-icon' }, iconMap[type] || '✨'),
+    el('span', { className: 'toast-icon', style: { display: 'inline-flex', alignItems: 'center' } }, svgIcon),
     el('span', { className: 'toast-text' }, message)
   );
 
@@ -332,7 +359,7 @@ class CartManager {
     this.saveCart();
     this.render();
     this.openCart();
-    createToast(`✨ "${item.name}" ajouté à votre commande !`, 'success');
+    createToast(`"${item.name}" ajouté à votre commande !`, 'success');
   }
 
   updateQuantity(cartItemId, delta) {
@@ -359,10 +386,10 @@ class CartManager {
     const code = this.promoInput?.value.trim().toUpperCase();
     if (code === 'BLOOM10') {
       this.discountPercent = 10;
-      createToast('🎉 Code BLOOM10 appliqué (-10%)', 'success');
+      createToast('Code BLOOM10 appliqué (-10%)', 'success');
     } else if (code === 'VIP20') {
       this.discountPercent = 20;
-      createToast('🌟 Code Privilège VIP20 appliqué (-20%)', 'success');
+      createToast('Code Privilège VIP20 appliqué (-20%)', 'success');
     } else {
       this.discountPercent = 0;
       createToast('Code promotionnel non reconnu.', 'error');
@@ -404,10 +431,29 @@ class CartManager {
     clearChildren(this.cartItemsContainer);
 
     if (this.cart.length === 0) {
+      const emptySvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      emptySvg.setAttribute('width', '48');
+      emptySvg.setAttribute('height', '48');
+      emptySvg.setAttribute('viewBox', '0 0 24 24');
+      emptySvg.setAttribute('fill', 'none');
+      emptySvg.setAttribute('stroke', 'var(--color-rose)');
+      emptySvg.setAttribute('stroke-width', '1.5');
+      emptySvg.setAttribute('stroke-linecap', 'round');
+      emptySvg.setAttribute('stroke-linejoin', 'round');
+      const p1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p1.setAttribute('d', 'M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z');
+      const p2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p2.setAttribute('d', 'M3 6h18');
+      const p3 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p3.setAttribute('d', 'M16 10a4 4 0 0 1-8 0');
+      emptySvg.appendChild(p1);
+      emptySvg.appendChild(p2);
+      emptySvg.appendChild(p3);
+
       this.cartItemsContainer.appendChild(
         el('div', { style: { textAlign: 'center', padding: '40px 10px', color: 'var(--color-text-muted)' } },
-          el('div', { style: { fontSize: '2.5rem', marginBottom: '10px' } }, '🧋'),
-          el('h4', { style: { fontFamily: 'var(--font-display)', marginBottom: '6px' } }, 'Votre panier est vide'),
+          el('div', { style: { display: 'flex', justifyContent: 'center', marginBottom: '12px' } }, emptySvg),
+          el('h4', { style: { fontFamily: 'var(--font-display)', marginBottom: '6px', color: 'var(--color-espresso)' } }, 'Votre panier est vide'),
           el('p', { style: { fontSize: '0.85rem' } }, 'Découvrez nos créations ou composez votre thé sur-mesure.')
         )
       );
@@ -512,7 +558,7 @@ class CartManager {
 
     this.receiptModal?.classList.add('open');
     document.body.style.overflow = 'hidden';
-    createToast(`🎉 Commande ${orderNum} validée avec succès !`, 'success');
+    createToast(`Commande ${orderNum} validée avec succès !`, 'success');
   }
 
   closeReceipt() {
@@ -525,15 +571,22 @@ class DrinkBuilder {
   constructor(cartManager) {
     this.cartManager = cartManager;
     this.state = {
+      currentStep: 1,
       base: 'Milk Tea',
       basePrice: 2200,
       baseColor: '#D2AC84',
+      baseIntensity: 'Moyenne (Assam)',
+      baseCal: 140,
       flavor: 'Strawberry',
       flavorColor: '#F28299',
+      flavorCal: 60,
       topping: 'Tapioca',
       toppingPrice: 500,
       toppingClass: 'tapioca',
+      toppingGrad: 'url(#pearlGradTapioca)',
+      toppingCal: 70,
       sweetness: '50%',
+      sweetnessCal: 45,
       ice: '50%'
     };
 
@@ -543,16 +596,26 @@ class DrinkBuilder {
   }
 
   initElements() {
-    this.liquid = document.getElementById('builder-liquid');
-    this.iceLayer = document.getElementById('builder-ice-layer');
-    this.toppingsLayer = document.getElementById('builder-toppings-layer');
+    this.cupViewport = document.getElementById('cup-interactive-wrapper');
+    this.liquidTop = document.getElementById('liquidStopTop');
+    this.liquidMid = document.getElementById('liquidStopMid');
+    this.liquidBottom = document.getElementById('liquidStopBottom');
+    this.pearlsGroup = document.getElementById('svg-pearls-group');
+    this.iceGroup = document.getElementById('svg-ice-cubes-group');
+    this.bubblesGroup = document.getElementById('svg-fizzy-bubbles');
+    
     this.drinkNameEl = document.getElementById('builder-drink-name');
     this.drinkPriceEl = document.getElementById('builder-live-price');
     this.drinkSummaryEl = document.getElementById('builder-drink-summary');
+    this.stepIndicatorEl = document.getElementById('builder-step-indicator');
     this.addToCartBtn = document.getElementById('btn-add-custom-drink');
+    
+    this.calEl = document.getElementById('spec-calories');
+    this.intensityEl = document.getElementById('spec-intensity');
   }
 
   bindEvents() {
+    // Option selections
     document.querySelectorAll('.option-chip').forEach(chip => {
       chip.addEventListener('click', (e) => {
         const target = e.currentTarget;
@@ -567,15 +630,29 @@ class DrinkBuilder {
           this.state.base = target.dataset.value;
           this.state.basePrice = parseInt(target.dataset.price, 10) || 2200;
           this.state.baseColor = target.dataset.color || '#D2AC84';
+          this.state.baseIntensity = target.dataset.intensity || 'Moyenne';
+          this.state.baseCal = parseInt(target.dataset.cal, 10) || 120;
+          this.state.currentStep = 1;
         } else if (step === 'flavor') {
           this.state.flavor = target.dataset.value;
           this.state.flavorColor = target.dataset.color || '#F28299';
+          this.state.flavorCal = parseInt(target.dataset.cal, 10) || 60;
+          this.state.currentStep = 2;
         } else if (step === 'topping') {
           this.state.topping = target.dataset.value;
           this.state.toppingPrice = parseInt(target.dataset.price, 10) || 500;
           this.state.toppingClass = target.dataset.toppingClass || 'tapioca';
+          this.state.toppingCal = parseInt(target.dataset.cal, 10) || 0;
+          
+          if (this.state.toppingClass === 'tapioca') this.state.toppingGrad = 'url(#pearlGradTapioca)';
+          else if (this.state.toppingClass === 'popping') this.state.toppingGrad = 'url(#pearlGradPopping)';
+          else if (this.state.toppingClass === 'jelly') this.state.toppingGrad = 'url(#pearlGradJelly)';
+          else this.state.toppingGrad = 'none';
+
+          this.state.currentStep = 3;
         }
 
+        this.updateStepCards();
         this.updateVisuals();
       });
     });
@@ -585,6 +662,9 @@ class DrinkBuilder {
         document.querySelectorAll('[data-step="sweetness"] .slider-label-btn').forEach(b => b.classList.remove('active'));
         e.currentTarget.classList.add('active');
         this.state.sweetness = e.currentTarget.dataset.value;
+        this.state.sweetnessCal = parseInt(e.currentTarget.dataset.cal, 10) || 45;
+        this.state.currentStep = 4;
+        this.updateStepCards();
         this.updateVisuals();
       });
     });
@@ -594,6 +674,8 @@ class DrinkBuilder {
         document.querySelectorAll('[data-step="ice"] .slider-label-btn').forEach(b => b.classList.remove('active'));
         e.currentTarget.classList.add('active');
         this.state.ice = e.currentTarget.dataset.value;
+        this.state.currentStep = 5;
+        this.updateStepCards();
         this.updateVisuals();
       });
     });
@@ -605,7 +687,7 @@ class DrinkBuilder {
         id: 'custom-' + Date.now(),
         name: title,
         price,
-        size: '500ml',
+        size: '500ml Grand Format',
         sweetness: this.state.sweetness,
         ice: this.state.ice,
         toppings: this.state.topping,
@@ -614,43 +696,146 @@ class DrinkBuilder {
     });
   }
 
+  updateStepCards() {
+    document.querySelectorAll('.builder-step-card').forEach(card => {
+      const idx = parseInt(card.dataset.stepIndex, 10);
+      if (idx === this.state.currentStep) card.classList.add('active-step');
+      else card.classList.remove('active-step');
+    });
+
+    const stepNames = [
+      '', 'Base de Thé', 'Saveur & Coulis', 'Toppings Artisanaux', 'Niveau de Sucre', 'Niveau de Glaçons'
+    ];
+    if (this.stepIndicatorEl) {
+      this.stepIndicatorEl.textContent = `Étape ${this.state.currentStep} / 5 • ${stepNames[this.state.currentStep] || 'Personnalisation'}`;
+    }
+  }
+
   updateVisuals() {
-    if (this.liquid) {
-      this.liquid.style.background = `linear-gradient(180deg, ${this.state.flavorColor} 0%, ${this.state.baseColor} 85%)`;
-    }
+    // 1. Dynamic Liquid Gradient
+    if (this.liquidTop) this.liquidTop.setAttribute('stop-color', this.state.flavorColor);
+    if (this.liquidMid) this.liquidMid.setAttribute('stop-color', this.state.flavorColor);
+    if (this.liquidBottom) this.liquidBottom.setAttribute('stop-color', this.state.baseColor);
 
-    if (this.toppingsLayer) {
-      clearChildren(this.toppingsLayer);
-      const pearlCount = this.state.topping === 'Aucun' ? 0 : 7;
-      for (let i = 0; i < pearlCount; i++) {
-        this.toppingsLayer.appendChild(
-          el('div', {
-            className: `boba-pearl pearl-${this.state.toppingClass}`,
-            style: { left: `${15 + (i * 11)}%`, bottom: `${6 + ((i % 2) * 8)}px` }
-          })
-        );
+    // 2. SVG 3D Boba Pearls
+    if (this.pearlsGroup) {
+      clearChildren(this.pearlsGroup);
+      if (this.state.toppingClass !== 'none') {
+        const pearlLayout = [
+          { cx: 100, cy: 405, r: 11 },
+          { cx: 122, cy: 412, r: 10 },
+          { cx: 144, cy: 408, r: 12 },
+          { cx: 168, cy: 412, r: 11 },
+          { cx: 190, cy: 404, r: 10 },
+          { cx: 110, cy: 388, r: 11.5 },
+          { cx: 132, cy: 392, r: 11 },
+          { cx: 154, cy: 386, r: 12 },
+          { cx: 178, cy: 390, r: 11.5 },
+          { cx: 124, cy: 370, r: 10.5 },
+          { cx: 148, cy: 368, r: 11.5 },
+          { cx: 168, cy: 372, r: 10 },
+          { cx: 138, cy: 350, r: 11 }
+        ];
+
+        pearlLayout.forEach(p => {
+          if (this.state.toppingClass === 'jelly') {
+            const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            rect.setAttribute('x', String(p.cx - 10));
+            rect.setAttribute('y', String(p.cy - 10));
+            rect.setAttribute('width', '20');
+            rect.setAttribute('height', '18');
+            rect.setAttribute('rx', '4');
+            rect.setAttribute('fill', this.state.toppingGrad);
+            rect.setAttribute('class', 'svg-boba-pearl');
+            this.pearlsGroup.appendChild(rect);
+          } else {
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('cx', String(p.cx));
+            circle.setAttribute('cy', String(p.cy));
+            circle.setAttribute('r', String(p.r));
+            circle.setAttribute('fill', this.state.toppingGrad);
+            circle.setAttribute('class', 'svg-boba-pearl');
+            this.pearlsGroup.appendChild(circle);
+          }
+        });
       }
     }
 
-    if (this.iceLayer) {
-      clearChildren(this.iceLayer);
-      const iceCount = this.state.ice === '0%' ? 0 : (this.state.ice === '30%' ? 2 : (this.state.ice === '50%' ? 4 : 6));
-      for (let i = 0; i < iceCount; i++) {
-        this.iceLayer.appendChild(
-          el('div', {
-            className: 'ice-cube',
-            style: { left: `${20 + (i * 16)}%`, top: `${10 + ((i % 2) * 12)}px` }
-          })
-        );
-      }
+    // 3. SVG 3D Ice Cubes
+    if (this.iceGroup) {
+      clearChildren(this.iceGroup);
+      const iceLevels = {
+        '0%': [],
+        '30%': [
+          { x: 105, y: 190, w: 32, h: 28, rot: 12 },
+          { x: 160, y: 200, w: 34, h: 30, rot: -15 }
+        ],
+        '50%': [
+          { x: 95, y: 175, w: 34, h: 30, rot: 14 },
+          { x: 155, y: 180, w: 36, h: 32, rot: -18 },
+          { x: 125, y: 220, w: 32, h: 28, rot: 8 },
+          { x: 165, y: 235, w: 30, h: 26, rot: -10 }
+        ],
+        '100%': [
+          { x: 90, y: 160, w: 34, h: 30, rot: 15 },
+          { x: 150, y: 165, w: 36, h: 32, rot: -20 },
+          { x: 110, y: 205, w: 34, h: 30, rot: 6 },
+          { x: 160, y: 215, w: 32, h: 28, rot: -12 },
+          { x: 130, y: 250, w: 34, h: 30, rot: 18 },
+          { x: 95, y: 260, w: 30, h: 26, rot: -8 }
+        ]
+      };
+
+      const cubes = iceLevels[this.state.ice] || iceLevels['50%'];
+      cubes.forEach(c => {
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('transform', `rotate(${c.rot} ${c.x + c.w/2} ${c.y + c.h/2})`);
+
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('x', String(c.x));
+        rect.setAttribute('y', String(c.y));
+        rect.setAttribute('width', String(c.w));
+        rect.setAttribute('height', String(c.h));
+        rect.setAttribute('rx', '6');
+        rect.setAttribute('fill', 'url(#iceCubeGrad)');
+        rect.setAttribute('stroke', 'rgba(255,255,255,0.8)');
+        rect.setAttribute('stroke-width', '1.5');
+        rect.setAttribute('class', 'svg-ice-cube');
+
+        g.appendChild(rect);
+        this.iceGroup.appendChild(g);
+      });
     }
 
+    // 4. Fizzy Micro Bubbles
+    if (this.bubblesGroup) {
+      clearChildren(this.bubblesGroup);
+      const bubblePositions = [
+        { cx: 88, cy: 320, r: 2.5 },
+        { cx: 120, cy: 290, r: 3 },
+        { cx: 175, cy: 310, r: 2 },
+        { cx: 195, cy: 260, r: 3.5 },
+        { cx: 140, cy: 240, r: 2.5 },
+        { cx: 105, cy: 210, r: 2 }
+      ];
+      bubblePositions.forEach(b => {
+        const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        c.setAttribute('cx', String(b.cx));
+        c.setAttribute('cy', String(b.cy));
+        c.setAttribute('r', String(b.r));
+        c.setAttribute('fill', 'rgba(255,255,255,0.6)');
+        this.bubblesGroup.appendChild(c);
+      });
+    }
+
+    // 5. Total Price & Title
     const price = this.state.basePrice + this.state.toppingPrice;
     const title = `${this.state.flavor} ${this.state.base}`;
 
     if (this.drinkNameEl) this.drinkNameEl.textContent = title;
     if (this.drinkPriceEl) this.drinkPriceEl.textContent = `${price.toLocaleString('fr-FR')} FCFA`;
 
+    // 6. Summary Chips
     if (this.drinkSummaryEl) {
       clearChildren(this.drinkSummaryEl);
       [
@@ -658,11 +843,16 @@ class DrinkBuilder {
         `Saveur: ${this.state.flavor}`,
         `Topping: ${this.state.topping}`,
         `Sucre: ${this.state.sweetness}`,
-        `Glace: ${this.state.ice}`
+        `Glaçons: ${this.state.ice}`
       ].forEach(text => {
         this.drinkSummaryEl.appendChild(el('span', { className: 'summary-chip' }, text));
       });
     }
+
+    // 7. Nutrition Calculation
+    const totalCal = this.state.baseCal + this.state.flavorCal + this.state.toppingCal + this.state.sweetnessCal;
+    if (this.calEl) this.calEl.textContent = `~${totalCal} kcal`;
+    if (this.intensityEl) this.intensityEl.textContent = this.state.baseIntensity;
   }
 }
 
@@ -982,7 +1172,7 @@ class BobaBloomApp {
       const name = formData.get('res_name');
       const date = formData.get('res_date');
       const time = formData.get('res_time');
-      createToast(`👑 Merci ${name} ! Table réservée le ${date} à ${time}.`, 'success');
+      createToast(`Merci ${name} ! Table réservée le ${date} à ${time}.`, 'success');
       form.reset();
     });
   }
@@ -1026,7 +1216,7 @@ class BobaBloomApp {
     const form = document.getElementById('newsletter-form');
     form?.addEventListener('submit', (e) => {
       e.preventDefault();
-      createToast('🎉 Merci ! Bienvenue dans le Club Privilège Boba Bloom.', 'success');
+      createToast('Merci ! Bienvenue dans le Club Privilège Boba Bloom.', 'success');
       form.reset();
     });
   }

@@ -627,7 +627,7 @@ a {
   border-color: var(--color-rose);
 }
 
-/* Builder Section */
+/* Builder Section - Tactile & Interactive SVG Cup Experience */
 .builder-section {
   background-color: var(--color-cream-alt);
   position: relative;
@@ -635,96 +635,175 @@ a {
 
 .builder-layout {
   display: grid;
-  grid-template-columns: 400px 1fr;
+  grid-template-columns: 420px 1fr;
   gap: 40px;
   align-items: flex-start;
 }
 
 .builder-cup-stage {
   position: sticky;
-  top: 100px;
+  top: 96px;
   background: var(--color-cream-surface);
   border-radius: var(--radius-lg);
-  padding: 30px;
-  box-shadow: var(--shadow-md);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-lg);
   border: 1px solid var(--color-border);
+  text-align: center;
+  transition: transform var(--transition-normal);
+}
+
+.cup-badge-pill {
+  display: inline-block;
+  padding: 5px 14px;
+  background: var(--color-rose-light);
+  color: var(--color-rose);
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+
+.builder-stage-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  color: var(--color-espresso);
+  margin-bottom: 12px;
+  min-height: 1.8em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cup-svg-viewport {
+  position: relative;
+  width: 100%;
+  max-width: 250px;
+  margin: 0 auto 12px auto;
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cup-svg-viewport:hover {
+  transform: scale(1.02) translateY(-2px);
+}
+
+.boba-svg-graphic {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 12px 20px rgba(43, 30, 26, 0.12));
+}
+
+/* Liquid Animated Waves */
+.animated-liquid-wave {
+  animation: waveMotion 3s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+@keyframes waveMotion {
+  0% { transform: translateX(-8px) scaleY(1); }
+  50% { transform: translateX(6px) scaleY(1.08); }
+  100% { transform: translateX(-4px) scaleY(0.95); }
+}
+
+/* 3D Pearls Falling / Bouncing */
+.svg-boba-pearl {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), cy 0.4s ease;
+  transform-origin: center;
+}
+
+.svg-boba-pearl:hover {
+  transform: scale(1.25);
+}
+
+.svg-ice-cube {
+  transition: transform 0.5s ease-out;
+  transform-origin: center;
+}
+
+.builder-price-box {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0 6px 0;
+}
+
+.builder-price-label {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.builder-price-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-rose);
+  letter-spacing: -0.02em;
+}
+
+.builder-drink-specs-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  background: var(--color-cream-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 10px 8px;
+  margin: 14px 0;
+}
+
+.spec-mini-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
-.cup-container-wrapper {
-  position: relative;
-  width: 180px;
-  height: 280px;
-  margin: 20px auto;
+.spec-mini-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
 }
 
-.cup-glass-body {
-  position: relative;
+.spec-mini-val {
+  font-size: 0.78rem;
+  color: var(--color-espresso);
+  font-weight: 700;
+}
+
+.btn-builder-add {
   width: 100%;
-  height: 100%;
-  border-left: 5px solid rgba(255, 255, 255, 0.8);
-  border-right: 5px solid rgba(255, 255, 255, 0.8);
-  border-bottom: 8px solid rgba(255, 255, 255, 0.9);
-  border-radius: 0 0 35px 35px;
-  background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(2px);
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 14px 20px;
+  font-size: 1rem;
+  margin-top: 4px;
 }
 
-.cup-liquid-fill {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 85%;
-  background: linear-gradient(180deg, #F28299 0%, #D2AC84 85%);
-  transition: background 0.4s ease;
-}
-
-.cup-ice-layer, .cup-toppings-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.boba-pearl {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #1C1310;
-  box-shadow: inset -2px -2px 4px rgba(255, 255, 255, 0.3);
-}
-
-.pearl-tapioca { background: #2B1E1A; }
-.pearl-popping { background: #F4A261; }
-.pearl-jelly { background: #4A3833; border-radius: 4px; }
-.pearl-none { display: none; }
-
-.ice-cube {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 6px;
-  backdrop-filter: blur(2px);
+/* Steps Cards & Interactive Options */
+.builder-steps-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 .builder-step-card {
   background: var(--color-cream-surface);
   border-radius: var(--radius-md);
-  padding: 24px;
-  margin-bottom: 20px;
+  padding: 22px 24px;
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.builder-step-card.active-step {
+  border-color: var(--color-rose);
+  box-shadow: 0 4px 20px rgba(232, 67, 101, 0.08);
 }
 
 .step-header {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  align-items: flex-start;
+  gap: 14px;
   margin-bottom: 16px;
 }
 
@@ -734,56 +813,100 @@ a {
   border-radius: 50%;
   background: var(--color-rose-light);
   color: var(--color-rose);
-  font-weight: 700;
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.95rem;
+}
+
+.step-desc-text {
+  font-size: 0.84rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
 }
 
 .option-chips-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
   gap: 10px;
 }
 
 .option-chip {
-  padding: 12px;
+  position: relative;
+  padding: 12px 10px;
   border-radius: var(--radius-sm);
   background: var(--color-cream-bg);
-  border: 1px solid var(--color-border);
+  border: 1.5px solid var(--color-border);
   text-align: center;
   cursor: pointer;
   transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
-.option-chip.selected, .option-chip:hover {
+.chip-visual-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid #FFFFFF;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  margin-bottom: 2px;
+}
+
+.chip-price-tag {
+  font-size: 0.74rem;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.option-chip:hover {
+  border-color: var(--color-rose);
+  transform: translateY(-2px);
+}
+
+.option-chip.selected {
   background: var(--color-espresso);
   color: #FFFFFF;
   border-color: var(--color-espresso);
+  box-shadow: 0 4px 12px rgba(43, 30, 26, 0.2);
+}
+
+.option-chip.selected .chip-price-tag {
+  color: #D2AC84;
 }
 
 .slider-labels-row {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 8px;
 }
 
 .slider-label-btn {
-  flex: 1;
   padding: 10px 4px;
   border-radius: var(--radius-sm);
   background: var(--color-cream-bg);
-  border: 1px solid var(--color-border);
-  font-size: 0.85rem;
+  border: 1.5px solid var(--color-border);
+  font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
   text-align: center;
+  transition: all var(--transition-fast);
+  color: var(--color-espresso);
+}
+
+.slider-label-btn:hover {
+  border-color: var(--color-rose);
 }
 
 .slider-label-btn.active {
   background: var(--color-rose);
   color: #FFFFFF;
   border-color: var(--color-rose);
+  box-shadow: 0 4px 12px rgba(232, 67, 101, 0.25);
 }
 
 .summary-chips-row {
@@ -791,15 +914,17 @@ a {
   flex-wrap: wrap;
   gap: 6px;
   justify-content: center;
-  margin: 14px 0;
+  margin: 10px 0;
 }
 
 .summary-chip {
-  padding: 4px 10px;
+  padding: 3px 10px;
   border-radius: var(--radius-full);
   background: var(--color-cream-alt);
-  font-size: 0.76rem;
+  font-size: 0.75rem;
   font-weight: 600;
+  color: var(--color-espresso);
+  border: 1px solid var(--color-border);
 }
 
 /* Story & Salon */
