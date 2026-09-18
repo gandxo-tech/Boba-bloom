@@ -471,8 +471,29 @@ class CartManager {
             el('button', {
               type: 'button',
               className: 'cart-item-remove-btn',
+              'aria-label': 'Supprimer cet article',
+              title: 'Supprimer',
               onclick: () => this.removeItem(item.cartItemId)
-            }, '×')
+            },
+              (() => {
+                const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                s.setAttribute('width', '12');
+                s.setAttribute('height', '12');
+                s.setAttribute('viewBox', '0 0 24 24');
+                s.setAttribute('fill', 'none');
+                s.setAttribute('stroke', 'currentColor');
+                s.setAttribute('stroke-width', '2.4');
+                s.setAttribute('stroke-linecap', 'round');
+                s.setAttribute('stroke-linejoin', 'round');
+                const l1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                l1.setAttribute('x1', '18'); l1.setAttribute('y1', '6'); l1.setAttribute('x2', '6'); l1.setAttribute('y2', '18');
+                const l2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                l2.setAttribute('x1', '6'); l2.setAttribute('y1', '6'); l2.setAttribute('x2', '18'); l2.setAttribute('y2', '18');
+                s.appendChild(l1);
+                s.appendChild(l2);
+                return s;
+              })()
+            )
           ),
           el('div', { className: 'cart-item-specs' },
             item.size ? el('span', { className: 'cart-spec-tag' }, item.size) : null,
