@@ -264,116 +264,149 @@
 
         <div class="builder-layout">
           <div class="builder-cup-stage" id="builder-stage-container">
-            <div class="cup-badge-pill" id="builder-step-indicator">Étape 1 / 5 • Base de Thé</div>
+            <div class="cup-badge-pill" id="builder-step-indicator">Étape 1 / 5 • Base de Thé Noble</div>
             
-            <h3 class="builder-stage-title" id="builder-drink-name">Thé au Lait Fraise</h3>
+            <h3 class="builder-stage-title" id="builder-drink-name">Thé au Lait Fraise Artisanale</h3>
+
+            <!-- Size Selector for Cup -->
+            <div class="cup-size-switch">
+              <button type="button" class="size-switch-btn active" data-size="500ml" data-price="0" aria-label="Format Moyen 500ml">
+                <strong>500 ml</strong>
+                <span>Format Moyen</span>
+              </button>
+              <button type="button" class="size-switch-btn" data-size="700ml" data-price="400" aria-label="Grand Format 700ml">
+                <strong>700 ml</strong>
+                <span>Grand Format (+400 F)</span>
+              </button>
+            </div>
             
             <!-- Realistic Interactive SVG Boba Cup -->
-            <div class="cup-svg-viewport" id="cup-interactive-wrapper" title="Aperçu interactif de votre Bubble Tea">
-              <svg id="boba-svg-cup" viewBox="0 0 300 460" class="boba-svg-graphic" aria-label="Aperçu interactif de votre Bubble Tea">
+            <div class="cup-svg-viewport" id="cup-interactive-wrapper" title="Cliquez pour secouer votre Bubble Tea !">
+              <svg id="boba-svg-cup" viewBox="0 0 300 460" class="boba-svg-graphic" aria-label="Aperçu réaliste et interactif de votre Bubble Tea">
                 <defs>
                   <!-- Glass reflections & gradients -->
                   <linearGradient id="glassWallGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55" />
-                    <stop offset="12%" stop-color="#ffffff" stop-opacity="0.15" />
-                    <stop offset="88%" stop-color="#ffffff" stop-opacity="0.10" />
-                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0.6" />
+                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65" />
+                    <stop offset="10%" stop-color="#ffffff" stop-opacity="0.18" />
+                    <stop offset="50%" stop-color="#ffffff" stop-opacity="0.06" />
+                    <stop offset="90%" stop-color="#ffffff" stop-opacity="0.14" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0.7" />
+                  </linearGradient>
+
+                  <linearGradient id="glassBottomThick" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15" />
+                    <stop offset="60%" stop-color="#ffffff" stop-opacity="0.55" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0.85" />
                   </linearGradient>
 
                   <linearGradient id="glassReflectionGleam" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.7" />
-                    <stop offset="35%" stop-color="#ffffff" stop-opacity="0.0" />
-                    <stop offset="75%" stop-color="#ffffff" stop-opacity="0.3" />
+                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.75" />
+                    <stop offset="30%" stop-color="#ffffff" stop-opacity="0.0" />
+                    <stop offset="70%" stop-color="#ffffff" stop-opacity="0.25" />
                     <stop offset="100%" stop-color="#ffffff" stop-opacity="0.0" />
                   </linearGradient>
 
-                  <!-- Dynamic Liquid Gradient (Managed by JS) -->
+                  <!-- Dynamic Liquid Gradient (Managed dynamically by tea recipes) -->
                   <linearGradient id="dynamicLiquidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop id="liquidStopTop" offset="0%" stop-color="#F28299" />
-                    <stop id="liquidStopMid" offset="40%" stop-color="#EAA1B0" />
-                    <stop id="liquidStopBottom" offset="100%" stop-color="#D2AC84" />
+                    <stop id="liquidStopTop" offset="0%" stop-color="#F7A8B8" />
+                    <stop id="liquidStopMid" offset="45%" stop-color="#E0B594" />
+                    <stop id="liquidStopBottom" offset="100%" stop-color="#C42D50" />
                   </linearGradient>
 
                   <!-- Secondary Liquid Wave Gradient (back wave) -->
                   <linearGradient id="dynamicLiquidWaveBackGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop id="liquidStopWaveBack" offset="0%" stop-color="#E2738A" stop-opacity="0.7" />
-                    <stop offset="100%" stop-color="#C29B74" stop-opacity="0.7" />
+                    <stop id="liquidStopWaveBack" offset="0%" stop-color="#E88B9E" stop-opacity="0.8" />
+                    <stop offset="100%" stop-color="#B87740" stop-opacity="0.8" />
                   </linearGradient>
 
-                  <!-- Milk Swirl Gradient -->
+                  <!-- Creamy Foam Head Gradient -->
+                  <linearGradient id="creamCapGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95" />
+                    <stop offset="50%" stop-color="#FFF8F0" stop-opacity="0.88" />
+                    <stop offset="100%" stop-color="#F7EDE2" stop-opacity="0.65" />
+                  </linearGradient>
+
+                  <!-- Milk Swirl Ribbon Gradient -->
                   <linearGradient id="milkSwirlGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65" />
-                    <stop offset="50%" stop-color="#ffffff" stop-opacity="0.15" />
-                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0.5" />
+                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.7" />
+                    <stop offset="50%" stop-color="#ffffff" stop-opacity="0.2" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0.55" />
                   </linearGradient>
 
-                  <!-- 3D Boba Pearl Gradient (Tapioca) -->
-                  <radialGradient id="pearlGradTapioca" cx="32%" cy="28%" r="70%">
-                    <stop offset="0%" stop-color="#6E5045" />
-                    <stop offset="30%" stop-color="#3D261E" />
-                    <stop offset="75%" stop-color="#1E120D" />
-                    <stop offset="100%" stop-color="#080403" />
+                  <!-- 3D Boba Pearl Gradient (Tapioca - Rich brown sugar caramelized core) -->
+                  <radialGradient id="pearlGradTapioca" cx="30%" cy="26%" r="72%">
+                    <stop offset="0%" stop-color="#735243" />
+                    <stop offset="28%" stop-color="#42291E" />
+                    <stop offset="70%" stop-color="#1F110B" />
+                    <stop offset="100%" stop-color="#080302" />
                   </radialGradient>
 
-                  <!-- 3D Boba Pearl Gradient (Popping Mangue) -->
-                  <radialGradient id="pearlGradPopping" cx="28%" cy="25%" r="72%">
-                    <stop offset="0%" stop-color="#FFF3C4" />
-                    <stop offset="30%" stop-color="#FFB347" />
-                    <stop offset="70%" stop-color="#F77F00" />
-                    <stop offset="100%" stop-color="#D62828" />
+                  <!-- 3D Boba Pearl Gradient (Popping Mangue - Luminous jewel core) -->
+                  <radialGradient id="pearlGradPopping" cx="28%" cy="24%" r="74%">
+                    <stop offset="0%" stop-color="#FFF8D6" />
+                    <stop offset="25%" stop-color="#FFBE4D" />
+                    <stop offset="68%" stop-color="#F77F00" />
+                    <stop offset="100%" stop-color="#C92A2A" />
                   </radialGradient>
 
                   <!-- 3D Boba Pearl Gradient (Gelée Noire) -->
-                  <radialGradient id="pearlGradJelly" cx="30%" cy="30%" r="70%">
-                    <stop offset="0%" stop-color="#6B574C" />
-                    <stop offset="45%" stop-color="#35261F" />
-                    <stop offset="100%" stop-color="#120B08" />
+                  <radialGradient id="pearlGradJelly" cx="28%" cy="28%" r="72%">
+                    <stop offset="0%" stop-color="#665348" />
+                    <stop offset="40%" stop-color="#33241D" />
+                    <stop offset="100%" stop-color="#120A07" />
                   </radialGradient>
+
+                  <!-- Dark Caramelized Sugar Meniscus at Base -->
+                  <linearGradient id="syrupMeniscusGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#4A2616" stop-opacity="0.75" />
+                    <stop offset="50%" stop-color="#28130B" stop-opacity="0.9" />
+                    <stop offset="100%" stop-color="#120603" stop-opacity="0.96" />
+                  </linearGradient>
 
                   <!-- Ice Cube Shading -->
                   <linearGradient id="iceCubeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85" />
-                    <stop offset="45%" stop-color="#d6eff8" stop-opacity="0.4" />
-                    <stop offset="85%" stop-color="#c8e8f5" stop-opacity="0.65" />
-                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0.8" />
+                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9" />
+                    <stop offset="40%" stop-color="#e2f3fa" stop-opacity="0.45" />
+                    <stop offset="85%" stop-color="#cbeaf7" stop-opacity="0.7" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0.85" />
                   </linearGradient>
 
-                  <!-- Straw Spiral Pattern -->
+                  <!-- 12mm Straw Pattern -->
                   <linearGradient id="strawGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stop-color="#E84365" />
-                    <stop offset="30%" stop-color="#FF9EAF" />
-                    <stop offset="60%" stop-color="#E84365" />
-                    <stop offset="100%" stop-color="#B82444" />
+                    <stop offset="25%" stop-color="#FF9EAF" />
+                    <stop offset="55%" stop-color="#E84365" />
+                    <stop offset="100%" stop-color="#A81D3B" />
                   </linearGradient>
 
-                  <!-- Shadow under cup -->
+                  <!-- Ambient Shadow under Cup -->
                   <radialGradient id="cupDropShadow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="rgba(43, 30, 26, 0.32)" />
-                    <stop offset="60%" stop-color="rgba(43, 30, 26, 0.12)" />
+                    <stop offset="0%" stop-color="rgba(43, 30, 26, 0.36)" />
+                    <stop offset="55%" stop-color="rgba(43, 30, 26, 0.14)" />
                     <stop offset="100%" stop-color="rgba(43, 30, 26, 0)" />
                   </radialGradient>
 
                   <!-- Clip Path for Cup Interior -->
                   <clipPath id="cupInteriorClip">
-                    <path d="M 68,110 L 232,110 L 214,402 Q 214,422 192,422 L 108,422 Q 86,422 86,402 Z" />
+                    <path d="M 66,108 L 234,108 L 214,408 Q 214,428 190,428 L 110,428 Q 86,428 86,408 Z" />
                   </clipPath>
                 </defs>
 
                 <!-- Ground Ambient Shadow -->
-                <ellipse cx="150" cy="440" rx="95" ry="14" fill="url(#cupDropShadow)" />
+                <ellipse cx="150" cy="442" rx="98" ry="14" fill="url(#cupDropShadow)" />
 
-                <!-- Boba Straw (Behind / Inside Glass) -->
+                <!-- Wide 12mm Boba Straw (Behind liquid & inside glass) -->
                 <g id="svg-straw-group">
-                  <!-- Straw angled -->
-                  <polygon points="188,20 206,24 162,408 144,404" fill="url(#strawGrad)" rx="6" />
-                  <ellipse cx="197" cy="22" rx="9" ry="3.5" fill="#FFE4EC" />
-                  <line x1="193" y1="21" x2="151" y2="405" stroke="#FFFFFF" stroke-width="2.5" stroke-opacity="0.75" stroke-dasharray="10 14" />
+                  <!-- Straw body tilted with angled diagonal cut at bottom for pearls -->
+                  <polygon points="188,18 208,22 166,412 146,406" fill="url(#strawGrad)" />
+                  <ellipse cx="198" cy="20" rx="10" ry="4" fill="#FFE5ED" stroke="#FFFFFF" stroke-width="1" />
+                  <line x1="194" y1="20" x2="152" y2="408" stroke="#FFFFFF" stroke-width="2.5" stroke-opacity="0.8" stroke-dasharray="10 14" />
                 </g>
 
-                <!-- Cup Container Group (Clipped Content) -->
+                <!-- Cup Container Group (Clipped Interior) -->
                 <g clip-path="url(#cupInteriorClip)">
                   <!-- Liquid Fill Body -->
-                  <rect id="svg-liquid-body" x="50" y="145" width="200" height="290" fill="url(#dynamicLiquidGrad)" />
+                  <rect id="svg-liquid-body" x="50" y="145" width="200" height="295" fill="url(#dynamicLiquidGrad)" />
                   
                   <!-- Animated Liquid Back Wave -->
                   <path id="svg-liquid-wave-back" class="animated-liquid-wave-back" d="M 50,146 Q 100,154 150,146 T 250,146 L 250,210 L 50,210 Z" fill="url(#dynamicLiquidWaveBackGrad)" />
@@ -381,8 +414,14 @@
                   <!-- Animated Liquid Front Wave -->
                   <path id="svg-liquid-wave" class="animated-liquid-wave" d="M 50,148 Q 100,138 150,148 T 250,148 L 250,210 L 50,210 Z" fill="url(#dynamicLiquidGrad)" />
 
-                  <!-- Milk Swirl Textured Ribbon -->
-                  <path class="animated-milk-swirl" d="M 75,170 Q 110,230 145,210 Q 185,190 220,260 Q 200,320 150,300 Q 95,280 80,360" fill="none" stroke="url(#milkSwirlGrad)" stroke-width="26" stroke-linecap="round" stroke-opacity="0.4" />
+                  <!-- Velvety Milk Cream Head / Cloud Mousse -->
+                  <path id="svg-cream-layer" class="animated-milk-swirl" d="M 64,148 Q 105,158 150,149 Q 195,158 236,148 L 236,172 Q 195,182 150,170 Q 105,182 64,172 Z" fill="url(#creamCapGrad)" opacity="0.85" />
+
+                  <!-- Realistic Tiger Sugar Marbling & Coulis Drip Streaks -->
+                  <path id="svg-tiger-streaks" class="tiger-syrup-path" d="M 86,190 Q 94,250 88,310 Q 98,370 92,410 M 115,180 Q 123,245 113,310 Q 120,380 115,418 M 185,175 Q 176,245 186,315 Q 179,380 185,418 M 212,185 Q 205,255 211,325 Q 204,380 208,412" fill="none" stroke="#381B10" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" />
+
+                  <!-- Milk Swirl Ribbon for Milk Teas -->
+                  <path id="svg-milk-ribbon" class="animated-milk-swirl" d="M 75,170 Q 110,230 145,210 Q 185,190 220,260 Q 200,320 150,300 Q 95,280 80,360" fill="none" stroke="url(#milkSwirlGrad)" stroke-width="24" stroke-linecap="round" stroke-opacity="0.38" />
 
                   <!-- Fizzy Micro Bubbles Group -->
                   <g id="svg-fizzy-bubbles"></g>
@@ -390,38 +429,57 @@
                   <!-- 3D Ice Cubes Group -->
                   <g id="svg-ice-cubes-group"></g>
 
+                  <!-- Dark Caramelized Syrup Reservoir at Base -->
+                  <path id="svg-syrup-base" d="M 84,402 Q 150,394 216,402 L 214,424 Q 214,428 190,428 L 110,428 Q 86,428 86,424 Z" fill="url(#syrupMeniscusGrad)" opacity="0.88" />
+
                   <!-- 3D Boba Pearls / Toppings Group -->
                   <g id="svg-pearls-group"></g>
 
+                  <!-- Inner Submerged Straw Liquid Reflection -->
+                  <line x1="165" y1="148" x2="148" y2="408" stroke="#FFFFFF" stroke-width="1.8" stroke-opacity="0.35" stroke-dasharray="8 12" />
+
                   <!-- Inner Glass Specular Sheen -->
-                  <path d="M 75,120 L 95,410 L 115,410 L 95,120 Z" fill="url(#glassReflectionGleam)" />
+                  <path d="M 72,112 L 94,412 L 116,412 L 92,112 Z" fill="url(#glassReflectionGleam)" />
                 </g>
 
-                <!-- Transparent Glass Cup Walls & Rim Outer Layer -->
-                <path d="M 66,106 L 234,106 L 216,404 Q 216,425 192,425 L 108,425 Q 84,425 84,404 Z" fill="url(#glassWallGrad)" stroke="rgba(255,255,255,0.88)" stroke-width="3.5" />
+                <!-- Solid Crystal Glass Bottom Lens -->
+                <path d="M 86,408 Q 86,428 110,428 L 190,428 Q 214,428 214,408 L 214,418 Q 214,428 190,428 L 110,428 Q 86,428 86,418 Z" fill="url(#glassBottomThick)" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" />
 
-                <!-- Realistic Condensation Droplets on Glass Outer Surface -->
-                <g class="glass-condensation-layer" opacity="0.6">
-                  <ellipse cx="88" cy="180" rx="2.5" ry="3.5" fill="rgba(255,255,255,0.9)" />
-                  <ellipse cx="89" cy="235" rx="3" ry="4.5" fill="rgba(255,255,255,0.85)" />
-                  <ellipse cx="92" cy="290" rx="2" ry="3" fill="rgba(255,255,255,0.8)" />
-                  <ellipse cx="205" cy="210" rx="3" ry="4" fill="rgba(255,255,255,0.85)" />
-                  <ellipse cx="210" cy="275" rx="2.5" ry="3.5" fill="rgba(255,255,255,0.9)" />
-                  <ellipse cx="202" cy="340" rx="3.5" ry="5" fill="rgba(255,255,255,0.8)" />
+                <!-- Transparent Glass Cup Walls & Rim Outer Layer -->
+                <path d="M 64,106 L 236,106 L 216,408 Q 216,428 190,428 L 110,428 Q 84,428 84,408 Z" fill="url(#glassWallGrad)" stroke="rgba(255,255,255,0.92)" stroke-width="3.2" />
+
+                <!-- Luxury Frosted Brand Seal Stamped on Glass -->
+                <g class="cup-brand-stamp" opacity="0.45">
+                  <circle cx="150" cy="254" r="30" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-dasharray="3 2" />
+                  <circle cx="150" cy="254" r="27" fill="none" stroke="#FFFFFF" stroke-width="0.75" />
+                  <text x="150" y="249" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="7" font-weight="800" fill="#FFFFFF" letter-spacing="2">BOBA BLOOM</text>
+                  <text x="150" y="259" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="4.5" font-weight="600" fill="#FFFFFF" letter-spacing="1.2">HAIE VIVE • COTONOU</text>
+                  <path d="M 150,264 C 153,262 155,265 150,270 C 145,265 147,262 150,264 Z" fill="#FFFFFF" />
+                </g>
+
+                <!-- Realistic Condensation Droplets on Outer Glass -->
+                <g class="glass-condensation-layer" opacity="0.65">
+                  <ellipse cx="86" cy="180" rx="2.5" ry="3.5" fill="rgba(255,255,255,0.95)" />
+                  <ellipse cx="88" cy="235" rx="3" ry="4.5" fill="rgba(255,255,255,0.9)" />
+                  <ellipse cx="91" cy="290" rx="2" ry="3" fill="rgba(255,255,255,0.85)" />
+                  <ellipse cx="90" cy="355" rx="2.8" ry="4" fill="rgba(255,255,255,0.9)" />
+                  <ellipse cx="206" cy="210" rx="3" ry="4" fill="rgba(255,255,255,0.9)" />
+                  <ellipse cx="212" cy="275" rx="2.5" ry="3.5" fill="rgba(255,255,255,0.95)" />
+                  <ellipse cx="204" cy="340" rx="3.5" ry="5" fill="rgba(255,255,255,0.88)" />
                 </g>
 
                 <!-- Cup Rim Lip -->
-                <ellipse cx="150" cy="106" rx="85" ry="12" fill="none" stroke="#FFFFFF" stroke-width="3.5" />
-                <ellipse cx="150" cy="106" rx="84" ry="11" fill="rgba(255,255,255,0.25)" />
+                <ellipse cx="150" cy="106" rx="86" ry="12" fill="none" stroke="#FFFFFF" stroke-width="3.5" />
+                <ellipse cx="150" cy="106" rx="85" ry="11" fill="rgba(255,255,255,0.25)" />
 
-                <!-- Dome Sealed Lid -->
-                <path d="M 64,106 C 64,65 236,65 236,106 Z" fill="rgba(255,255,255,0.30)" stroke="#FFFFFF" stroke-width="2.5" />
-                <ellipse cx="150" cy="106" rx="86" ry="7" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" />
+                <!-- Dome Sealed Lid with Straw Opening -->
+                <path d="M 64,106 C 64,64 236,64 236,106 Z" fill="rgba(255,255,255,0.30)" stroke="#FFFFFF" stroke-width="2.5" />
+                <ellipse cx="150" cy="106" rx="87" ry="7" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" />
                 <ellipse cx="150" cy="74" rx="22" ry="5" fill="rgba(255,255,255,0.45)" stroke="#FFFFFF" stroke-width="1.5" />
 
-                <!-- Glass Front Curved Highlight Arcs -->
-                <path d="M 78,130 C 74,250 85,380 94,410" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" stroke-opacity="0.8" />
-                <path d="M 222,130 C 226,250 215,380 206,410" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-opacity="0.45" />
+                <!-- Glass Outer Specular Highlights -->
+                <path d="M 76,130 C 72,250 83,380 92,412" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" stroke-opacity="0.85" />
+                <path d="M 224,130 C 228,250 217,380 208,412" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-opacity="0.45" />
               </svg>
             </div>
 
@@ -438,7 +496,7 @@
             <div class="builder-drink-specs-card">
               <div class="spec-mini-item">
                 <span class="spec-mini-label">Fraîcheur</span>
-                <strong class="spec-mini-val" id="spec-freshness">Faite à la commande</strong>
+                <strong class="spec-mini-val" id="spec-freshness">Faite minute</strong>
               </div>
               <div class="spec-mini-item">
                 <span class="spec-mini-label">Calories approx.</span>
@@ -560,37 +618,69 @@
               </div>
             </div>
 
-            <!-- Step 4 Sweetness -->
+            <!-- Step 4 Sweetness (Unified Option Card Grid) -->
             <div class="builder-step-card" data-step-index="4">
               <div class="step-header">
                 <span class="step-num-badge">4</span>
                 <div>
                   <h4>Niveau de Sucre (Canne Pure)</h4>
-                  <p class="step-desc-text">Ajustez le niveau selon vos préférences d'intensité sucrée.</p>
+                  <p class="step-desc-text">Ajustez la douceur selon votre goût avec notre sirop de canne brut.</p>
                 </div>
               </div>
-              <div class="slider-labels-row" data-step="sweetness">
-                <button type="button" class="slider-label-btn" data-value="0%" data-cal="0">0% • Sans sucre</button>
-                <button type="button" class="slider-label-btn" data-value="30%" data-cal="25">30% • Subtil</button>
-                <button type="button" class="slider-label-btn active" data-value="50%" data-cal="45">50% • Équilibré</button>
-                <button type="button" class="slider-label-btn" data-value="100%" data-cal="90">100% • Gourmand</button>
+              <div class="option-chips-grid" data-step="sweetness">
+                <div class="option-chip" data-value="0%" data-cal="0">
+                  <div class="chip-visual-gauge">0%</div>
+                  <strong>Sans Sucre</strong>
+                  <span class="chip-price-tag">Brut & Pur • 0 kcal</span>
+                </div>
+                <div class="option-chip" data-value="30%" data-cal="25">
+                  <div class="chip-visual-gauge">30%</div>
+                  <strong>Léger &amp; Subtil</strong>
+                  <span class="chip-price-tag">Douceur discrète • +25 kcal</span>
+                </div>
+                <div class="option-chip selected" data-value="50%" data-cal="45">
+                  <div class="chip-visual-gauge">50%</div>
+                  <strong>Équilibré (Idéal)</strong>
+                  <span class="chip-price-tag">Standard maison • +45 kcal</span>
+                </div>
+                <div class="option-chip" data-value="100%" data-cal="90">
+                  <div class="chip-visual-gauge">100%</div>
+                  <strong>Gourmand</strong>
+                  <span class="chip-price-tag">Plaisir riche • +90 kcal</span>
+                </div>
               </div>
             </div>
 
-            <!-- Step 5 Ice -->
+            <!-- Step 5 Ice (Unified Option Card Grid) -->
             <div class="builder-step-card" data-step-index="5">
               <div class="step-header">
                 <span class="step-num-badge">5</span>
                 <div>
                   <h4>Niveau de Glaçons (Fraîcheur)</h4>
-                  <p class="step-desc-text">Eau pure filtrée 5 étapes pour une fraîcheur cristalline.</p>
+                  <p class="step-desc-text">Glaçons purs d'eau filtrée 5 étapes pour une fraîcheur cristalline.</p>
                 </div>
               </div>
-              <div class="slider-labels-row" data-step="ice">
-                <button type="button" class="slider-label-btn" data-value="0%">0% • Tempéré</button>
-                <button type="button" class="slider-label-btn" data-value="30%">30% • Léger</button>
-                <button type="button" class="slider-label-btn active" data-value="50%">50% • Idéal</button>
-                <button type="button" class="slider-label-btn" data-value="100%">100% • Extra Frais</button>
+              <div class="option-chips-grid" data-step="ice">
+                <div class="option-chip" data-value="0%">
+                  <div class="chip-visual-ice">❄ 0</div>
+                  <strong>Tempéré</strong>
+                  <span class="chip-price-tag">Sans glace • Goût pur</span>
+                </div>
+                <div class="option-chip" data-value="30%">
+                  <div class="chip-visual-ice">❄ 1</div>
+                  <strong>Légèrement Frais</strong>
+                  <span class="chip-price-tag">Fraîcheur subtile</span>
+                </div>
+                <div class="option-chip selected" data-value="50%">
+                  <div class="chip-visual-ice">❄ 2</div>
+                  <strong>Fraîcheur Idéale</strong>
+                  <span class="chip-price-tag">Standard recommandé</span>
+                </div>
+                <div class="option-chip" data-value="100%">
+                  <div class="chip-visual-ice">❄ 3</div>
+                  <strong>Extra Frais</strong>
+                  <span class="chip-price-tag">Sensation givrée</span>
+                </div>
               </div>
             </div>
           </div>

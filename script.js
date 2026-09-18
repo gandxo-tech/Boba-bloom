@@ -590,6 +590,8 @@ class DrinkBuilder {
     this.cartManager = cartManager;
     this.state = {
       currentStep: 1,
+      size: '500ml',
+      sizePrice: 0,
       base: 'Thé au Lait',
       basePrice: 2200,
       baseColor: '#D2AC84',
@@ -618,8 +620,12 @@ class DrinkBuilder {
     this.liquidTop = document.getElementById('liquidStopTop');
     this.liquidMid = document.getElementById('liquidStopMid');
     this.liquidBottom = document.getElementById('liquidStopBottom');
-    this.liquidWaveBack = document.getElementById('svg-liquid-wave-back');
+    this.liquidWaveBack = document.getElementById('liquidStopWaveBack');
     this.liquidWave = document.getElementById('svg-liquid-wave');
+    this.creamLayer = document.getElementById('svg-cream-layer');
+    this.milkRibbon = document.getElementById('svg-milk-ribbon');
+    this.tigerStreaks = document.getElementById('svg-tiger-streaks');
+    this.syrupBase = document.getElementById('svg-syrup-base');
     this.pearlsGroup = document.getElementById('svg-pearls-group');
     this.iceGroup = document.getElementById('svg-ice-cubes-group');
     this.bubblesGroup = document.getElementById('svg-fizzy-bubbles');
@@ -629,12 +635,73 @@ class DrinkBuilder {
     this.drinkSummaryEl = document.getElementById('builder-drink-summary');
     this.stepIndicatorEl = document.getElementById('builder-step-indicator');
     this.addToCartBtn = document.getElementById('btn-add-custom-drink');
+    this.sizeButtons = document.querySelectorAll('.size-switch-btn');
     
     this.calEl = document.getElementById('spec-calories');
     this.intensityEl = document.getElementById('spec-intensity');
   }
 
+  shakeCup() {
+    if (!this.cupViewport) return;
+    this.cupViewport.classList.remove('cup-shaking');
+    void this.cupViewport.offsetWidth; // trigger reflow
+    this.cupViewport.classList.add('cup-shaking');
+    setTimeout(() => {
+      this.cupViewport?.classList.remove('cup-shaking');
+    }, 650);
+  }
+
+  getArtisanalDrinkTitle() {
+    const titles = {
+      'Thé au Lait': {
+        'Fraise': 'Thé au Lait & Fraise Artisanale',
+        'Mangue Passion': 'Thé au Lait & Nectar Mangue Passion',
+        'Taro Pourpre': 'Taro Pourpre Onctueux au Lait d\'Assam',
+        'Sucre Noir': 'Brown Sugar Tiger Milk Tea'
+      },
+      'Thé Vert Jasmin': {
+        'Fraise': 'Jasmin Floral & Coulis de Fraise',
+        'Mangue Passion': 'Jasmin Impérial Mangue Passion',
+        'Taro Pourpre': 'Jasmin Frais & Douceur de Taro',
+        'Sucre Noir': 'Jasmin Ambré au Sucre Noir'
+      },
+      'Matcha Uji': {
+        'Fraise': 'Matcha Uji Bio & Coulis de Fraise',
+        'Mangue Passion': 'Matcha Uji & Purée de Mangue',
+        'Taro Pourpre': 'Matcha & Taro Bicolore de Kyoto',
+        'Sucre Noir': 'Matcha Pur & Sirop de Sucre Noir'
+      },
+      'Infusion Bissap': {
+        'Fraise': 'Bissap Royal & Fraise Sauvage',
+        'Mangue Passion': 'Bissap Sunset Mangue Passion',
+        'Taro Pourpre': 'Infusion Bissap Velouté Taro',
+        'Sucre Noir': 'Bissap Épicé au Sucre de Canne Brun'
+      }
+    };
+
+    return titles[this.state.base]?.[this.state.flavor] || `${this.state.flavor} ${this.state.base}`;
+  }
+
   bindEvents() {
+    // 1. Size switch
+    this.sizeButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const target = e.currentTarget;
+        this.sizeButtons.forEach(b => b.classList.remove('active'));
+        target.classList.add('active');
+        this.state.size = target.dataset.size || '500ml';
+        this.state.sizePrice = parseInt(target.dataset.price, 10) || 0;
+        this.shakeCup();
+        this.updateVisuals();
+      });
+    });
+
+    // 2. Interactive Shaking on click
+    this.cupViewport?.addEventListener('click', () => {
+      this.shakeCup();
+    });
+
+    // 3. Unified option chips across all 5 steps
     document.querySelectorAll('.option-chip').forEach(chip => {
       chip.addEventListener('click', (e) => {
         const target = e.currentTarget;
@@ -659,7 +726,7 @@ class DrinkBuilder {
           this.state.currentStep = 2;
         } else if (step === 'topping') {
           this.state.topping = target.dataset.value;
-          this.state.toppingPrice = parseInt(target.dataset.price, 10) || 500;
+          this.state.toppingPrice = parseInt(target.dataset.price, 10) || 0;
           this.state.toppingClass = target.dataset.toppingClass || 'tapioca';
           this.state.toppingCal = parseInt(target.dataset.cal, 10) || 0;
           
@@ -669,6 +736,13 @@ class DrinkBuilder {
           else this.state.toppingGrad = 'none';
 
           this.state.currentStep = 3;
+        } else if (step === 'sweetness') {
+          this.state.sweetness = target.dataset.value;
+          this.state.sweetnessCal = parseInt(target.dataset.cal, 10) || 45;
+          this.state.currentStep = 4;
+        } else if (step === 'ice') {
+          this.state.ice = target.dataset.value;
+          this.state.currentStep = 5;
         }
 
         this.updateStepCards();
@@ -676,6 +750,7 @@ class DrinkBuilder {
       });
     });
 
+    // Fallback support for slider buttons if rendered
     document.querySelectorAll('[data-step="sweetness"] .slider-label-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         document.querySelectorAll('[data-step="sweetness"] .slider-label-btn').forEach(b => b.classList.remove('active'));
@@ -699,14 +774,15 @@ class DrinkBuilder {
       });
     });
 
+    // 4. Add to cart
     this.addToCartBtn?.addEventListener('click', () => {
-      const price = this.state.basePrice + this.state.toppingPrice;
-      const title = `${this.state.flavor} ${this.state.base}`;
+      const price = this.state.basePrice + this.state.toppingPrice + this.state.sizePrice;
+      const title = this.getArtisanalDrinkTitle();
       this.cartManager.addItem({
         id: 'custom-' + Date.now(),
         name: title,
         price,
-        size: '500ml Grand Format',
+        size: `${this.state.size} (${this.state.size === '700ml' ? 'Grand Format' : 'Format Moyen'})`,
         sweetness: this.state.sweetness,
         ice: this.state.ice,
         toppings: this.state.topping,
@@ -723,42 +799,262 @@ class DrinkBuilder {
     });
 
     const stepNames = [
-      '', 'Base de Thé', 'Saveur & Coulis', 'Toppings Artisanaux', 'Niveau de Sucre', 'Niveau de Glaçons'
+      '', 'Base de Thé Noble', 'Saveur & Coulis', 'Toppings Gourmands', 'Niveau de Sucre', 'Niveau de Glaçons'
     ];
     if (this.stepIndicatorEl) {
       this.stepIndicatorEl.textContent = `Étape ${this.state.currentStep} / 5 • ${stepNames[this.state.currentStep] || 'Personnalisation'}`;
     }
   }
 
-  updateVisuals() {
-    // 1. Dynamic Liquid Gradients & Multi-layer Waves
-    if (this.liquidTop) this.liquidTop.setAttribute('stop-color', this.state.flavorColor);
-    if (this.liquidMid) this.liquidMid.setAttribute('stop-color', this.state.flavorColor);
-    if (this.liquidBottom) this.liquidBottom.setAttribute('stop-color', this.state.baseColor);
+  getRealisticMixologyProfile() {
+    // Complete artisanal tea blend color science matrix
+    const palette = {
+      'Thé au Lait': {
+        'Fraise': {
+          top: '#F9B4C4',
+          mid: '#E8B6A2',
+          bottom: '#D0A882',
+          waveBack: '#F49DB2',
+          tigerStroke: '#C4284D',
+          tigerOpacity: '0.7',
+          creamOpacity: '0.85',
+          milkRibbonOpacity: '0.38'
+        },
+        'Mangue Passion': {
+          top: '#FFC870',
+          mid: '#F2B580',
+          bottom: '#CCA27C',
+          waveBack: '#FCA845',
+          tigerStroke: '#D97706',
+          tigerOpacity: '0.75',
+          creamOpacity: '0.85',
+          milkRibbonOpacity: '0.36'
+        },
+        'Taro Pourpre': {
+          top: '#B3A2D4',
+          mid: '#CDBFE6',
+          bottom: '#9E8DBF',
+          waveBack: '#A491C9',
+          tigerStroke: '#6D5B94',
+          tigerOpacity: '0.65',
+          creamOpacity: '0.9',
+          milkRibbonOpacity: '0.45'
+        },
+        'Sucre Noir': {
+          top: '#F4DECE',
+          mid: '#D5A986',
+          bottom: '#542D1A',
+          waveBack: '#E3BEA0',
+          tigerStroke: '#3B1B0E',
+          tigerOpacity: '0.92',
+          creamOpacity: '0.9',
+          milkRibbonOpacity: '0.5'
+        }
+      },
+      'Thé Vert Jasmin': {
+        'Fraise': {
+          top: '#E87D94',
+          mid: '#C99D8F',
+          bottom: '#A4BEA2',
+          waveBack: '#DE6B84',
+          tigerStroke: '#B82444',
+          tigerOpacity: '0.75',
+          creamOpacity: '0.3',
+          milkRibbonOpacity: '0.15'
+        },
+        'Mangue Passion': {
+          top: '#F7A738',
+          mid: '#D6BD7D',
+          bottom: '#A9C4A6',
+          waveBack: '#F29724',
+          tigerStroke: '#D97706',
+          tigerOpacity: '0.78',
+          creamOpacity: '0.25',
+          milkRibbonOpacity: '0.12'
+        },
+        'Taro Pourpre': {
+          top: '#A797C7',
+          mid: '#B4B6B0',
+          bottom: '#A8C2A5',
+          waveBack: '#9886BD',
+          tigerStroke: '#7A67A3',
+          tigerOpacity: '0.6',
+          creamOpacity: '0.4',
+          milkRibbonOpacity: '0.2'
+        },
+        'Sucre Noir': {
+          top: '#C2A384',
+          mid: '#9E8A74',
+          bottom: '#452A1D',
+          waveBack: '#B1906F',
+          tigerStroke: '#3B1D11',
+          tigerOpacity: '0.88',
+          creamOpacity: '0.35',
+          milkRibbonOpacity: '0.2'
+        }
+      },
+      'Matcha Uji': {
+        'Fraise': {
+          top: '#4E7E45',
+          mid: '#9AB893',
+          bottom: '#D94B68',
+          waveBack: '#436E3B',
+          tigerStroke: '#C4284D',
+          tigerOpacity: '0.82',
+          creamOpacity: '0.85',
+          milkRibbonOpacity: '0.35'
+        },
+        'Mangue Passion': {
+          top: '#4D7D45',
+          mid: '#99B87F',
+          bottom: '#F59E0B',
+          waveBack: '#426D3A',
+          tigerStroke: '#D97706',
+          tigerOpacity: '0.8',
+          creamOpacity: '0.85',
+          milkRibbonOpacity: '0.32'
+        },
+        'Taro Pourpre': {
+          top: '#4E7E46',
+          mid: '#8D9088',
+          bottom: '#9684BC',
+          waveBack: '#416B3A',
+          tigerStroke: '#6E5C96',
+          tigerOpacity: '0.7',
+          creamOpacity: '0.85',
+          milkRibbonOpacity: '0.36'
+        },
+        'Sucre Noir': {
+          top: '#538249',
+          mid: '#7B7E67',
+          bottom: '#3E2215',
+          waveBack: '#46703E',
+          tigerStroke: '#2D150B',
+          tigerOpacity: '0.94',
+          creamOpacity: '0.9',
+          milkRibbonOpacity: '0.4'
+        }
+      },
+      'Infusion Bissap': {
+        'Fraise': {
+          top: '#BF1E40',
+          mid: '#D93256',
+          bottom: '#8E122C',
+          waveBack: '#AF1535',
+          tigerStroke: '#7A0A21',
+          tigerOpacity: '0.8',
+          creamOpacity: '0.2',
+          milkRibbonOpacity: '0.1'
+        },
+        'Mangue Passion': {
+          top: '#BA1E3F',
+          mid: '#E05A3A',
+          bottom: '#F59E0B',
+          waveBack: '#AA1736',
+          tigerStroke: '#B45309',
+          tigerOpacity: '0.82',
+          creamOpacity: '0.2',
+          milkRibbonOpacity: '0.1'
+        },
+        'Taro Pourpre': {
+          top: '#B31E40',
+          mid: '#B04B6E',
+          bottom: '#8E73AB',
+          waveBack: '#A11637',
+          tigerStroke: '#631835',
+          tigerOpacity: '0.7',
+          creamOpacity: '0.3',
+          milkRibbonOpacity: '0.15'
+        },
+        'Sucre Noir': {
+          top: '#A81A37',
+          mid: '#78192A',
+          bottom: '#380B14',
+          waveBack: '#951430',
+          tigerStroke: '#28060D',
+          tigerOpacity: '0.9',
+          creamOpacity: '0.2',
+          milkRibbonOpacity: '0.1'
+        }
+      }
+    };
 
-    // 2. Realistic 3D Pearls with Specular Gloss & Buoyancy Motion
+    return palette[this.state.base]?.[this.state.flavor] || {
+      top: this.state.flavorColor,
+      mid: this.state.flavorColor,
+      bottom: this.state.baseColor,
+      waveBack: this.state.flavorColor,
+      tigerStroke: '#421E12',
+      tigerOpacity: '0.6',
+      creamOpacity: '0.8',
+      milkRibbonOpacity: '0.3'
+    };
+  }
+
+  updateVisuals() {
+    const profile = this.getRealisticMixologyProfile();
+
+    // 1. Dynamic Liquid Gradients & Waves
+    if (this.liquidTop) this.liquidTop.setAttribute('stop-color', profile.top);
+    if (this.liquidMid) this.liquidMid.setAttribute('stop-color', profile.mid);
+    if (this.liquidBottom) this.liquidBottom.setAttribute('stop-color', profile.bottom);
+    if (this.liquidWaveBack) this.liquidWaveBack.setAttribute('stop-color', profile.waveBack);
+
+    // 2. Velvety Cream Foam Head & Milk Ribbon Swirl
+    if (this.creamLayer) {
+      this.creamLayer.setAttribute('opacity', profile.creamOpacity);
+    }
+    if (this.milkRibbon) {
+      this.milkRibbon.setAttribute('stroke-opacity', profile.milkRibbonOpacity);
+    }
+
+    // 3. Realistic Tiger Syrup Marbling & Fruit Coulis Drips
+    if (this.tigerStreaks) {
+      this.tigerStreaks.setAttribute('stroke', profile.tigerStroke);
+      this.tigerStreaks.setAttribute('opacity', profile.tigerOpacity);
+    }
+
+    // 4. Syrup Meniscus Bed at Base
+    if (this.syrupBase) {
+      if (this.state.toppingClass === 'none') {
+        this.syrupBase.setAttribute('opacity', '0.2');
+      } else if (this.state.toppingClass === 'popping') {
+        this.syrupBase.setAttribute('opacity', '0.75');
+      } else {
+        this.syrupBase.setAttribute('opacity', '0.9');
+      }
+    }
+
+    // 5. Realistic 3D Pearls with Natural Packing & Gloss Physics
     if (this.pearlsGroup) {
       clearChildren(this.pearlsGroup);
       if (this.state.toppingClass !== 'none') {
         const pearlLayout = [
-          // Bottom foundation row
-          { cx: 98, cy: 412, r: 12, anim: 1 },
-          { cx: 122, cy: 416, r: 11, anim: 2 },
-          { cx: 145, cy: 414, r: 13, anim: 3 },
-          { cx: 170, cy: 417, r: 11.5, anim: 1 },
-          { cx: 194, cy: 411, r: 11, anim: 2 },
-          // Second elevated layer
-          { cx: 108, cy: 393, r: 11.5, anim: 2 },
-          { cx: 132, cy: 396, r: 12, anim: 3 },
-          { cx: 156, cy: 392, r: 12.5, anim: 1 },
-          { cx: 180, cy: 395, r: 11.5, anim: 2 },
-          // Third floating layer
-          { cx: 118, cy: 374, r: 11, anim: 3 },
-          { cx: 144, cy: 372, r: 12, anim: 1 },
-          { cx: 168, cy: 376, r: 11, anim: 2 },
-          // Top suspended gems
-          { cx: 133, cy: 352, r: 11.5, anim: 1 },
-          { cx: 156, cy: 354, r: 10.5, anim: 3 }
+          // Row 1 (base bed)
+          { cx: 96, cy: 416, r: 12.5, anim: 1 },
+          { cx: 118, cy: 418, r: 12, anim: 2 },
+          { cx: 140, cy: 417, r: 13, anim: 3 },
+          { cx: 162, cy: 418, r: 12.5, anim: 1 },
+          { cx: 184, cy: 417, r: 12, anim: 2 },
+          { cx: 204, cy: 415, r: 11.5, anim: 3 },
+
+          // Row 2 (second layer)
+          { cx: 104, cy: 397, r: 12, anim: 2 },
+          { cx: 126, cy: 398, r: 12.5, anim: 3 },
+          { cx: 150, cy: 396, r: 13, anim: 1 },
+          { cx: 174, cy: 398, r: 12, anim: 2 },
+          { cx: 196, cy: 396, r: 11.5, anim: 1 },
+
+          // Row 3 (third layer)
+          { cx: 114, cy: 377, r: 11.8, anim: 3 },
+          { cx: 138, cy: 376, r: 12.2, anim: 1 },
+          { cx: 162, cy: 378, r: 12, anim: 2 },
+          { cx: 186, cy: 376, r: 11.5, anim: 3 },
+
+          // Top floating gems
+          { cx: 128, cy: 356, r: 11.5, anim: 1 },
+          { cx: 152, cy: 355, r: 12, anim: 2 },
+          { cx: 174, cy: 357, r: 11, anim: 3 }
         ];
 
         pearlLayout.forEach(p => {
@@ -779,7 +1075,7 @@ class DrinkBuilder {
             const facet = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
             facet.setAttribute('x', String(p.cx - 8));
             facet.setAttribute('y', String(p.cy - 7));
-            facet.setAttribute('width', '6');
+            facet.setAttribute('width', '7');
             facet.setAttribute('height', '5');
             facet.setAttribute('rx', '2');
             facet.setAttribute('fill', 'rgba(255,255,255,0.7)');
@@ -793,29 +1089,34 @@ class DrinkBuilder {
             circle.setAttribute('fill', this.state.toppingGrad);
             g.appendChild(circle);
 
-            // 3D Specular Highlight 1 (Curved Glossy Rim)
+            // 3D Specular Highlight (Glossy curved reflection)
             const gloss1 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
             gloss1.setAttribute('cx', String(p.cx - p.r * 0.32));
             gloss1.setAttribute('cy', String(p.cy - p.r * 0.32));
-            gloss1.setAttribute('r', String(p.r * 0.3));
-            gloss1.setAttribute('fill', 'rgba(255,255,255,0.75)');
+            gloss1.setAttribute('r', String(p.r * 0.32));
+            gloss1.setAttribute('fill', 'rgba(255,255,255,0.8)');
             g.appendChild(gloss1);
 
-            // 3D Secondary subtle reflection
+            // Subsurface light point
             const gloss2 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            gloss2.setAttribute('cx', String(p.cx + p.r * 0.35));
-            gloss2.setAttribute('cy', String(p.cy + p.r * 0.35));
-            gloss2.setAttribute('r', String(p.r * 0.16));
-            gloss2.setAttribute('fill', 'rgba(255,255,255,0.3)');
+            gloss2.setAttribute('cx', String(p.cx + p.r * 0.34));
+            gloss2.setAttribute('cy', String(p.cy + p.r * 0.34));
+            gloss2.setAttribute('r', String(p.r * 0.18));
+            gloss2.setAttribute('fill', 'rgba(255,255,255,0.35)');
             g.appendChild(gloss2);
           }
+
+          g.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.shakeCup();
+          });
 
           this.pearlsGroup.appendChild(g);
         });
       }
     }
 
-    // 3. Faceted 3D Ice Cubes with Dynamic Wobble
+    // 6. Faceted 3D Ice Cubes with Refraction
     if (this.iceGroup) {
       clearChildren(this.iceGroup);
       const iceLevels = {
@@ -853,23 +1154,23 @@ class DrinkBuilder {
         rect.setAttribute('height', String(c.h));
         rect.setAttribute('rx', '6');
         rect.setAttribute('fill', 'url(#iceCubeGrad)');
-        rect.setAttribute('stroke', 'rgba(255,255,255,0.85)');
-        rect.setAttribute('stroke-width', '1.5');
+        rect.setAttribute('stroke', 'rgba(255,255,255,0.9)');
+        rect.setAttribute('stroke-width', '1.6');
         g.appendChild(rect);
 
-        // Internal bevel line for 3D realism
+        // Internal bevel fissure for 3D realism
         const innerLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         innerLine.setAttribute('d', `M${c.x + 4} ${c.y + c.h - 4} L${c.x + 8} ${c.y + 6} L${c.x + c.w - 6} ${c.y + 6}`);
         innerLine.setAttribute('fill', 'none');
-        innerLine.setAttribute('stroke', 'rgba(255,255,255,0.6)');
-        innerLine.setAttribute('stroke-width', '1.2');
+        innerLine.setAttribute('stroke', 'rgba(255,255,255,0.7)');
+        innerLine.setAttribute('stroke-width', '1.4');
         g.appendChild(innerLine);
 
         this.iceGroup.appendChild(g);
       });
     }
 
-    // 4. Rising Fizzy Micro-Bubbles
+    // 7. Rising Fizzy Micro-Bubbles
     if (this.bubblesGroup) {
       clearChildren(this.bubblesGroup);
       const bubblePositions = [
@@ -885,24 +1186,25 @@ class DrinkBuilder {
         c.setAttribute('cx', String(b.cx));
         c.setAttribute('cy', String(b.cy));
         c.setAttribute('r', String(b.r));
-        c.setAttribute('fill', 'rgba(255,255,255,0.8)');
+        c.setAttribute('fill', 'rgba(255,255,255,0.85)');
         c.setAttribute('class', 'fizzy-micro-bubble');
         c.style.animationDelay = b.delay;
         this.bubblesGroup.appendChild(c);
       });
     }
 
-    // 5. Total Price & Title
-    const price = this.state.basePrice + this.state.toppingPrice;
-    const title = `${this.state.flavor} ${this.state.base}`;
+    // 8. Total Price & Title
+    const price = this.state.basePrice + this.state.toppingPrice + this.state.sizePrice;
+    const title = this.getArtisanalDrinkTitle();
 
     if (this.drinkNameEl) this.drinkNameEl.textContent = title;
     if (this.drinkPriceEl) this.drinkPriceEl.textContent = `${price.toLocaleString('fr-FR')} FCFA`;
 
-    // 6. Summary Chips
+    // 9. Summary Chips
     if (this.drinkSummaryEl) {
       clearChildren(this.drinkSummaryEl);
       [
+        `Format: ${this.state.size}`,
         `Base: ${this.state.base}`,
         `Saveur: ${this.state.flavor}`,
         `Topping: ${this.state.topping}`,
@@ -913,8 +1215,8 @@ class DrinkBuilder {
       });
     }
 
-    // 7. Nutrition Calculation
-    const totalCal = this.state.baseCal + this.state.flavorCal + this.state.toppingCal + this.state.sweetnessCal;
+    // 10. Nutrition Calculation
+    const totalCal = this.state.baseCal + this.state.flavorCal + this.state.toppingCal + this.state.sweetnessCal + (this.state.size === '700ml' ? 65 : 0);
     if (this.calEl) this.calEl.textContent = `~${totalCal} kcal`;
     if (this.intensityEl) this.intensityEl.textContent = this.state.baseIntensity;
   }
