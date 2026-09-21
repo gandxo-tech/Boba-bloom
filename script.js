@@ -194,6 +194,10 @@ const legalContents = {
       {
         heading: "2. Fraîcheur Minute",
         text: "Toutes nos boissons sont préparées à la commande avec des infusions de moins de 4 heures et des perles de tapioca fraîches cuites du jour."
+      },
+      {
+        heading: "3. Conception & Développement du Site",
+        text: "Plateforme web officielle conçue et développée par GBAGUIDI Exaucé."
       }
     ]
   },

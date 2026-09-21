@@ -1619,6 +1619,42 @@ a {
   color: #9C8E87;
 }
 
+.footer-copy-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-creator-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: #C5B8B1;
+  flex-wrap: wrap;
+}
+
+.creator-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(210, 172, 132, 0.14);
+  border: 1px solid rgba(210, 172, 132, 0.3);
+  color: #FAF7F2;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: all 0.25s ease;
+}
+
+.creator-badge:hover {
+  background: rgba(232, 67, 101, 0.18);
+  border-color: rgba(232, 67, 101, 0.45);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(232, 67, 101, 0.2);
+}
+
 .footer-legal-links {
   display: flex;
   gap: 16px;
