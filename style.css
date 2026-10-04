@@ -3223,4 +3223,399 @@ a {
   }
 }
 
+/* ==========================================================================
+   Le Rituel en Mouvement - Scroll-Driven Video Scrollytelling Section
+   ========================================================================== */
+.scrolly-ritual-section {
+  position: relative;
+  height: 340vh;
+  background-color: #120B09;
+}
+
+.scrolly-sticky-stage {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #120B09;
+  transition: outline 0.2s ease;
+}
+
+.scrolly-sticky-stage.drag-over {
+  outline: 3px dashed var(--color-gold);
+  outline-offset: -12px;
+}
+
+.scrolly-video-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.scrolly-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  filter: brightness(0.86) contrast(1.06) saturate(1.08);
+  transform: scale(1.02);
+  will-change: transform;
+}
+
+.scrolly-vignette-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 65% 50%, rgba(18, 11, 9, 0.2) 0%, rgba(18, 11, 9, 0.72) 75%, rgba(18, 11, 9, 0.96) 100%),
+              linear-gradient(180deg, rgba(18, 11, 9, 0.75) 0%, rgba(18, 11, 9, 0.25) 25%, rgba(18, 11, 9, 0.35) 65%, rgba(18, 11, 9, 0.94) 100%);
+  pointer-events: none;
+}
+
+.scrolly-radial-glow {
+  position: absolute;
+  top: -20%;
+  left: 5%;
+  width: 65vw;
+  height: 65vh;
+  background: radial-gradient(circle, rgba(210, 172, 132, 0.14) 0%, transparent 70%);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* Floating Top Bar (HUD) */
+.scrolly-hud-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 36px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hud-brand-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(28, 19, 16, 0.78);
+  border: 1px solid rgba(210, 172, 132, 0.32);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 9999px;
+  padding: 8px 18px;
+  font-size: 0.78rem;
+  letter-spacing: 1.4px;
+  color: #F4EAD4;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.hud-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-rose);
+  box-shadow: 0 0 10px var(--color-rose);
+  animation: hudPulse 2s infinite ease-in-out;
+}
+
+@keyframes hudPulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.35); opacity: 1; }
+}
+
+.hud-tag-sub {
+  color: #D2AC84;
+  font-size: 0.74rem;
+  letter-spacing: 0.8px;
+}
+
+.hud-scrubber-wrapper {
+  flex: 1;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(28, 19, 16, 0.78);
+  border: 1px solid rgba(210, 172, 132, 0.22);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 12px;
+  padding: 8px 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.hud-scrubber-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hud-scrubber-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #E84365, #D2AC84);
+  border-radius: 9999px;
+  transition: width 0.06s linear;
+  box-shadow: 0 0 8px rgba(232, 67, 101, 0.6);
+}
+
+.hud-scrubber-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  color: #D2AC84;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.hud-controls-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hud-ctrl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(28, 19, 16, 0.78);
+  border: 1px solid rgba(210, 172, 132, 0.35);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #FAF7F2;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.hud-ctrl-btn:hover {
+  background: rgba(210, 172, 132, 0.22);
+  border-color: #D2AC84;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.hud-ctrl-btn:active {
+  transform: scale(0.96);
+}
+
+/* Scrollytelling Story Cards */
+.scrolly-story-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 580px;
+  margin-left: max(24px, calc((100vw - 1200px) / 2 + 20px));
+  margin-bottom: 24px;
+  padding-right: 20px;
+  min-height: 290px;
+  display: grid;
+  grid-template-areas: "card";
+  align-items: end;
+}
+
+.scrolly-step-card {
+  grid-area: card;
+  background: rgba(26, 17, 15, 0.84);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border: 1px solid rgba(210, 172, 132, 0.32);
+  border-radius: var(--radius-lg);
+  padding: 30px 34px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  opacity: 0;
+  transform: translateY(22px) scale(0.98);
+  pointer-events: none;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scrolly-step-card.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.scrolly-step-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #D2AC84;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.scrolly-step-badge .badge-num {
+  background: rgba(210, 172, 132, 0.18);
+  color: #E8B98A;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(210, 172, 132, 0.3);
+}
+
+.scrolly-step-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+
+.scrolly-step-desc {
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: #E6DCD6;
+  margin-bottom: 18px;
+}
+
+.scrolly-step-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.scrolly-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #F4EAD4;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 5px 12px;
+  border-radius: 9999px;
+}
+
+.scrolly-step-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+/* Scroll Guide Indicator */
+.scrolly-scroll-indicator {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: max(24px, calc((100vw - 1200px) / 2 + 20px));
+  margin-bottom: 24px;
+  color: #D2AC84;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: opacity 0.3s ease;
+}
+
+.scrolly-scroll-indicator.hidden {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.indicator-mouse {
+  width: 18px;
+  height: 28px;
+  border: 2px solid #D2AC84;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  padding-top: 4px;
+}
+
+.indicator-wheel {
+  width: 3px;
+  height: 6px;
+  background: #D2AC84;
+  border-radius: 9999px;
+  animation: mouseScroll 1.6s infinite ease-in-out;
+}
+
+@keyframes mouseScroll {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(8px); opacity: 0; }
+}
+
+@media (max-width: 900px) {
+  .scrolly-ritual-section {
+    height: 300vh;
+  }
+  .scrolly-hud-header {
+    padding: 18px 20px;
+  }
+  .hud-scrubber-wrapper {
+    max-width: 280px;
+  }
+  .scrolly-story-container {
+    margin-left: 20px;
+    margin-right: 20px;
+    max-width: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 640px) {
+  .scrolly-ritual-section {
+    height: 260vh;
+  }
+  .scrolly-hud-header {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .hud-brand-tag {
+    font-size: 0.72rem;
+    padding: 6px 12px;
+  }
+  .hud-tag-sub {
+    display: none;
+  }
+  .hud-scrubber-wrapper {
+    order: 3;
+    max-width: 100%;
+    width: 100%;
+    padding: 6px 12px;
+  }
+  .scrolly-story-container {
+    margin-left: 14px;
+    margin-right: 14px;
+    max-width: calc(100% - 28px);
+    margin-bottom: 16px;
+    min-height: 250px;
+  }
+  .scrolly-step-card {
+    padding: 20px 22px;
+  }
+  .scrolly-step-title {
+    font-size: 1.35rem;
+  }
+  .scrolly-step-desc {
+    font-size: 0.86rem;
+    margin-bottom: 12px;
+  }
+  .scrolly-scroll-indicator {
+    display: none;
+  }
+}
+
+
 

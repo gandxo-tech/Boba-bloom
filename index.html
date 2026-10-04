@@ -137,6 +137,7 @@
       <nav class="nav-links-desktop" aria-label="Navigation principale">
         <a href="#menu" class="nav-link">Carte des Thés</a>
         <a href="#builder" class="nav-link">Atelier Sur-Mesure</a>
+        <a href="#rituel" class="nav-link">Le Rituel</a>
         <a href="#story" class="nav-link">Notre Maison</a>
         <a href="#salon" class="nav-link">Salon Privilège</a>
         <a href="#testimonials" class="nav-link">Avis</a>
@@ -180,6 +181,7 @@
       <div style="display:flex; flex-direction:column; gap:16px;">
         <a href="#menu" class="mobile-nav-link">Carte des Thés</a>
         <a href="#builder" class="mobile-nav-link">Atelier Sur-Mesure</a>
+        <a href="#rituel" class="mobile-nav-link">Le Rituel (Vidéo Défilée)</a>
         <a href="#story" class="mobile-nav-link">Notre Maison</a>
         <a href="#salon" class="mobile-nav-link">Salon Privilège</a>
         <a href="#testimonials" class="mobile-nav-link">Avis &amp; Témoignages</a>
@@ -685,6 +687,159 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Video Scrollytelling Section (Le Rituel en Mouvement) -->
+    <section class="scrolly-ritual-section" id="rituel" aria-label="Le Rituel de Préparation en Mouvement">
+      <!-- Sticky stage pinned for the duration of the scroll -->
+      <div class="scrolly-sticky-stage" id="ritual-sticky-stage">
+        
+        <!-- Video Canvas / Player -->
+        <div class="scrolly-video-frame">
+          <video
+            id="ritual-video-element"
+            class="scrolly-video"
+            playsinline
+            muted
+            preload="auto"
+            tabindex="-1"
+            aria-label="Vidéo cinématique du rituel de préparation Boba Bloom"
+            poster="/src/assets/images/boba_tea_infusion_1791124293005.jpg">
+            <source src="/assets/1791123936287.mp4" type="video/mp4" />
+            <source src="/assets/boba-craft.mp4" type="video/mp4" />
+          </video>
+          <div class="scrolly-vignette-overlay" aria-hidden="true"></div>
+          <div class="scrolly-radial-glow" aria-hidden="true"></div>
+        </div>
+
+        <!-- Floating Top Bar with Progress Scrubber & Video Controls -->
+        <div class="scrolly-hud-header">
+          <div class="hud-brand-tag">
+            <span class="hud-pulse-dot"></span>
+            <span class="hud-tag-title">LE RITUEL EN MOUVEMENT</span>
+            <span class="hud-tag-sub">• DÉFILEZ POUR AVANCER</span>
+          </div>
+
+          <!-- Video scrubber gauge -->
+          <div class="hud-scrubber-wrapper">
+            <div class="hud-scrubber-track">
+              <div class="hud-scrubber-bar" id="ritual-progress-bar" style="width: 0%;"></div>
+            </div>
+            <div class="hud-scrubber-info">
+              <span id="ritual-progress-percent">0%</span>
+              <span id="ritual-time-display">00:00 / 00:10</span>
+            </div>
+          </div>
+
+          <!-- Video interactive tools (Auto-play fallback, Upload/Replace custom video, Mute) -->
+          <div class="hud-controls-group">
+            <button type="button" class="hud-ctrl-btn" id="ritual-autoplay-toggle" title="Lecture continue ou contrôle au défilement" aria-label="Basculer lecture auto">
+              <svg id="hud-play-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <svg id="hud-pause-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+              </svg>
+              <span id="hud-play-text">Lecture Continue</span>
+            </button>
+
+            <!-- Video File Replacement Trigger (Allows user to load their exact local mp4 if they want) -->
+            <label class="hud-ctrl-btn hud-upload-btn" title="Remplacer par votre propre vidéo (ex: 1791123936287.mp4)">
+              <input type="file" id="ritual-custom-video-input" accept="video/mp4,video/webm,video/quicktime" style="display:none;" />
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <span>Changer la vidéo</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Scrollytelling Story Cards (Appear sequentially based on scroll progress) -->
+        <div class="scrolly-story-container">
+          
+          <!-- Step 1: Infusion (0% - 25%) -->
+          <div class="scrolly-step-card active" data-step="1" id="ritual-step-1">
+            <div class="scrolly-step-badge">
+              <span class="badge-num">01</span>
+              <span class="badge-dot">•</span>
+              <span class="badge-text">INFUSION DES GRANDS CRUS</span>
+            </div>
+            <h3 class="scrolly-step-title">L'Éveil des Feuilles Entières</h3>
+            <p class="scrolly-step-desc">
+              Récoltées à maturité dans les plantations d'altitude, nos feuilles de thé noir d'Assam et de vert Jasmin s'ouvrent dans une eau purifiée à 82°C. Aucun concentré : la quintessence pure du végétal.
+            </p>
+            <div class="scrolly-step-tags">
+              <span class="scrolly-tag">82°C Température Idéale</span>
+              <span class="scrolly-tag">Feuilles 100% Entières</span>
+              <span class="scrolly-tag">Infusion à la Minute</span>
+            </div>
+          </div>
+
+          <!-- Step 2: Perles de Tapioca (25% - 50%) -->
+          <div class="scrolly-step-card" data-step="2" id="ritual-step-2">
+            <div class="scrolly-step-badge">
+              <span class="badge-num">02</span>
+              <span class="badge-dot">•</span>
+              <span class="badge-text">CUISSON ARTISANALE</span>
+            </div>
+            <h3 class="scrolly-step-title">Perles au Sucre Noir d'Okinawa</h3>
+            <p class="scrolly-step-desc">
+              Cuites toutes les 4 heures dans notre atelier à Haie Vive. Chaque perle est enrobée d'un caramel riche et sombre pour développer cette texture rebondie et addictive que recherchent les connaisseurs.
+            </p>
+            <div class="scrolly-step-tags">
+              <span class="scrolly-tag">Cuisson Toutes les 4h</span>
+              <span class="scrolly-tag">Sucre Brut d'Okinawa</span>
+              <span class="scrolly-tag">Texture "Q-Bounce"</span>
+            </div>
+          </div>
+
+          <!-- Step 3: L'Émulsion Veloutée (50% - 75%) -->
+          <div class="scrolly-step-card" data-step="3" id="ritual-step-3">
+            <div class="scrolly-step-badge">
+              <span class="badge-num">03</span>
+              <span class="badge-dot">•</span>
+              <span class="badge-text">L'ÉMULSION GOURMANDE</span>
+            </div>
+            <h3 class="scrolly-step-title">Le Tourbillon Marbré</h3>
+            <p class="scrolly-step-desc">
+              Le lait frais entier fermier ou nos boissons végétales veloutées (avoine, coco) rencontrent l'élixir de thé ambré. Un tourbillon marbré captivant se crée instantanément au contact des parois givrées.
+            </p>
+            <div class="scrolly-step-tags">
+              <span class="scrolly-tag">Lait Frais &amp; Végétal</span>
+              <span class="scrolly-tag">Marbrage Naturel</span>
+              <span class="scrolly-tag">Zéro Additif Chimique</span>
+            </div>
+          </div>
+
+          <!-- Step 4: Dégustation Finale (75% - 100%) -->
+          <div class="scrolly-step-card" data-step="4" id="ritual-step-4">
+            <div class="scrolly-step-badge">
+              <span class="badge-num">04</span>
+              <span class="badge-dot">•</span>
+              <span class="badge-text">LA TOUCHE FINALE</span>
+            </div>
+            <h3 class="scrolly-step-title">L'Élixir Prêt à Savourer</h3>
+            <p class="scrolly-step-desc">
+              Frappé énergiquement au shaker, servi avec des glaçons cristallins et scellé pour préserver la fraîcheur jusqu'à la première aspiration. À déguster sur place ou en livraison express à Cotonou.
+            </p>
+            <div class="scrolly-step-actions">
+              <a href="#builder" class="btn btn-primary btn-sm">Composer Mon Bubble Tea</a>
+              <a href="#menu" class="btn btn-secondary btn-sm" style="color:#FFF; border-color:rgba(255,255,255,0.4);">Voir la Carte</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scroll Guide Indicator at the bottom -->
+        <div class="scrolly-scroll-indicator" id="ritual-scroll-hint">
+          <span class="indicator-mouse">
+            <span class="indicator-wheel"></span>
+          </span>
+          <span class="indicator-label">Faites défiler pour animer la vidéo</span>
         </div>
       </div>
     </section>

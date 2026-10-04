@@ -1588,6 +1588,7 @@ class BobaBloomApp {
     this.initCookies();
     this.initGallery();
     this.initNewsletter();
+    this.initVideoRitualScrollytelling();
     this.initScrollReveal();
     this.initHeroTextRotator();
   }
@@ -2194,6 +2195,260 @@ class BobaBloomApp {
       el.classList.add('reveal-init');
       observer.observe(el);
     });
+  }
+
+  initVideoRitualScrollytelling() {
+    const section = document.getElementById('rituel');
+    const stage = document.getElementById('ritual-sticky-stage');
+    const video = document.getElementById('ritual-video-element');
+    const progressBar = document.getElementById('ritual-progress-bar');
+    const progressPercent = document.getElementById('ritual-progress-percent');
+    const timeDisplay = document.getElementById('ritual-time-display');
+    const autoplayBtn = document.getElementById('ritual-autoplay-toggle');
+    const playIcon = document.getElementById('hud-play-icon');
+    const pauseIcon = document.getElementById('hud-pause-icon');
+    const playText = document.getElementById('hud-play-text');
+    const videoInput = document.getElementById('ritual-custom-video-input');
+    const scrollHint = document.getElementById('ritual-scroll-hint');
+    const stepCards = [
+      document.getElementById('ritual-step-1'),
+      document.getElementById('ritual-step-2'),
+      document.getElementById('ritual-step-3'),
+      document.getElementById('ritual-step-4')
+    ];
+
+    if (!section || !video) return;
+
+    let isAutoPlaying = false;
+    let targetProgress = 0;
+    let currentProgress = 0;
+    let isSeeking = false;
+    let rafId = null;
+    let videoDuration = 10.45;
+
+    const formatTime = (sec) => {
+      if (isNaN(sec) || sec < 0) sec = 0;
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    };
+
+    const updateDuration = () => {
+      if (video.duration && !isNaN(video.duration) && video.duration > 0) {
+        videoDuration = video.duration;
+      }
+      updateUI(currentProgress);
+    };
+
+    video.addEventListener('loadedmetadata', updateDuration);
+    video.addEventListener('durationchange', updateDuration);
+    if (video.readyState >= 1) updateDuration();
+
+    const updateUI = (progress) => {
+      // Step Cards Activation
+      let activeIndex = 0;
+      if (progress >= 0.72) activeIndex = 3;
+      else if (progress >= 0.48) activeIndex = 2;
+      else if (progress >= 0.22) activeIndex = 1;
+      else activeIndex = 0;
+
+      stepCards.forEach((card, idx) => {
+        if (!card) return;
+        if (idx === activeIndex) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
+
+      // Hide scroll hint once user started scrolling
+      if (scrollHint) {
+        if (progress > 0.05) scrollHint.classList.add('hidden');
+        else scrollHint.classList.remove('hidden');
+      }
+
+      // Progress bar & percentage
+      const pct = Math.min(100, Math.max(0, Math.round(progress * 100)));
+      if (progressBar) progressBar.style.width = `${pct}%`;
+      if (progressPercent) progressPercent.textContent = `${pct}%`;
+
+      // Time indicator
+      const currentSeconds = progress * videoDuration;
+      if (timeDisplay) {
+        timeDisplay.textContent = `${formatTime(currentSeconds)} / ${formatTime(videoDuration)}`;
+      }
+    };
+
+    const applyVideoSeek = (targetTime) => {
+      if (!video || isNaN(targetTime) || isSeeking) return;
+      if (Math.abs(video.currentTime - targetTime) < 0.03) return;
+
+      isSeeking = true;
+      if ('fastSeek' in video) {
+        try {
+          video.fastSeek(targetTime);
+        } catch {
+          video.currentTime = targetTime;
+        }
+      } else {
+        video.currentTime = targetTime;
+      }
+
+      const onSeeked = () => {
+        isSeeking = false;
+        video.removeEventListener('seeked', onSeeked);
+      };
+      video.addEventListener('seeked', onSeeked, { once: true });
+      setTimeout(() => { isSeeking = false; }, 40);
+    };
+
+    const renderScrubLoop = () => {
+      if (isAutoPlaying) return;
+
+      const diff = targetProgress - currentProgress;
+      if (Math.abs(diff) > 0.001) {
+        currentProgress += diff * 0.18; // smooth interpolation
+      } else {
+        currentProgress = targetProgress;
+      }
+
+      updateUI(currentProgress);
+
+      if (!video.paused) {
+        video.pause();
+      }
+
+      if (video.readyState >= 2) {
+        const targetTime = currentProgress * videoDuration;
+        applyVideoSeek(targetTime);
+      }
+
+      if (Math.abs(targetProgress - currentProgress) > 0.001) {
+        rafId = requestAnimationFrame(renderScrubLoop);
+      } else {
+        rafId = null;
+      }
+    };
+
+    const calculateScrollProgress = () => {
+      if (isAutoPlaying) return;
+
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      const totalScrollable = rect.height - windowHeight;
+
+      if (totalScrollable <= 0) return;
+
+      // Distance from top of section to top of viewport
+      const scrolled = -rect.top;
+      const rawProgress = scrolled / totalScrollable;
+      targetProgress = Math.max(0, Math.min(1, rawProgress));
+
+      // Only animate if section is within or near visible viewport
+      if (rect.bottom > -100 && rect.top < windowHeight + 100) {
+        if (!rafId) {
+          rafId = requestAnimationFrame(renderScrubLoop);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', calculateScrollProgress, { passive: true });
+    window.addEventListener('resize', calculateScrollProgress, { passive: true });
+
+    // Initial check
+    calculateScrollProgress();
+
+    // Auto-play Toggle
+    if (autoplayBtn) {
+      autoplayBtn.addEventListener('click', () => {
+        isAutoPlaying = !isAutoPlaying;
+
+        if (isAutoPlaying) {
+          if (rafId) cancelAnimationFrame(rafId);
+          video.play().catch(() => {});
+          if (playIcon) playIcon.style.display = 'none';
+          if (pauseIcon) pauseIcon.style.display = 'inline-block';
+          if (playText) playText.textContent = 'Pause';
+          createToast('Lecture vidéo continue activée.', 'info');
+        } else {
+          video.pause();
+          if (playIcon) playIcon.style.display = 'inline-block';
+          if (pauseIcon) pauseIcon.style.display = 'none';
+          if (playText) playText.textContent = 'Lecture Continue';
+          createToast('Contrôle au défilement réactivé.', 'info');
+          calculateScrollProgress();
+        }
+      });
+    }
+
+    // When video is playing in auto-play mode, update HUD and story cards continuously
+    video.addEventListener('timeupdate', () => {
+      if (!isAutoPlaying || !video.duration) return;
+      currentProgress = video.currentTime / video.duration;
+      updateUI(currentProgress);
+    });
+
+    video.addEventListener('ended', () => {
+      if (isAutoPlaying) {
+        isAutoPlaying = false;
+        if (playIcon) playIcon.style.display = 'inline-block';
+        if (pauseIcon) pauseIcon.style.display = 'none';
+        if (playText) playText.textContent = 'Lecture Continue';
+        calculateScrollProgress();
+      }
+    });
+
+    // Custom Video File Upload & Replacement
+    const handleCustomVideo = (file) => {
+      if (!file || !file.type.startsWith('video/')) {
+        createToast('Veuillez sélectionner un fichier vidéo valide (MP4, WebM).', 'error');
+        return;
+      }
+
+      const fileUrl = URL.createObjectURL(file);
+      video.src = fileUrl;
+      video.load();
+
+      const onVideoReady = () => {
+        videoDuration = video.duration || 10;
+        targetProgress = 0;
+        currentProgress = 0;
+        video.currentTime = 0;
+        updateUI(0);
+        createToast(`Vidéo "${file.name}" intégrée avec succès ! Défilez pour l'animer.`, 'success');
+      };
+
+      video.addEventListener('loadedmetadata', onVideoReady, { once: true });
+    };
+
+    videoInput?.addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (file) handleCustomVideo(file);
+    });
+
+    // Drag and drop onto stage
+    if (stage) {
+      ['dragenter', 'dragover'].forEach(eventType => {
+        stage.addEventListener(eventType, (e) => {
+          e.preventDefault();
+          stage.classList.add('drag-over');
+        });
+      });
+
+      ['dragleave', 'drop'].forEach(eventType => {
+        stage.addEventListener(eventType, (e) => {
+          e.preventDefault();
+          stage.classList.remove('drag-over');
+        });
+      });
+
+      stage.addEventListener('drop', (e) => {
+        const file = e.dataTransfer?.files?.[0];
+        if (file && file.type.startsWith('video/')) {
+          handleCustomVideo(file);
+        }
+      });
+    }
   }
 }
 
