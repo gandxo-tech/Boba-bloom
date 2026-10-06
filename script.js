@@ -2202,48 +2202,97 @@ class BobaBloomApp {
     const video = document.getElementById("scrolly-ritual-video");
     if (!section || !video) return;
 
-    // Assurer que la video est mutee et ne demarre pas de maniere autonome
+    // Assurer que la video est mutee et ne demarre jamais de maniere autonome
     video.pause();
     video.muted = true;
+    video.defaultMuted = true;
+    video.autoplay = false;
+    video.playsInline = true;
+    video.setAttribute("muted", "");
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+    video.removeAttribute("autoplay");
+
+    // Interdire toute lecture autonome
+    video.addEventListener("play", () => {
+      video.pause();
+    });
+    video.addEventListener("playing", () => {
+      video.pause();
+    });
 
     let videoDuration = 10.5;
     let isSeeking = false;
     let pendingProgress = null;
+    let seekWatchdog = null;
 
-    const onMeta = () => {
-      if (video.duration && !isNaN(video.duration) && video.duration > 0) {
+    const updateDuration = () => {
+      if (video.duration && !isNaN(video.duration) && isFinite(video.duration) && video.duration > 0) {
         videoDuration = video.duration;
       }
+    };
+
+    const onMeta = () => {
+      updateDuration();
       onScroll();
     };
 
     video.addEventListener("loadedmetadata", onMeta);
+    video.addEventListener("durationchange", updateDuration);
+    video.addEventListener("canplay", updateDuration);
     video.addEventListener("loadeddata", onMeta);
+
+    // Initialiser le chargement des metadonnees si necessaire
+    if (video.readyState === 0) {
+      video.load();
+    } else {
+      updateDuration();
+    }
+
     video.addEventListener("seeked", () => {
+      clearTimeout(seekWatchdog);
       isSeeking = false;
       if (pendingProgress !== null) {
-        const p = pendingProgress;
+        const next = pendingProgress;
         pendingProgress = null;
-        applyVideoProgress(p);
+        applyVideoProgress(next);
       }
-    });
-
-    video.addEventListener("play", () => {
-      video.pause();
     });
 
     const clamp = (val, min, max) => Math.min(max, Math.max(min, val));
 
     const applyVideoProgress = (progress) => {
-      if (video.readyState < 1 && !videoDuration) return;
-      const targetTime = clamp(progress * videoDuration, 0, videoDuration);
+      updateDuration();
+      // Empecher d'atteindre exactement l'EOF absolu pour eviter l'etat 'ended' sur certains navigateurs
+      const maxTarget = Math.max(0, videoDuration - 0.04);
+      const targetTime = clamp(progress * videoDuration, 0, maxTarget);
 
-      if (isSeeking) {
+      // Si deja en cours de recherche temporelle, memoriser la derniere position demandee
+      if (video.seeking || isSeeking) {
         pendingProgress = progress;
         return;
       }
 
+      // Eviter les micro-recherches inutiles si la difference temporelle est infime (< 15ms)
+      if (Math.abs(video.currentTime - targetTime) < 0.015) {
+        return;
+      }
+
       isSeeking = true;
+
+      // Watchdog de secours si l'evenement seeked tarde ou est ignore par le decodeur materiel
+      clearTimeout(seekWatchdog);
+      seekWatchdog = setTimeout(() => {
+        if (isSeeking) {
+          isSeeking = false;
+          if (pendingProgress !== null) {
+            const next = pendingProgress;
+            pendingProgress = null;
+            applyVideoProgress(next);
+          }
+        }
+      }, 60);
+
       if (typeof video.fastSeek === "function") {
         try {
           video.fastSeek(targetTime);
@@ -2256,18 +2305,22 @@ class BobaBloomApp {
     };
 
     let ticking = false;
+    const syncScrollToVideo = () => {
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      const scrollableDistance = rect.height - windowHeight;
+
+      if (scrollableDistance > 0) {
+        const rawProgress = (-rect.top) / scrollableDistance;
+        const progress = clamp(rawProgress, 0, 1);
+        applyVideoProgress(progress);
+      }
+    };
+
     const onScroll = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          const rect = section.getBoundingClientRect();
-          const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-          const scrollableDistance = rect.height - windowHeight;
-
-          if (scrollableDistance > 0) {
-            const rawProgress = (-rect.top) / scrollableDistance;
-            const progress = clamp(rawProgress, 0, 1);
-            applyVideoProgress(progress);
-          }
+          syncScrollToVideo();
           ticking = false;
         });
         ticking = true;
@@ -2275,7 +2328,10 @@ class BobaBloomApp {
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
+    window.addEventListener("resize", () => {
+      updateDuration();
+      onScroll();
+    }, { passive: true });
 
     onScroll();
   }
