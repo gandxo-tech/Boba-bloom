@@ -691,147 +691,414 @@
       </div>
     </section>
 
-    <!-- Video Scrollytelling Section (Le Rituel en Mouvement) -->
-    <section class="scrolly-ritual-section" id="rituel" aria-label="Le Rituel de Préparation en Mouvement">
+    <!-- Immersive Product Construction Scrollytelling Section (Le Rituel de Fabrication) -->
+    <section class="scrolly-ritual-section" id="rituel" aria-label="Fabrication Immersive du Bubble Tea">
       <!-- Sticky stage pinned for the duration of the scroll -->
       <div class="scrolly-sticky-stage" id="ritual-sticky-stage">
         
-        <!-- Video Canvas / Player -->
-        <div class="scrolly-video-frame">
-          <video
-            id="ritual-video-element"
-            class="scrolly-video"
-            playsinline
-            muted
-            preload="auto"
-            tabindex="-1"
-            aria-label="Vidéo cinématique du rituel de préparation Boba Bloom"
-            poster="/src/assets/images/boba_tea_infusion_1791124293005.jpg">
-            <source src="/assets/1791123936287.mp4" type="video/mp4" />
-            <source src="/assets/boba-craft.mp4" type="video/mp4" />
-          </video>
-          <div class="scrolly-vignette-overlay" aria-hidden="true"></div>
-          <div class="scrolly-radial-glow" aria-hidden="true"></div>
+        <!-- Ambient Atmospheric Lighting Backdrop -->
+        <div class="scrolly-ambient-backdrop" aria-hidden="true">
+          <div class="scrolly-radial-glow" id="scrolly-tea-glow"></div>
+          <div class="scrolly-ambient-particles" id="scrolly-ambient-dust"></div>
         </div>
 
-        <!-- Floating Top Bar with Progress Scrubber & Video Controls -->
+        <!-- Floating HUD Header with Scrubber & Recipe Switcher -->
         <div class="scrolly-hud-header">
           <div class="hud-brand-tag">
             <span class="hud-pulse-dot"></span>
-            <span class="hud-tag-title">LE RITUEL EN MOUVEMENT</span>
-            <span class="hud-tag-sub">• DÉFILEZ POUR AVANCER</span>
+            <span class="hud-tag-title">LE RITUEL DE FABRICATION</span>
+            <span class="hud-tag-sub" id="scrolly-phase-kicker">• PHASE 1/6 : LE VERRE EN CRISTAL</span>
           </div>
 
-          <!-- Video scrubber gauge -->
+          <!-- Video scrubber / Scroll progress gauge -->
           <div class="hud-scrubber-wrapper">
             <div class="hud-scrubber-track">
               <div class="hud-scrubber-bar" id="ritual-progress-bar" style="width: 0%;"></div>
             </div>
             <div class="hud-scrubber-info">
-              <span id="ritual-progress-percent">0%</span>
-              <span id="ritual-time-display">00:00 / 00:10</span>
+              <span id="scrolly-phase-label">01. Verre Vide</span>
+              <span id="ritual-progress-percent" style="font-family:var(--font-body); font-variant-numeric:tabular-nums; font-weight:700;">0%</span>
             </div>
           </div>
 
-          <!-- Video interactive tools (Auto-play fallback, Upload/Replace custom video, Mute) -->
+          <!-- View Mode Switcher & Recipe Variant Quick Selector -->
           <div class="hud-controls-group">
-            <button type="button" class="hud-ctrl-btn" id="ritual-autoplay-toggle" title="Lecture continue ou contrôle au défilement" aria-label="Basculer lecture auto">
-              <svg id="hud-play-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                <polygon points="5 3 19 12 5 21 5 3"></polygon>
-              </svg>
-              <svg id="hud-pause-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
-                <rect x="6" y="4" width="4" height="16"></rect>
-                <rect x="14" y="4" width="4" height="16"></rect>
-              </svg>
-              <span id="hud-play-text">Lecture Continue</span>
-            </button>
+            <div class="hud-view-switcher" role="radiogroup" aria-label="Mode de vue du rituel">
+              <button type="button" class="hud-view-btn active" id="btn-view-video" aria-pressed="true" title="Vidéo cinématique pilotée par le scroll">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                <span>Vidéo Scroll</span>
+              </button>
+              <button type="button" class="hud-view-btn" id="btn-view-vector" aria-pressed="false" title="Schéma vectoriel interactif">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                <span>Coupe Vectorielle</span>
+              </button>
+            </div>
 
-            <!-- Video File Replacement Trigger (Allows user to load their exact local mp4 if they want) -->
-            <label class="hud-ctrl-btn hud-upload-btn" title="Remplacer par votre propre vidéo (ex: 1791123936287.mp4)">
-              <input type="file" id="ritual-custom-video-input" accept="video/mp4,video/webm,video/quicktime" style="display:none;" />
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="17 8 12 3 7 8"></polyline>
-                <line x1="12" y1="3" x2="12" y2="15"></line>
-              </svg>
-              <span>Changer la vidéo</span>
-            </label>
+            <!-- Recipe Variant Quick Selector -->
+            <div class="hud-recipe-selector" aria-label="Variantes de thé pour la démonstration">
+              <button type="button" class="hud-recipe-pill active" data-scrolly-base="Thé au Lait" data-scrolly-flavor="Sucre Noir" data-scrolly-color="#D2AC84" title="Thé au Lait Assam & Sucre Noir">
+                <span class="recipe-color-dot" style="background:#D2AC84;"></span>
+                <span>Sucre Noir</span>
+              </button>
+              <button type="button" class="hud-recipe-pill" data-scrolly-base="Matcha Uji" data-scrolly-flavor="Taro Pourpre" data-scrolly-color="#769C72" title="Matcha Uji Bio de Kyoto">
+                <span class="recipe-color-dot" style="background:#769C72;"></span>
+                <span>Matcha Bio</span>
+              </button>
+              <button type="button" class="hud-recipe-pill" data-scrolly-base="Infusion Bissap" data-scrolly-flavor="Fraise" data-scrolly-color="#C83E58" title="Infusion Florale d'Hibiscus">
+                <span class="recipe-color-dot" style="background:#C83E58;"></span>
+                <span>Bissap Floral</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        <!-- Scrollytelling Story Cards (Appear sequentially based on scroll progress) -->
-        <div class="scrolly-story-container">
+        <!-- Central Showcase Arena: Product Glass on Stage + Accompanying Story Cards -->
+        <div class="scrolly-arena-grid">
           
-          <!-- Step 1: Infusion (0% - 25%) -->
-          <div class="scrolly-step-card active" data-step="1" id="ritual-step-1">
-            <div class="scrolly-step-badge">
-              <span class="badge-num">01</span>
-              <span class="badge-dot">•</span>
-              <span class="badge-text">INFUSION DES GRANDS CRUS</span>
-            </div>
-            <h3 class="scrolly-step-title">L'Éveil des Feuilles Entières</h3>
-            <p class="scrolly-step-desc">
-              Récoltées à maturité dans les plantations d'altitude, nos feuilles de thé noir d'Assam et de vert Jasmin s'ouvrent dans une eau purifiée à 82°C. Aucun concentré : la quintessence pure du végétal.
-            </p>
-            <div class="scrolly-step-tags">
-              <span class="scrolly-tag">82°C Température Idéale</span>
-              <span class="scrolly-tag">Feuilles 100% Entières</span>
-              <span class="scrolly-tag">Infusion à la Minute</span>
+          <!-- Column A: Accompanying Storytelling Phase Cards (Left Side) -->
+          <div class="scrolly-story-col">
+            <div class="scrolly-cards-stack">
+              
+              <!-- Phase 1 (0% - 10%): Le Verre en Cristal -->
+              <div class="scrolly-phase-card active" data-phase="1" id="scrolly-card-1">
+                <div class="phase-card-badge">
+                  <span class="phase-number">01</span>
+                  <span class="phase-sep">/</span>
+                  <span>06 • ÉCRIN DE CRISTAL</span>
+                </div>
+                <h3 class="phase-card-title">Le Verre Solitaire</h3>
+                <p class="phase-card-desc">
+                  Chaque création commence dans notre verre conique en cristal pur, rigoureusement stérilisé et conçu pour exalter le dégradé visuel des infusions nobles.
+                </p>
+                <div class="phase-card-tags">
+                  <span class="phase-tag">Paroi Cristalline</span>
+                  <span class="phase-tag">Format 500ml Prestige</span>
+                  <span class="phase-tag">Zéro Résidu</span>
+                </div>
+              </div>
+
+              <!-- Phase 2 (10% - 25%): Les Perles de Tapioca -->
+              <div class="scrolly-phase-card" data-phase="2" id="scrolly-card-2">
+                <div class="phase-card-badge">
+                  <span class="phase-number">02</span>
+                  <span class="phase-sep">/</span>
+                  <span>06 • LE FOND GOURMAND</span>
+                </div>
+                <h3 class="phase-card-title">Perles Noires d'Okinawa</h3>
+                <p class="phase-card-desc">
+                  Les perles de tapioca cuites minute au sucre noir brut cascadent au fond du verre. Gorgées de caramel brun, elles apportent le rebond élastique signature (*q-bounce*).
+                </p>
+                <div class="phase-card-tags">
+                  <span class="phase-tag">Cuisson Toutes les 4h</span>
+                  <span class="phase-tag">Sucre Brut d'Okinawa</span>
+                  <span class="phase-tag">Rebond Moelleux</span>
+                </div>
+              </div>
+
+              <!-- Phase 3 (25% - 50%): L'Infusion du Thé -->
+              <div class="scrolly-phase-card" data-phase="3" id="scrolly-card-3">
+                <div class="phase-card-badge">
+                  <span class="phase-number">03</span>
+                  <span class="phase-sep">/</span>
+                  <span>06 • EXTRACTION ARTISANALE</span>
+                </div>
+                <h3 class="phase-card-title">L'Infusion des Grands Crus</h3>
+                <p class="phase-card-desc">
+                  L'élixir de thé extrait à 82°C monte progressivement dans le verre. Aucun concentré en poudre : uniquement la richesse aromatique brute de feuilles entières sélectionnées.
+                </p>
+                <div class="phase-card-tags">
+                  <span class="phase-tag">Feuilles 100% Entières</span>
+                  <span class="phase-tag">Infusion à 82°C</span>
+                  <span class="phase-tag">Nectar Pur &amp; Ambré</span>
+                </div>
+              </div>
+
+              <!-- Phase 4 (50% - 65%): Le Lait Velouté & Le Marbrage -->
+              <div class="scrolly-phase-card" data-phase="4" id="scrolly-card-4">
+                <div class="phase-card-badge">
+                  <span class="phase-number">04</span>
+                  <span class="phase-sep">/</span>
+                  <span>06 • ÉMULSION SOYEUSE</span>
+                </div>
+                <h3 class="phase-card-title">Le Tourbillon Marbré</h3>
+                <p class="phase-card-desc">
+                  Le lait frais fermier ou notre crème végétale onctueuse rencontre l'intensité du thé. Des marbrures tigrées hypnotiques se dessinent le long des parois du verre.
+                </p>
+                <div class="phase-card-tags">
+                  <span class="phase-tag">Lait Frais &amp; Végétal</span>
+                  <span class="phase-tag">Marbrage Tigré Naturel</span>
+                  <span class="phase-tag">Zéro Additif</span>
+                </div>
+              </div>
+
+              <!-- Phase 5 (65% - 82%): Les Glaçons -->
+              <div class="scrolly-phase-card" data-phase="5" id="scrolly-card-5">
+                <div class="phase-card-badge">
+                  <span class="phase-number">05</span>
+                  <span class="phase-sep">/</span>
+                  <span>06 • FRAÎCHEUR GIVRÉE</span>
+                </div>
+                <h3 class="phase-card-title">Les Glaçons Cristallins</h3>
+                <p class="phase-card-desc">
+                  Des cubes de glace taillés en diamant plongent délicatement à la surface pour rafraîchir l'infusion à la température idéale sans diluer la finesse des saveurs.
+                </p>
+                <div class="phase-card-tags">
+                  <span class="phase-tag">Eau Purifiée Triple Filtre</span>
+                  <span class="phase-tag">Fraîcheur Instantanée</span>
+                  <span class="phase-tag">Équilibre Thermique</span>
+                </div>
+              </div>
+
+              <!-- Phase 6 (82% - 100%): Couvercle & Paille -->
+              <div class="scrolly-phase-card" data-phase="6" id="scrolly-card-6">
+                <div class="phase-card-badge">
+                  <span class="phase-number">06</span>
+                  <span class="phase-sep">/</span>
+                  <span>06 • PRÊT À DÉGUSTER</span>
+                </div>
+                <h3 class="phase-card-title">Le Sceau &amp; La Paille 12mm</h3>
+                <p class="phase-card-desc">
+                  Le dôme étanche scelle le verre et la paille large biseautée vient s'ancrer dans les perles tièdes. Votre boisson de prestige est prête à être savourée à Haie Vive ou livrée chez vous.
+                </p>
+                <div class="phase-card-actions">
+                  <button type="button" class="btn btn-primary btn-sm" id="btn-scrolly-add-cart">
+                    <span>Commander ce Bubble Tea (2 700 F)</span>
+                  </button>
+                  <a href="#builder" class="btn btn-secondary btn-sm" style="color:#FAF7F2; border-color:rgba(255,255,255,0.4);">
+                    <span>Personnaliser dans l'Atelier</span>
+                  </a>
+                </div>
+              </div>
+
             </div>
           </div>
 
-          <!-- Step 2: Perles de Tapioca (25% - 50%) -->
-          <div class="scrolly-step-card" data-step="2" id="ritual-step-2">
-            <div class="scrolly-step-badge">
-              <span class="badge-num">02</span>
-              <span class="badge-dot">•</span>
-              <span class="badge-text">CUISSON ARTISANALE</span>
-            </div>
-            <h3 class="scrolly-step-title">Perles au Sucre Noir d'Okinawa</h3>
-            <p class="scrolly-step-desc">
-              Cuites toutes les 4 heures dans notre atelier à Haie Vive. Chaque perle est enrobée d'un caramel riche et sombre pour développer cette texture rebondie et addictive que recherchent les connaisseurs.
-            </p>
-            <div class="scrolly-step-tags">
-              <span class="scrolly-tag">Cuisson Toutes les 4h</span>
-              <span class="scrolly-tag">Sucre Brut d'Okinawa</span>
-              <span class="scrolly-tag">Texture "Q-Bounce"</span>
+          <!-- Column B: Showcase Stage (Cinematic Video Scrubbing + Vector Atelier) -->
+          <div class="scrolly-canvas-col">
+            <div class="scrolly-showcase-stage" id="scrolly-showcase-stage">
+              
+              <!-- Video Mode: Cinematic Scroll-Driven Video Playback -->
+              <div class="scrolly-video-frame active" id="scrolly-video-frame">
+                <div class="video-ambient-glow" id="scrolly-video-glow"></div>
+                
+                <div class="video-display-chassis">
+                  <!-- The HTML5 Video Element synchronized directly with scroll -->
+                  <video id="scrolly-ritual-video"
+                         class="scrolly-ritual-video"
+                         preload="auto"
+                         muted
+                         playsinline
+                         webkit-playsinline
+                         aria-label="Vidéo cinématique de fabrication du bubble tea pilotée par le défilement">
+                    <source src="/assets/1791123936287.mp4" type="video/mp4" />
+                    <source src="/assets/boba-craft.mp4" type="video/mp4" />
+                  </video>
+
+                  <!-- Top Bar HUD Overlay on Video -->
+                  <div class="video-chassis-topbar">
+                    <div class="video-live-tag">
+                      <span class="video-rec-dot"></span>
+                      <span>DÉFILEMENT SYNCHRO</span>
+                    </div>
+                    <div class="video-timecode-tag" id="scrolly-video-timecode">00:00.00 / 00:10.50</div>
+                  </div>
+
+                  <!-- Bottom Bar HUD Overlay on Video -->
+                  <div class="video-chassis-bottombar">
+                    <div class="video-chapter-badge" id="video-chapter-badge">
+                      <span class="video-chapter-num" id="video-chapter-num">01</span>
+                      <span class="video-chapter-text" id="video-chapter-text">Infusion des Grands Crus &amp; Nectar Pur</span>
+                    </div>
+                    <div class="video-quality-tag">4K ULTRA HD • 24 FPS</div>
+                  </div>
+
+                  <!-- Cinematic Viewfinder Corner Brackets -->
+                  <div class="viewfinder-corner corner-tl"></div>
+                  <div class="viewfinder-corner corner-tr"></div>
+                  <div class="viewfinder-corner corner-bl"></div>
+                  <div class="viewfinder-corner corner-br"></div>
+                </div>
+
+                <!-- Video interactive scrubbing helper -->
+                <div class="video-scrub-guide">
+                  <span>↕ Faites défiler vers le bas pour avancer la vidéo • Vers le haut pour rembobiner</span>
+                </div>
+              </div>
+
+              <!-- Vector Mode: Pure Native Vector Bubble Tea Assembly -->
+              <div class="scrolly-cup-spotlight" id="scrolly-cup-spotlight">
+                <svg class="scrolly-boba-svg" id="scrolly-boba-svg" viewBox="0 0 320 480" width="320" height="480" preserveAspectRatio="xMidYMid meet" aria-label="Animation vectorielle de fabrication d'un Bubble Tea">
+                <defs>
+                  <!-- Glass interior clip path (Tapered cup contour) -->
+                  <clipPath id="scrollyCupInteriorClip">
+                    <path d="M 66,108 L 234,108 L 214,408 Q 214,428 190,428 L 110,428 Q 86,428 86,408 Z" />
+                  </clipPath>
+
+                  <!-- Dynamic Tea Liquid Gradient -->
+                  <linearGradient id="scrollyLiquidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop id="scrollyLiquidStopTop" offset="0%" stop-color="#E8B6A2" />
+                    <stop id="scrollyLiquidStopMid" offset="45%" stop-color="#D2AC84" />
+                    <stop id="scrollyLiquidStopBottom" offset="100%" stop-color="#8C4E28" />
+                  </linearGradient>
+
+                  <!-- Wave Crest Highlight Gradient -->
+                  <linearGradient id="scrollyWaveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop id="scrollyWaveStop" offset="0%" stop-color="#F4D3C2" stop-opacity="0.9" />
+                    <stop offset="100%" stop-color="#D2AC84" stop-opacity="0.6" />
+                  </linearGradient>
+
+                  <!-- Velvety Milk Mousse / Cream Cap Gradient -->
+                  <linearGradient id="scrollyCreamGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95" />
+                    <stop offset="40%" stop-color="#FFF5EE" stop-opacity="0.9" />
+                    <stop offset="100%" stop-color="#F7E6D7" stop-opacity="0.65" />
+                  </linearGradient>
+
+                  <!-- Glossy 3D Brown Sugar Tapioca Pearl Shading -->
+                  <radialGradient id="scrollyPearlShading" cx="35%" cy="32%" r="65%">
+                    <stop offset="0%" stop-color="#4A2F22" />
+                    <stop offset="30%" stop-color="#2D1A12" />
+                    <stop offset="75%" stop-color="#140B07" />
+                    <stop offset="100%" stop-color="#080402" />
+                  </radialGradient>
+
+                  <!-- 3D Ice Cube Surface Shading -->
+                  <linearGradient id="scrollyIceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="rgba(255,255,255,0.85)" />
+                    <stop offset="35%" stop-color="rgba(225,242,254,0.4)" />
+                    <stop offset="70%" stop-color="rgba(195,225,248,0.2)" />
+                    <stop offset="100%" stop-color="rgba(255,255,255,0.6)" />
+                  </linearGradient>
+
+                  <!-- Transparent Crystal Glass Wall Reflection -->
+                  <linearGradient id="scrollyGlassWall" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="rgba(255,255,255,0.42)" />
+                    <stop offset="12%" stop-color="rgba(255,255,255,0.06)" />
+                    <stop offset="85%" stop-color="rgba(255,255,255,0.02)" />
+                    <stop offset="100%" stop-color="rgba(255,255,255,0.36)" />
+                  </linearGradient>
+
+                  <!-- Thick Solid Glass Bottom Lens -->
+                  <linearGradient id="scrollyGlassBottom" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="rgba(255,255,255,0.25)" />
+                    <stop offset="60%" stop-color="rgba(255,255,255,0.55)" />
+                    <stop offset="100%" stop-color="rgba(255,255,255,0.85)" />
+                  </linearGradient>
+
+                  <!-- Metallic Rose & Gold Diagonal Straw Gradient -->
+                  <linearGradient id="scrollyStrawGrad" x1="0%" y1="0%" x2="100%" y2="10%">
+                    <stop offset="0%" stop-color="#E84365" />
+                    <stop offset="25%" stop-color="#FF9EAF" />
+                    <stop offset="55%" stop-color="#E84365" />
+                    <stop offset="100%" stop-color="#9C1E38" />
+                  </linearGradient>
+
+                  <!-- Ground Drop Shadow -->
+                  <radialGradient id="scrollyGroundShadow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="rgba(18, 11, 9, 0.75)" />
+                    <stop offset="50%" stop-color="rgba(18, 11, 9, 0.35)" />
+                    <stop offset="100%" stop-color="rgba(18, 11, 9, 0)" />
+                  </radialGradient>
+                </defs>
+
+                <!-- Ground Ambient Drop Shadow underneath Cup -->
+                <ellipse cx="150" cy="442" rx="104" ry="15" fill="url(#scrollyGroundShadow)" />
+
+                <!-- Cup Interior (Clipped Group) -->
+                <g clip-path="url(#scrollyCupInteriorClip)">
+                  
+                  <!-- Phase 3: Liquid Fill Body (starts at y=428, rises to y=152) -->
+                  <rect id="scrolly-liquid-rect" x="50" y="428" width="200" height="0" fill="url(#scrollyLiquidGrad)" opacity="0" />
+                  
+                  <!-- Dynamic Wave Crest on top of rising liquid -->
+                  <path id="scrolly-liquid-wave" d="M 50,428 Q 100,428 150,428 T 250,428 L 250,432 L 50,432 Z" fill="url(#scrollyWaveGrad)" opacity="0" />
+
+                  <!-- Phase 4: Caramelized Tiger Brown Sugar Syrup Streaks along glass -->
+                  <path id="scrolly-tiger-streaks" d="M 86,190 Q 94,250 88,310 Q 98,370 92,410 M 115,180 Q 123,245 113,310 Q 120,380 115,418 M 185,175 Q 176,245 186,315 Q 179,380 185,418 M 212,185 Q 205,255 211,325 Q 204,380 208,412" fill="none" stroke="#3D1A0D" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity="0" />
+
+                  <!-- Phase 4: Cream Cloud Mousse Layer at Liquid Surface -->
+                  <path id="scrolly-cream-layer" d="M 64,152 Q 105,162 150,153 Q 195,162 236,152 L 236,180 Q 195,190 150,178 Q 105,190 64,180 Z" fill="url(#scrollyCreamGrad)" opacity="0" />
+
+                  <!-- Phase 4: Swirling Milk Ribbon inside tea -->
+                  <path id="scrolly-milk-ribbon" d="M 75,170 Q 110,230 145,210 Q 185,190 220,260 Q 200,320 150,300 Q 95,280 80,360" fill="none" stroke="rgba(255,250,245,0.45)" stroke-width="22" stroke-linecap="round" opacity="0" />
+
+                  <!-- Phase 2: Brown Sugar Syrup Meniscus Reservoir at base -->
+                  <path id="scrolly-syrup-base" d="M 84,402 Q 150,394 216,402 L 214,424 Q 214,428 190,428 L 110,428 Q 86,428 86,424 Z" fill="#291208" opacity="0" />
+
+                  <!-- Phase 2: 3D Glossy Tapioca Pearls (Animated with scroll) -->
+                  <g id="scrolly-pearls-group"></g>
+
+                  <!-- Phase 5: 3D Faceted Ice Cubes (Submerged with scroll) -->
+                  <g id="scrolly-ice-group"></g>
+
+                  <!-- Phase 6: Submerged Straw Lower Segment -->
+                  <g id="scrolly-straw-submerged" opacity="0" transform="translate(0, -220)">
+                    <polygon points="170,110 186,113 148,416 132,410" fill="url(#scrollyStrawGrad)" opacity="0.85" />
+                    <line x1="174" y1="112" x2="138" y2="410" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.4" stroke-dasharray="8 12" />
+                  </g>
+
+                  <!-- Inner Glass Specular Sheen Stripe -->
+                  <path d="M 72,112 L 94,412 L 116,412 L 92,112 Z" fill="rgba(255,255,255,0.12)" />
+                </g>
+
+                <!-- Solid Crystal Glass Bottom Base Lens -->
+                <path d="M 86,408 Q 86,428 110,428 L 190,428 Q 214,428 214,408 L 214,418 Q 214,428 190,428 L 110,428 Q 86,428 86,418 Z" fill="url(#scrollyGlassBottom)" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" />
+
+                <!-- Transparent Glass Cup Walls & Outer Bevel -->
+                <path d="M 64,106 L 236,106 L 216,408 Q 216,428 190,428 L 110,428 Q 84,428 84,408 Z" fill="url(#scrollyGlassWall)" stroke="rgba(255,255,255,0.92)" stroke-width="3" />
+
+                <!-- Frosted Brand Stamp Seal Stamped on Glass -->
+                <g id="scrolly-brand-seal" opacity="0.35">
+                  <circle cx="150" cy="254" r="30" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-dasharray="3 2" />
+                  <circle cx="150" cy="254" r="27" fill="none" stroke="#FFFFFF" stroke-width="0.75" />
+                  <text x="150" y="249" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="7" font-weight="800" fill="#FFFFFF" letter-spacing="2">BOBA BLOOM</text>
+                  <text x="150" y="259" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="4.5" font-weight="600" fill="#FFFFFF" letter-spacing="1.2">HAIE VIVE • COTONOU</text>
+                  <path d="M 150,264 C 153,262 155,265 150,270 C 145,265 147,262 150,264 Z" fill="#FFFFFF" />
+                </g>
+
+                <!-- Realistic Condensation Droplets on Cold Outer Glass -->
+                <g id="scrolly-condensation" opacity="0.6">
+                  <ellipse cx="86" cy="180" rx="2.5" ry="3.5" fill="rgba(255,255,255,0.9)" />
+                  <ellipse cx="88" cy="235" rx="3" ry="4.5" fill="rgba(255,255,255,0.85)" />
+                  <ellipse cx="91" cy="290" rx="2" ry="3" fill="rgba(255,255,255,0.8)" />
+                  <ellipse cx="90" cy="355" rx="2.8" ry="4" fill="rgba(255,255,255,0.85)" />
+                  <ellipse cx="206" cy="210" rx="3" ry="4" fill="rgba(255,255,255,0.85)" />
+                  <ellipse cx="212" cy="275" rx="2.5" ry="3.5" fill="rgba(255,255,255,0.9)" />
+                  <ellipse cx="204" cy="340" rx="3.5" ry="5" fill="rgba(255,255,255,0.82)" />
+                </g>
+
+                <!-- Glass Rim Lip -->
+                <ellipse cx="150" cy="106" rx="86" ry="12" fill="none" stroke="#FFFFFF" stroke-width="3" />
+                <ellipse cx="150" cy="106" rx="85" ry="11" fill="rgba(255,255,255,0.2)" />
+
+                <!-- Phase 6: Dome Sealed Lid with Straw Opening (Descends onto rim) -->
+                <g id="scrolly-dome-lid" opacity="0" transform="translate(0, -90)">
+                  <path d="M 64,106 C 64,64 236,64 236,106 Z" fill="rgba(255,255,255,0.28)" stroke="#FFFFFF" stroke-width="2.5" />
+                  <ellipse cx="150" cy="106" rx="88" ry="8" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.8" />
+                  <!-- Dome aperture hole for straw -->
+                  <ellipse cx="150" cy="74" rx="22" ry="6" fill="rgba(255,255,255,0.4)" stroke="#FFFFFF" stroke-width="1.5" />
+                  <!-- Specular curved dome highlight -->
+                  <path d="M 85,94 C 100,74 140,68 165,72" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2.5" stroke-linecap="round" />
+                </g>
+
+                <!-- Phase 6: Upper Straw (Slides through lid aperture) -->
+                <g id="scrolly-straw-upper" opacity="0" transform="translate(0, -220)">
+                  <polygon points="188,18 208,22 170,110 154,107" fill="url(#scrollyStrawGrad)" />
+                  <!-- Straw top elliptical bevel mouth -->
+                  <ellipse cx="198" cy="20" rx="10" ry="4" fill="#FFE5ED" stroke="#FFFFFF" stroke-width="1" />
+                  <!-- Specular line along straw -->
+                  <line x1="194" y1="20" x2="160" y2="108" stroke="#FFFFFF" stroke-width="2.5" stroke-opacity="0.8" />
+                </g>
+
+                <!-- Glass Outer Specular Highlights -->
+                <path d="M 76,130 C 72,250 83,380 92,412" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" stroke-opacity="0.85" />
+                <path d="M 224,130 C 228,250 217,380 208,412" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-opacity="0.45" />
+              </svg>
+
+              </div>
             </div>
           </div>
 
-          <!-- Step 3: L'Émulsion Veloutée (50% - 75%) -->
-          <div class="scrolly-step-card" data-step="3" id="ritual-step-3">
-            <div class="scrolly-step-badge">
-              <span class="badge-num">03</span>
-              <span class="badge-dot">•</span>
-              <span class="badge-text">L'ÉMULSION GOURMANDE</span>
-            </div>
-            <h3 class="scrolly-step-title">Le Tourbillon Marbré</h3>
-            <p class="scrolly-step-desc">
-              Le lait frais entier fermier ou nos boissons végétales veloutées (avoine, coco) rencontrent l'élixir de thé ambré. Un tourbillon marbré captivant se crée instantanément au contact des parois givrées.
-            </p>
-            <div class="scrolly-step-tags">
-              <span class="scrolly-tag">Lait Frais &amp; Végétal</span>
-              <span class="scrolly-tag">Marbrage Naturel</span>
-              <span class="scrolly-tag">Zéro Additif Chimique</span>
-            </div>
-          </div>
-
-          <!-- Step 4: Dégustation Finale (75% - 100%) -->
-          <div class="scrolly-step-card" data-step="4" id="ritual-step-4">
-            <div class="scrolly-step-badge">
-              <span class="badge-num">04</span>
-              <span class="badge-dot">•</span>
-              <span class="badge-text">LA TOUCHE FINALE</span>
-            </div>
-            <h3 class="scrolly-step-title">L'Élixir Prêt à Savourer</h3>
-            <p class="scrolly-step-desc">
-              Frappé énergiquement au shaker, servi avec des glaçons cristallins et scellé pour préserver la fraîcheur jusqu'à la première aspiration. À déguster sur place ou en livraison express à Cotonou.
-            </p>
-            <div class="scrolly-step-actions">
-              <a href="#builder" class="btn btn-primary btn-sm">Composer Mon Bubble Tea</a>
-              <a href="#menu" class="btn btn-secondary btn-sm" style="color:#FFF; border-color:rgba(255,255,255,0.4);">Voir la Carte</a>
-            </div>
-          </div>
         </div>
 
         <!-- Scroll Guide Indicator at the bottom -->
@@ -839,7 +1106,7 @@
           <span class="indicator-mouse">
             <span class="indicator-wheel"></span>
           </span>
-          <span class="indicator-label">Faites défiler pour animer la vidéo</span>
+          <span class="indicator-label">Faites défiler pour fabriquer le Bubble Tea</span>
         </div>
       </div>
     </section>
